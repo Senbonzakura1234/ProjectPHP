@@ -1,0 +1,52 @@
+::-webkit-scrollbar {
+    width: 0.6vw;
+    border: 0.5vw solid white;
+    border-radius: 0.6vw;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #77DAF6;
+    background-clip: padding-box;
+    border: 0.1vw solid #ffffff;
+    border-radius: 0.6vw;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #ffffff;
+}
+
+/* Buttons */
+::-webkit-scrollbar-button:single-button {
+    background-color: #ffffff;
+    display: block;
+    border-style: solid;
+    height: 0.55vw;
+    width: 0.6vw;
+}
+
+/* Up */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    border-width: 0 0.3vw 0.3vw 0.3vw;
+    border-color: transparent transparent #77DAF6 transparent;
+    border-radius: 0.3vw 0.3vw 0 0;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    border-color: transparent transparent #77DAF6 transparent;
+}
+
+/* Down */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    border-width: 0.3vw 0.3vw 0 0.3vw;
+    border-color: #77DAF6 transparent transparent transparent;
+    border-radius: 0 0 0.3vw 0.3vw;
+}
+
+::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+    border-color: #77DAF6 transparent transparent transparent;
+}
+img{
+    max-width: 100% !important;
+    height: auto !important;
+}
