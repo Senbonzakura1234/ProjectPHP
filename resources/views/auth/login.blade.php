@@ -16,10 +16,8 @@
 
                     @error('email')
                     <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-						pep
-
-                                </span>
+						<strong>{{ $message }}</strong>
+					</span>
                     @enderror
                 </div>
 
