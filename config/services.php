@@ -44,4 +44,15 @@ return [
         ],
     ],
 
+
+	'google' => [
+		'client_id' => '67011119788-51jjiublgvosdd38c1ahsob7p5bgiv2g.apps.googleusercontent.com',
+		'client_secret' => 'vjnMpHD8CnHwGPoTJiV0ysBg',
+		'redirect' => 'http://localhost:81/blog/public/auth/google/callback',
+	],
+//	'google' => [
+//		'client_id' => env('GOOGLE_CLIENT_ID'),
+//		'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+//		'redirect' => env('GOOGLE_REDIRECT'),
+//	],
 ];

@@ -44,3 +44,11 @@ Route::post('/contact/save', 'MessageController@store')->name('saveMessage');
 
 Route::post('/post_comment/{id}', 'CommentController@post_comment');
 Route::post('/post_comment_ajax/{id}', 'CommentController@post_comment_ajax');
+
+
+Route::get('google', function () {
+	return view('googleAuth');
+});
+
+Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');

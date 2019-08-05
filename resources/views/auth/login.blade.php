@@ -56,10 +56,17 @@
                             {{ __('Forgot Your Password?') }}
                         </a>
                     @endif
-                    <small>Don't have an account? <a href="{{ route('register') }}">Register</a></small>
                 </div>
+
+				<div class="form-group text-center" >
+					<a href="{{ url('auth/google') }}" class="btn btn-primary d-block">
+						<span class="fab fa-google"></span> Login with Google account
+					</a>
+					<small>Don't have an account? <a href="{{ route('register') }}">Register</a></small>
+				</div>
             </form>
         </div>
+
         <script type="text/javascript">
             let newWindowHeight1 = $(window).height(),
                 headerHeight1 = $(".navbar-bar").outerHeight(),

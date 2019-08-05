@@ -58,8 +58,14 @@
                     <button type="submit" class="btn btn-dark" style="width: 100%">
                         {{ __('Register') }}
                     </button>
-                    <small>Already have an account? <a href="{{ route('login') }}">Login</a></small>
                 </div>
+
+				<div class="form-group text-center" >
+					<a href="{{ url('auth/google') }}" class="btn btn-primary d-block">
+						<span class="fab fa-google"></span> Login with Google account
+					</a>
+					<small>Already have an account? <a href="{{ route('login') }}">Login</a></small>
+				</div>
             </form>
         </div>
     <script type="text/javascript">
