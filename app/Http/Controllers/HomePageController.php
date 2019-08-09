@@ -47,4 +47,8 @@ class HomePageController extends Controller
         $lsPostAll = Post::orderBy('created_at','desc')->paginate(8);
         return view('post_list')->with(['lsPostAll' => $lsPostAll]);
     }
+	public function cart()
+	{
+		return view('cart');
+	}
 }

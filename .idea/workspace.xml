@@ -10,6 +10,10 @@
       <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Aspire_A315_51.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Aspire_A315_51.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomePageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomePageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,6 +193,8 @@
       <workItem from="1564400414865" duration="44000" />
       <workItem from="1564400497571" duration="4773000" />
       <workItem from="1564933728086" duration="12757000" />
+      <workItem from="1565110219587" duration="8695000" />
+      <workItem from="1565282358321" duration="2760000" />
     </task>
     <servers />
   </component>

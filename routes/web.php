@@ -13,14 +13,13 @@
 
 Route::get('/', 'HomePageController@index');
 Route::get('/about', 'HomePageController@about');
+Route::get('/cart', 'HomePageController@cart');
 Route::get('/view_post/{id}', 'HomePageController@viewPost');
 Route::get('/post_by_category/{id}', 'HomePageController@categorySingle');
 Route::get('/post_by_tag/{id}', 'HomePageController@tagSingle');
 Route::get('/post_list', 'HomePageController@post_list');
 Route::get('/randomPost', 'HomePageController@randomPost');
-Route::get('/blog-single.php', function () {
-    return view('blog-single');
-});
+
 Route::get('/category.php', function () {
     return view('category');
 });
