@@ -466,6 +466,7 @@ class ComposerStaticInit66f64b8ded5d29a2397319b7c3087ef5
         'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\PostCategory' => __DIR__ . '/../..' . '/app/PostCategory.php',
         'App\\PostTag' => __DIR__ . '/../..' . '/app/PostTag.php',
+        'App\\PostUser' => __DIR__ . '/../..' . '/app/PostUser.php',
         'App\\Post_Category' => __DIR__ . '/../..' . '/app/Post_Category.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

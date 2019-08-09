@@ -5,8 +5,8 @@
         <form class="col-12 my-auto" enctype="multipart/form-data" method="post"
               action="{{route('post.update', $post->id)}}"
               style="border-radius: 15px" >
+			@method('PUT')
             @csrf
-            @method('PUT')
             <div class="form-group text-center mb-3">
                 <h2>Update</h2>
             </div>

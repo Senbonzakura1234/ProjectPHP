@@ -37,6 +37,7 @@ return array(
     'App\\Post' => $baseDir . '/app/Post.php',
     'App\\PostCategory' => $baseDir . '/app/PostCategory.php',
     'App\\PostTag' => $baseDir . '/app/PostTag.php',
+    'App\\PostUser' => $baseDir . '/app/PostUser.php',
     'App\\Post_Category' => $baseDir . '/app/Post_Category.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

@@ -3,8 +3,9 @@
 @section('content')
     <div class="row">
         <form class="col-12 my-auto" enctype="multipart/form-data" method="post"
-              action="{{route('post.create')}}"
+              action="{{route('post.store')}}"
               style="border-radius: 15px" >
+			@method('POST')
             @csrf
             <div class="form-group text-center mb-3">
                 <h2>Create New Post</h2>
@@ -91,7 +92,7 @@
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
                 reader.onload = function (e) {
-                    $('#blah').attr('src', e.target.result)
+                    $('#blah').attr('src', e.target.result);
                     $('.hover-image-upload').find('.fa-plus-circle').removeClass('.fa-plus-circle').addClass('fa-edit')
                 };
                 reader.readAsDataURL(input.files[0]);

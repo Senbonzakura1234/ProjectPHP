@@ -72,7 +72,7 @@
 					</a>
 				</div>
 				<div class="d-inline-flex mb-2">
-					<a href="#" class="btn btn-success">Purchase as a gift <i class="fas fa-gifts"></i></a>
+					<a href="{{asset("/gift")}}" class="btn btn-success">Purchase as a gift <i class="fas fa-gifts"></i></a>
 				</div>
 			</div>
 		</div>

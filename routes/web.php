@@ -14,6 +14,7 @@
 Route::get('/', 'HomePageController@index');
 Route::get('/about', 'HomePageController@about');
 Route::get('/cart', 'HomePageController@cart');
+Route::get('/gift', 'HomePageController@gift');
 Route::get('/view_post/{id}', 'HomePageController@viewPost');
 Route::get('/post_by_category/{id}', 'HomePageController@categorySingle');
 Route::get('/post_by_tag/{id}', 'HomePageController@tagSingle');

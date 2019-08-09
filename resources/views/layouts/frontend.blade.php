@@ -31,6 +31,11 @@
 			crossorigin="anonymous"></script>
 	{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">--}}
 	{{--    <script src="https://kit.fontawesome.com/f4bb5974c6.js"></script>--}}
+
+
+	<link rel="stylesheet" href="{{asset("/vendor/bootstrap-select-1.13.9/dist/css/bootstrap-select.css")}}">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/js/bootstrap-select.min.js"></script>
+
 	<script src="{{asset('/fonts/fontawesome/js/all.js')}}"></script>
 	<link rel="icon" href="https://res.cloudinary.com/senbonzakura/image/upload/v1561568547/fav-icon_hoxtht.png"
 		  type="image/png">
