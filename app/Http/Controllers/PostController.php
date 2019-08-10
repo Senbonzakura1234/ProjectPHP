@@ -48,6 +48,8 @@ class PostController extends Controller
                 'cover' => 'image|mimes:jpeg,png,gif,jpg,svg',
                 'title'  => 'required|max:255|min:3',
                 'content' => 'required|max:20000|min:9',
+                'price' => 'required|numeric|min:0',
+                'discount' => 'required|numeric|max:100|min:0',
             ]
         );
         $cover = $request->cover;
@@ -61,6 +63,8 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->title;
         $post->cover = $path;
+        $post->price = $request->price;
+        $post->discount = $request->discount;
         $post->user_id = $user->id;
         $post->content = $request->content;
         $post->save();
@@ -133,15 +137,22 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request,
             [
                 'cover' => 'image|mimes:jpeg,png,gif,jpg,svg',
                 'title'  => 'required|max:255|min:3',
                 'content' => 'required|max:20000|min:9',
+	            'price' => 'required|numeric|min:0',
+	            'discount' => 'required|numeric|max:100|min:0',
             ]
         );
         $cover = $request->cover;
         $post = Post::find($id);
+
+	    $postID = $post->id;
+	    $lsPostCate = PostCategory::where("post_id", $postID)->get();
+	    $lsPostTag = PostTag::where("post_id", $postID)->get();
         if($cover != null){
             $image_name = time() . "_" . $cover->getClientOriginalName();
             if ($cover->isValid()) {
@@ -152,12 +163,18 @@ class PostController extends Controller
         }
 
         $post->title = $request->title;
+	    $post->price = $request->price;
+	    $post->discount = $request->discount;
         $post->content = $request->content;
         $post->save();
 
         $lsSelectedCate = $request->category;
         $lsSelectedTag = $request->tag;
         if ($lsSelectedCate != null && count($lsSelectedCate) > 0) {
+
+	        foreach ($lsPostCate as $cate){
+		        $cate->delete();
+	        }
             foreach ($lsSelectedCate as $selectedCate) {
                 $post_Category = new PostCategory();
                 $post_Category->category_id = $selectedCate;
@@ -166,6 +183,9 @@ class PostController extends Controller
             }
         }
         if ($lsSelectedTag != null && count($lsSelectedTag) > 0) {
+	        foreach ($lsPostTag as $tag){
+		        $tag->delete();
+	        }
             foreach ($lsSelectedTag as $selectedTag) {
                 $post_Tag = new PostTag();
                 $post_Tag->tag_id = $selectedTag;

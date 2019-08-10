@@ -45,7 +45,7 @@
                             <span class="text">
                                 <div class="post-meta">
                                     <span class="author mr-2"><img src=" {{asset('/images/person_1.jpg')}}"
-                                        alt="User"> {{$post->User->name}}</span>&bullet;
+                                        alt="User"> User</span>&bullet;
                                     <span class="mr-2">{{date('M d Y', strtotime($post->created_at))}} </span> &bullet;
                                     <span class="ml-2"><span class="fa fa-comments"></span> {{count($post->comment->where('status', 1))}}</span>
                                 </div>
