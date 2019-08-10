@@ -6,7 +6,7 @@
 
         <div class="post-meta">
             <span class="author mr-2"><img src="{{asset('/images/person_1.jpg')}}" alt="User" class="mr-2">
-                {{$post->User->name}}
+                User
             </span>&bullet;
             <span class="mr-2">{{$post->created_at}}</span> &bullet;
             <span class="ml-2">

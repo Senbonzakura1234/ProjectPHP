@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreateDlcsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('dlcs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('user_id');
-            $table->string('cover');
-            $table->string('title');
-            $table->text('content');
+	        $table->bigInteger('post_id');
+	        $table->string('cover');
+	        $table->string('title');
+	        $table->text('content');
 	        $table->double("price");
+	        $table->timestamp("deleted_at")->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('dlcs');
     }
 }

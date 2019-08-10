@@ -22,7 +22,7 @@
                             <span class="text">
                                 <div class="post-meta">
                                     <span class="author mr-2"><img src="{{asset('/images/person_1.jpg')}}" alt="User">
-                                         {{$post->User->name}}
+                                        User
                                     </span>
                                     <span class="mr-2">{{date('M d Y', strtotime($post->created_at))}} </span>
                                     @foreach($post->categories as $cate)

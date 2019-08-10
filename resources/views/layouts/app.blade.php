@@ -157,6 +157,7 @@
                 <a class="btn btn-secondary" href="{{route('tag.index')}}">Tag</a>
                 <a class="btn btn-secondary" href="{{route('post.index')}}">Post</a>
                 <a class="btn btn-secondary" href="{{asset('/admin/comment')}}">Comment</a>
+                <a class="btn btn-secondary" href="{{asset('/admin/dlc')}}">DLC</a>
             </div>
         </div>
         <div class="row text-center">

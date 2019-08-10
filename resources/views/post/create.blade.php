@@ -8,11 +8,11 @@
 			@method('POST')
             @csrf
             <div class="form-group text-center mb-3">
-                <h2>Create New Post</h2>
+                <h2>Create New Game</h2>
             </div>
             <div class="form-row">
                 <div class="form-group col-12 col-lg-8">
-                    <label for="postname">Post Name</label>
+                    <label for="postname">Game Name</label>
                     <input type="text" id="postname" name="title"
                            class="form-control" placeholder="Post"/>
 
@@ -23,7 +23,7 @@
                         @endforeach
                     </select>
 
-                    <label class="mt-2" for="exampleFormControlSelect2">Tag</label>
+                    <label class="mt-2" for="exampleFormControlSelect2">Brand</label>
                     <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="tag[]">
                         @foreach($lsTag as $i => $tag)
                             <option value="{{$tag->id}}">{{$tag->name}}</option>
@@ -47,6 +47,17 @@
                 </div>
             </div>
 
+			<div class="form-row">
+				<div class="form-group col-12 col-md-6">
+					<label for="price">Price</label>
+					<input class="form-control" name="price" id="price" type="number" step="any" min="0"/>
+				</div>
+				<div class="form-group col-12 col-md-6">
+					<label for="discount">Discount</label>
+					<input class="form-control" name="discount"
+						   id="discount" type="number" step="any" min="0" max="100"/>
+				</div>
+			</div>
 
             <div class="form-group">
                 <label for="editor">Content</label>

@@ -10,14 +10,18 @@ class Post extends Model
     use SoftDeletes;
     protected $date = ['deleted_at'];
 
-    public function User(){
-        return $this->belongsTo("App\User");
-    }
-//	public function User(){
-//		return $this->hasMany("App\User");
-//	}
+//    public function User(){
+//        return $this->belongsTo("App\User");
+//    }
+
+	public function User(){
+		return $this ->belongsToMany('App\User','post_users');
+	}
     public function comment(){
         return $this->hasMany('App\Comment');
+    }
+    public function dlc(){
+        return $this->hasMany('App\Dlc');
     }
     public function categories(){
         return $this ->belongsToMany('App\Category', 'post_categories');
