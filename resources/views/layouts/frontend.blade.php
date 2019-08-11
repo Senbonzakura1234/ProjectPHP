@@ -554,6 +554,11 @@
 </footer>
 <!-- END footer -->
 
+<div class="container">
+	<div class="row">
+		@yield('modal')
+	</div>
+</div>
 <script src="{{asset('/js/main.js')}}"></script>
 </body>
 </html>

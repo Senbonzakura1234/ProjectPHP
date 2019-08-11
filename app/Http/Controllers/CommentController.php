@@ -15,9 +15,9 @@ class CommentController extends Controller
                 'content' => 'required|max:1000|min:9',
             ]
         );
+	    $user = auth()->user();
         $comment = new Comment();
-        $comment->name = $request -> input("name");
-        $comment->email = $request -> input("email");
+        $comment->user_id = $user->id;
         $comment->content = $request -> input("content");
         $comment->status = 1;
         $comment->post_id = $id;
@@ -32,12 +32,12 @@ class CommentController extends Controller
 //                'content' => 'required|max:1000|min:9',
 //            ]
 //        );
-        $comment = new Comment();
-        $comment->name = $request -> input("name");
-        $comment->email = $request -> input("email");
+	    $user = auth()->user();
+	    $comment = new Comment();
+	    $comment->user_id = $user->id;
+        $comment->post_id = $id;
         $comment->content = $request -> input("content");
         $comment->status = 1;
-        $comment->post_id = $id;
         $comment->save();
 
 
@@ -77,5 +77,15 @@ class CommentController extends Controller
         }
         $lsComment = Comment::where('post_Id', $postId)->simplePaginate(6);
         return view("comment.listByProperties")->with(['lsComment' => $lsComment, 'countPage'=> $countPage, 'title' => $title]);
+    }
+    public function deleteComment(Request $request, $id){
+	    $comment = Comment::find($id);
+	    $comment->delete();
+	    $request->session()->flash('success', 'Comment was deleted.');
+    }
+    public function deleteCommentAjax(Request $request, $id){
+	    $comment = Comment::find($id);
+	    $comment->delete();
+	    $request->session()->flash('success', 'Comment was deleted.');
     }
 }

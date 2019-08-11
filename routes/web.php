@@ -13,13 +13,11 @@
 
 Route::get('/', 'HomePageController@index');
 Route::get('/about', 'HomePageController@about');
-Route::get('/cart', 'HomePageController@cart');
 Route::get('/gift', 'HomePageController@gift');
 Route::get('/view_post/{id}', 'HomePageController@viewPost');
 Route::get('/post_by_category/{id}', 'HomePageController@categorySingle');
 Route::get('/post_by_tag/{id}', 'HomePageController@tagSingle');
 Route::get('/post_list', 'HomePageController@post_list');
-Route::get('/randomPost', 'HomePageController@randomPost');
 
 Route::get('/category.php', function () {
     return view('category');
@@ -43,13 +41,16 @@ Route::group(['prefix' =>'admin', 'middleware'=>'auth'], function(){
 Route::get('/contact', 'MessageController@create')->name('createMessage');
 Route::post('/contact/save', 'MessageController@store')->name('saveMessage');
 
-Route::post('/post_comment/{id}', 'CommentController@post_comment');
-Route::post('/post_comment_ajax/{id}', 'CommentController@post_comment_ajax');
 
 
-Route::get('google', function () {
-	return view('googleAuth');
+
+
+Route::group(['middleware'=>'auth'], function(){
+	Route::get('/gift', 'HomePageController@gift');
+	Route::get('/cart', 'HomePageController@cart');
+	Route::get('/randomPost', 'HomePageController@randomPost');
+	Route::post('/post_comment/{id}', 'CommentController@post_comment');
+	Route::post('/post_comment_ajax/{id}', 'CommentController@post_comment_ajax');
 });
-
 Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
