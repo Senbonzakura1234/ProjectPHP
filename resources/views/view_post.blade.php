@@ -80,7 +80,7 @@
             Comments
             (<span class="comment-list-count">{{count($post->comment->where('status', 1))}}</span>)
         </h3>
-        <ul class="comment-list" style="display: inline-block">
+        <ul class="comment-list" style="display: inline-block; width: 100%">
             @foreach($listComment as $comment)
                 <li class="comment">
                     <div class="vcard">
@@ -150,7 +150,7 @@
                     );
                     $(".comment-list-count").text(comment_count_int.toString());
                     $(".comment-list-count-top").text(comment_count_int.toString());
-                    comment_with_notify_append.fadeIn(1500)
+                    comment_with_notify_append.fadeIn(1500);
 
 
                     setTimeout(
