@@ -53,22 +53,33 @@
     <a id="comment-target" style="opacity: 0 !important;"></a>
     <div class="pt-5">
 		<div class="comment-form-wrap">
-			@if(Auth::check())
-				<form class="row" action="{{asset('post_comment/'.$post->id)}}" id="comment-form" method="post">
-					@csrf
-					<div class="form-group col-12">
-						<h3 class="mb-0">Leave a comment</h3>
+			<form class="row @if(Auth::check() && $lsUserRatingCount < 1) d-flex @else d-none @endif"
+				action="{{asset('post_comment/'.$post->id)}}" id="comment-form" method="post">
+				@csrf
+				<div class="form-group col-12">
+					<h3 class="mb-0">Leave a comment</h3>
+				</div>
+				<div class="form-group col-12">
+					<label class="mb-0" for="rating">Rating *</label>
+					<input type="hidden" value="0" id="rating-input" name="rating">
+					<div class="rating">
+						<a id="rating-1" class="btn"><i id="icon-rating-1" class="far fa-star"></i></a>
+						<a id="rating-2" class="btn"><i id="icon-rating-2" class="far fa-star"></i></a>
+						<a id="rating-3" class="btn"><i id="icon-rating-3" class="far fa-star"></i></a>
+						<a id="rating-4" class="btn"><i id="icon-rating-4" class="far fa-star"></i></a>
+						<a id="rating-5" class="btn"><i id="icon-rating-5" class="far fa-star"></i></a>
 					</div>
-					<div class="form-group col-12">
-						<label class="mb-0" for="content">Comment *</label>
-						<textarea  id="content" name="content" class="form-control" required></textarea>
-					</div>
-					<div class="form-group col-12 text-right">
-						<input style="width: 20%; min-width: 150px" type="submit" value="Comment"
-							   class="btn btn-primary" id="submit_comment">
-					</div>
-				</form>
-			@endif
+				</div>
+				<div class="form-group col-12">
+					<label class="mb-0" for="content">Comment *</label>
+					<textarea  id="content" name="content" class="form-control" required></textarea>
+				</div>
+				<div class="form-group col-12 text-right">
+					<input style="width: 20%; min-width: 150px" type="submit" value="Comment"
+						   class="btn btn-primary" id="submit_comment">
+				</div>
+			</form>
+
 		</div>
         <h3 class="mb-5">
             Comments
@@ -86,6 +97,23 @@
                         <div class="comment-body-content">
                             <p>{!!$comment->content!!}</p>
                         </div>
+						<div class="comment-body-content">
+							<a>
+								<i id="icon-rated-1" class="@if($comment->rating > 0) fas @else far @endif fa-star"></i>
+							</a>
+							<a>
+								<i id="icon-rated-2" class="@if($comment->rating > 1) fas @else far @endif fa-star"></i>
+							</a>
+							<a>
+								<i id="icon-rated-3" class="@if($comment->rating > 2) fas @else far @endif fa-star"></i>
+							</a>
+							<a>
+								<i id="icon-rated-4" class="@if($comment->rating > 3) fas @else far @endif fa-star"></i>
+							</a>
+							<a>
+								<i id="icon-rated-5" class="@if($comment->rating > 4) fas @else far @endif fa-star"></i>
+							</a>
+						</div>
 						@if(Auth::check() && Auth::user()->id === $comment->user->id)
 							<div class="comment-body-content text-right">
 								<p>
@@ -146,35 +174,156 @@
 	<script type="text/javascript">
         let comment_count =  "{{count($post->comment->where('status', 1))}}",
             comment_count_int =  parseInt(comment_count);
+
+		$(document).ready(function () {
+            $("#rating-1").click(function(){
+				$("#icon-rating-1").removeClass("far").addClass("fas");
+				$("#icon-rating-2").removeClass("fas").addClass("far");
+				$("#icon-rating-3").removeClass("fas").addClass("far");
+				$("#icon-rating-4").removeClass("fas").addClass("far");
+				$("#icon-rating-5").removeClass("fas").addClass("far");
+				$("#rating-input").val(1);
+            });
+            $("#rating-2").click(function(){
+				$("#icon-rating-1").removeClass("far").addClass("fas");
+				$("#icon-rating-2").removeClass("far").addClass("fas");
+				$("#icon-rating-3").removeClass("fas").addClass("far");
+				$("#icon-rating-4").removeClass("fas").addClass("far");
+				$("#icon-rating-5").removeClass("fas").addClass("far");
+                $("#rating-input").val(2);
+            });
+            $("#rating-3").click(function(){
+				$("#icon-rating-1").removeClass("far").addClass("fas");
+				$("#icon-rating-2").removeClass("far").addClass("fas");
+				$("#icon-rating-3").removeClass("far").addClass("fas");
+				$("#icon-rating-4").removeClass("fas").addClass("far");
+				$("#icon-rating-5").removeClass("fas").addClass("far");
+                $("#rating-input").val(3);
+            });
+            $("#rating-4").click(function(){
+                $("#icon-rating-1").removeClass("far").addClass("fas");
+                $("#icon-rating-2").removeClass("far").addClass("fas");
+                $("#icon-rating-3").removeClass("far").addClass("fas");
+				$("#icon-rating-4").removeClass("far").addClass("fas");
+				$("#icon-rating-5").removeClass("fas").addClass("far");
+                $("#rating-input").val(4);
+            });
+            $("#rating-5").click(function(){
+                $("#icon-rating-1").removeClass("far").addClass("fas");
+                $("#icon-rating-2").removeClass("far").addClass("fas");
+                $("#icon-rating-3").removeClass("far").addClass("fas");
+                $("#icon-rating-4").removeClass("far").addClass("fas");
+                $("#icon-rating-5").removeClass("far").addClass("fas");
+                $("#rating-input").val(5);
+            });
+        });
+
+
+
+        $("#submit_comment").click(function (e) {
+            e.preventDefault();
+            let content = editor.getData(),
+                rating = $("input[name = rating]").val(),
+                _token  = $("input[name = _token]").val(),
+                avatar_link  = "{{asset('/images/avatar.png')}}";
+            $.ajax({
+                type: 'POST',
+                url : "{{asset('/post_comment_ajax/')}}/" + "{{$post->id}}",
+                data: {content:content, _token:_token, rating:rating},
+                success:function (data) {
+                    comment_count_int++;
+                    CKEDITOR.instances.content.setData('');
+                    $("#icon-rating-1").removeClass("fas").addClass("far");
+                    $("#icon-rating-2").removeClass("fas").addClass("far");
+                    $("#icon-rating-3").removeClass("fas").addClass("far");
+                    $("#icon-rating-4").removeClass("fas").addClass("far");
+                    $("#icon-rating-5").removeClass("fas").addClass("far");
+                    $("#rating-input").val(0);
+                    $("#comment-form").removeClass("d-flex").addClass("d-none");
+                    let notify_id = "notify_comment" + comment_count_int.toString();
+                    let comment_with_notify_append = $(
+                        "<li class=\"alert alert-primary text-left text-sm-center p-2\" id=\""+ notify_id +"\">\n" +
+                        "   <i class=\"fas fa-check-circle\"></i> Comment Post Successful\n" +
+                        "</li>" +
+                        "<li class=\"comment\"  id=\"comment"+data.comment_id+"\">\n" +
+                        "   <div class=\"vcard\">\n" +
+                        "       <img src=\" "+ avatar_link +" \" alt=\"Image placeholder\">\n" +
+                        "   </div>\n" +
+                        "   <div class=\"comment-body\">\n" +
+                        "       <h3>" + "@if(Auth::check()){{ Auth::user()->name  }}@endif" +"</h3>\n" +
+                        "       <div class=\"meta\">"+ data.created_at +"</div>\n" +
+                        "       <div class=\"comment-body-content\"><p>" + content +"</p></div>\n" +
+                        "		<div class=\"comment-body-content\">" +
+						"		<a><i class=\"fas fa-star\"></i></a>" +
+						"		<a><i class=\"fas fa-star\"></i></a>" +
+						"		<a><i class=\"fas fa-star\"></i></a>" +
+						"		<a><i class=\"fas fa-star\"></i></a>" +
+						"		<a><i class=\"fas fa-star\"></i></a>" +
+                        "		</div>" +
+                        "		<div class=\"comment-body-content text-right\">" +
+                        "			<p>" +
+                        "				<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\"" +
+                        "					data-target=\"#exampleModal\" data-whatever=\""+data.comment_id+"\">" +
+                        "					Delete" +
+                        "				</button>" +
+                        "			</p>" +
+                        "		</div>" +
+                        "   </div>\n" +
+                        "</li>"
+                    ).hide();
+
+
+                    $(".comment-list").prepend(
+                        comment_with_notify_append
+                    );
+                    $(".comment-list-count").text(comment_count_int.toString());
+                    $(".comment-list-count-top").text(comment_count_int.toString());
+                    comment_with_notify_append.fadeIn(1500);
+
+
+                    setTimeout(
+                        function()
+                        {
+                            $("#"+notify_id+"").fadeOut();
+                            setTimeout(
+                                function()
+                                {
+                                    $("#"+notify_id+"").remove();
+                                }, 1000);
+                        }, 5000);
+                }
+            })
+        });
 		@if(Auth::check())
-            $('#exampleModal').on('show.bs.modal', function (event) {
-                let button = $(event.relatedTarget); // Button that triggered the modal
-                let recipient = button.data('whatever'); // Extract info from data-* attributes
-                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                // Update the modal's content. We'll use jQuery here, but you could use a data binding library
+			$('#exampleModal').on('show.bs.modal', function (event) {
+				let button = $(event.relatedTarget); // Button that triggered the modal
+				let recipient = button.data('whatever'); // Extract info from data-* attributes
+				// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+				// Update the modal's content. We'll use jQuery here, but you could use a data binding library
 				// or other methods instead.
-                let modal = $(this);
-                modal.find('.modal-body #comment_id').val(recipient)
-            });
-            $('#confirm-delete').click(function (e) {
-                e.preventDefault();
-                let comment_id = $("#comment_id").val(),
-                    _token = $("input[name='_token']").val();
-                @if(Auth::check())
-					$.ajax({
-						type: 'POST',
-						url: "{{asset('/delete_comment_ajax')}}",
-						data: {comment_id: comment_id, _token: _token},
-						success: function (data) {
-                            comment_count_int--;
-                            $(".comment-list-count").text(comment_count_int.toString());
-                            $(".comment-list-count-top").text(comment_count_int.toString());
-							$("#comment" + comment_id).remove();
-							$('.modal').modal('toggle');
-						},
-					});
+				let modal = $(this);
+				modal.find('.modal-body #comment_id').val(recipient)
+			});
+			$('#confirm-delete').click(function (e) {
+				e.preventDefault();
+				let comment_id = $("#comment_id").val(),
+					_token = $("input[name='_token']").val();
+				@if(Auth::check())
+				$.ajax({
+					type: 'POST',
+					url: "{{asset('/delete_comment_ajax')}}",
+					data: {comment_id: comment_id, _token: _token},
+					success: function (data) {
+						comment_count_int--;
+						$(".comment-list-count").text(comment_count_int.toString());
+						$(".comment-list-count-top").text(comment_count_int.toString());
+						$("#comment" + comment_id).remove();
+						$("#comment-form").removeClass("d-none").addClass("d-flex");
+						$('.modal').modal('toggle');
+					},
+				});
 				@endif
-            });
+			});
 			let editor = CKEDITOR.replace( 'content');
 			CKEDITOR.config.skin = 'minimalist';
 			CKEDITOR.config.extraPlugins = 'autogrow';
@@ -182,58 +331,6 @@
 			CKEDITOR.config.contentsCss = '{{asset("/css/ckeditor.css")}}';
 			CKEDITOR.config.resize_enabled = false;
 		@endif
-
-
-        $("#submit_comment").click(function (e) {
-            e.preventDefault();
-            let content = editor.getData(),
-                _token  = $("input[name = _token]").val(),
-                avatar_link  = "{{asset('/images/avatar.png')}}";
-				$.ajax({
-					type: 'POST',
-					url : "{{asset('/post_comment_ajax/')}}/" + "{{$post->id}}",
-					data: {content:content, _token:_token},
-					success:function (data) {
-						comment_count_int++;
-						let notify_id = "notify_comment" + comment_count_int.toString();
-						let comment_with_notify_append = $(
-							"<li class=\"alert alert-primary text-left text-sm-center p-2\" id=\""+ notify_id +"\">\n" +
-							"   <i class=\"fas fa-check-circle\"></i> Comment Post Successful\n" +
-							"</li>" +
-							"<li class=\"comment\">\n" +
-							"   <div class=\"vcard\">\n" +
-							"       <img src=\" "+ avatar_link +" \" alt=\"Image placeholder\">\n" +
-							"   </div>\n" +
-							"   <div class=\"comment-body\">\n" +
-							"       <h3>" + "@if(Auth::check()){{ Auth::user()->name  }}@endif" +"</h3>\n" +
-							"       <div class=\"meta\">"+ data.created_at +"</div>\n" +
-							"       <div class=\"comment-body-content\"><p>" + content +"</p></div>\n" +
-							"   </div>\n" +
-							"</li>"
-						).hide();
-
-
-						$(".comment-list").prepend(
-							comment_with_notify_append
-						);
-						$(".comment-list-count").text(comment_count_int.toString());
-						$(".comment-list-count-top").text(comment_count_int.toString());
-						comment_with_notify_append.fadeIn(1500);
-
-
-						setTimeout(
-							function()
-							{
-								$("#"+notify_id+"").fadeOut();
-								setTimeout(
-									function()
-									{
-										$("#"+notify_id+"").remove();
-									}, 1000);
-							}, 5000);
-					}
-				})
-        });
 	</script>
 	<style type="text/css">
 		.cke_top, .cke_bottom
