@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -10,41 +11,53 @@ class CommentController extends Controller
     public function post_comment(Request $request, $id){
         $this->validate($request,
             [
-                'name'  => 'required|max:255|min:3',
-                'email' => 'required|max:255|min:3',
                 'content' => 'required|max:1000|min:9',
+	            'rating' => 'required|numeric|max:5|min:0'
             ]
         );
-        $comment = new Comment();
-        $comment->name = $request -> input("name");
-        $comment->email = $request -> input("email");
-        $comment->content = $request -> input("content");
-        $comment->status = 1;
-        $comment->post_id = $id;
-        $comment->save();
-        return redirect()->back();
+	    $user = auth()->user();
+	    $post = Post::find($id);
+	    $userID = $user->id;
+	    $lsUserRating = $post->comment()->where('status', 1)->where('user_id', $userID)->get();
+	    $lsUserRatingCount = count($lsUserRating);
+		if($lsUserRatingCount < 1){
+			$comment = new Comment();
+			$comment->user_id = $userID;
+			$comment->content = $request -> input("content");
+			$comment->rating = $request -> input("rating");
+			$comment->status = 1;
+			$comment->post_id = $id;
+			$comment->save();
+			return redirect()->back();
+		}
     }
     public function post_comment_ajax(Request $request, $id){
-//        $this->validate($request,
-//            [
-//                'name'  => 'required|max:255|min:3',
-//                'email' => 'required|max:255|min:3',
-//                'content' => 'required|max:1000|min:9',
-//            ]
-//        );
-        $comment = new Comment();
-        $comment->name = $request -> input("name");
-        $comment->email = $request -> input("email");
-        $comment->content = $request -> input("content");
-        $comment->status = 1;
-        $comment->post_id = $id;
-        $comment->save();
+        $this->validate($request,
+            [
+                'content' => 'required|max:1000|min:9',
+	            'rating' => 'required|numeric|max:5|min:0'
+            ]
+        );
 
-
-        return response()->json([
-            'success' => 'comment successful',
-            'created_at' => $comment->created_at->format('M d Y - H:i:s')
-        ]);
+	    $user = auth()->user();
+	    $post = Post::find($id);
+	    $userID = $user->id;
+	    $lsUserRating = $post->comment()->where('status', 1)->where('user_id', $userID)->get();
+	    $lsUserRatingCount = count($lsUserRating);
+	    if($lsUserRatingCount < 1) {
+		    $comment = new Comment();
+		    $comment->user_id = $userID;
+		    $comment->post_id = $id;
+		    $comment->content = $request->input("content");
+		    $comment->rating = $request->input("rating");
+		    $comment->status = 1;
+		    $comment->save();
+		    return response()->json([
+			    'success' => 'comment successful',
+			    'created_at' => $comment->created_at->format('M d Y - H:i:s'),
+			    'comment_id' => $comment->id,
+		    ]);
+	    }
     }
     public function listComment(){
         $countComment = Comment::all()->count();
@@ -77,5 +90,16 @@ class CommentController extends Controller
         }
         $lsComment = Comment::where('post_Id', $postId)->simplePaginate(6);
         return view("comment.listByProperties")->with(['lsComment' => $lsComment, 'countPage'=> $countPage, 'title' => $title]);
+    }
+    public function deleteCommentAjax(Request $request){
+	    $id = $request -> comment_id;
+	    $comment = Comment::find($id);
+	    if(auth()->user()->id === $comment->user->id){
+		    $comment->status = 0;
+		    $comment->save();
+		    return response()->json([
+			    'success' => 'delete comment successful'
+		    ]);
+	    }
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCollumnDiscount extends Migration
+class AddRatingCollumm extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddCollumnDiscount extends Migration
      */
     public function up()
     {
-	    Schema::table('posts', function ($table) {
-		    $table->string('discount')->nullable();
+	    Schema::table('comments', function ($table) {
+		    $table->double('rating')->nullable();
 	    });
-	    Schema::table('dlcs', function ($table) {
-		    $table->string('discount')->nullable();
+	    Schema::table('posts', function ($table) {
+		    $table->double('rating')->nullable();
 	    });
     }
 

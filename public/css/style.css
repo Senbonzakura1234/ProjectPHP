@@ -2029,3 +2029,6 @@ h1 svg, h2 svg, h3 svg, h4 svg, h5 svg{
 .notifyjs-bootstrap-base{
     background-image: none !important;
 }
+.modal-open {
+	padding-right: 0 !important;
+}

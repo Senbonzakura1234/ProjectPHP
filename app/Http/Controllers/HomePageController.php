@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Post;
@@ -18,9 +19,12 @@ class HomePageController extends Controller
     }
     public function viewPost($id){
         $post = Post::find($id);
+        $userID = auth()->user()->id;
+        $lsUserRating = $post->comment()->where('status', 1)->where('user_id', $userID)->get();
+	    $lsUserRatingCount = count($lsUserRating);
         $listComment = $post->comment()->where('status', 1)->orderBy('created_at','desc')->paginate(5);
         $listComment->fragment('comment-target')->links();
-        return view("view_post")->with(['post'=>$post])->with(['listComment'=>$listComment]);
+        return view("view_post")->with(['post'=>$post])->with(['listComment'=>$listComment])->with('lsUserRatingCount',$lsUserRatingCount);
     }
     public function categorySingle($id){
         $cate = Category::find($id);

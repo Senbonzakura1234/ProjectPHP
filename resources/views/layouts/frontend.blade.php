@@ -10,7 +10,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700"
 		  rel="stylesheet">
 
-
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 			crossorigin="anonymous"></script>
@@ -39,8 +38,12 @@
 	<script src="{{asset('/fonts/fontawesome/js/all.js')}}"></script>
 	<link rel="icon" href="https://res.cloudinary.com/senbonzakura/image/upload/v1561568547/fav-icon_hoxtht.png"
 		  type="image/png">
+
+	{{--	Star rating--}}
+
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="{{asset('/css/style.css')}}">
+
 </head>
 <body style="background-image: url({{asset('/images/photography.png')}})">
 <!-- loader -->
@@ -358,7 +361,7 @@
 									   href="{{asset('/view_post/'.$popular->id)}}">
 										<img src="{{asset($popular->cover)}}"
 											 alt="Image placeholder">
-										<div class="text mt-xl-auto mb-xl-auto">
+										<div class="text mt-xl-auto mb-xl-auto w-100">
 											<h4>{{$popular->title}}</h4>
 											<div class="post-meta">
                                                 <span>
@@ -554,6 +557,11 @@
 </footer>
 <!-- END footer -->
 
+<div class="container">
+	<div class="row">
+		@yield('modal')
+	</div>
+</div>
 <script src="{{asset('/js/main.js')}}"></script>
 </body>
 </html>
