@@ -78,14 +78,15 @@ class CommentController extends Controller
         $lsComment = Comment::where('post_Id', $postId)->simplePaginate(6);
         return view("comment.listByProperties")->with(['lsComment' => $lsComment, 'countPage'=> $countPage, 'title' => $title]);
     }
-    public function deleteComment(Request $request, $id){
+    public function deleteCommentAjax(Request $request){
+	    $id = $request -> comment_id;
 	    $comment = Comment::find($id);
-	    $comment->delete();
-	    $request->session()->flash('success', 'Comment was deleted.');
-    }
-    public function deleteCommentAjax(Request $request, $id){
-	    $comment = Comment::find($id);
-	    $comment->delete();
-	    $request->session()->flash('success', 'Comment was deleted.');
+	    if(auth()->user()->id === $comment->user->id){
+		    $comment->status = 0;
+		    $comment->save();
+		    return response()->json([
+			    'success' => 'delete comment successful'
+		    ]);
+	    }
     }
 }

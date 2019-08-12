@@ -61,7 +61,7 @@
 					</div>
 					<div class="form-group col-12">
 						<label class="mb-0" for="content">Comment *</label>
-						<textarea  id="content" name="content" class="form-control"></textarea>
+						<textarea  id="content" name="content" class="form-control" required></textarea>
 					</div>
 					<div class="form-group col-12 text-right">
 						<input style="width: 20%; min-width: 150px" type="submit" value="Comment"
@@ -120,26 +120,19 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Are you sure to delete this comment</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body d-none">
 					<form>
-						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">Recipient:</label>
-							<input type="text" class="form-control" id="recipient-name">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="col-form-label">Message:</label>
-							<textarea class="form-control" id="message-text"></textarea>
-						</div>
+						<input type="hidden" id="comment_id" name="comment_id">
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send message</button>
+					<button type="button" id="confirm-delete" class="btn btn-danger">Delete</button>
 				</div>
 			</div>
 		</div>
@@ -151,7 +144,9 @@
 
 	<script src="{{asset('/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
 	<script type="text/javascript">
-			@if(Auth::check())
+        let comment_count =  "{{count($post->comment->where('status', 1))}}",
+            comment_count_int =  parseInt(comment_count);
+		@if(Auth::check())
             $('#exampleModal').on('show.bs.modal', function (event) {
                 let button = $(event.relatedTarget); // Button that triggered the modal
                 let recipient = button.data('whatever'); // Extract info from data-* attributes
@@ -159,70 +154,85 @@
                 // Update the modal's content. We'll use jQuery here, but you could use a data binding library
 				// or other methods instead.
                 let modal = $(this);
-                modal.find('.modal-title').text('New message to comment' + recipient);
-                modal.find('.modal-body input').val(recipient)
+                modal.find('.modal-body #comment_id').val(recipient)
             });
+            $('#confirm-delete').click(function (e) {
+                e.preventDefault();
+                let comment_id = $("#comment_id").val(),
+                    _token = $("input[name='_token']").val();
+                @if(Auth::check())
+					$.ajax({
+						type: 'POST',
+						url: "{{asset('/delete_comment_ajax')}}",
+						data: {comment_id: comment_id, _token: _token},
+						success: function (data) {
+                            comment_count_int--;
+                            $(".comment-list-count").text(comment_count_int.toString());
+                            $(".comment-list-count-top").text(comment_count_int.toString());
+							$("#comment" + comment_id).remove();
+							$('.modal').modal('toggle');
+						},
+					});
+				@endif
+            });
+			let editor = CKEDITOR.replace( 'content');
+			CKEDITOR.config.skin = 'minimalist';
+			CKEDITOR.config.extraPlugins = 'autogrow';
+			CKEDITOR.config.height = 70;
+			CKEDITOR.config.contentsCss = '{{asset("/css/ckeditor.css")}}';
+			CKEDITOR.config.resize_enabled = false;
+		@endif
 
-        let editor = CKEDITOR.replace( 'content');
-        CKEDITOR.config.skin = 'minimalist';
-        CKEDITOR.config.extraPlugins = 'autogrow';
-        CKEDITOR.config.height = 70;
-        CKEDITOR.config.contentsCss = '{{asset("/css/ckeditor.css")}}';
-        CKEDITOR.config.resize_enabled = false;
-			@endif
 
-        let comment_count =  "{{count($post->comment->where('status', 1))}}",
-            comment_count_int =  parseInt(comment_count);
         $("#submit_comment").click(function (e) {
             e.preventDefault();
             let content = editor.getData(),
                 _token  = $("input[name = _token]").val(),
                 avatar_link  = "{{asset('/images/avatar.png')}}";
-            $.ajax({
-                type: 'POST',
-                url : "{{asset('/post_comment_ajax/')}}/" + "{{$post->id}}",
-                data: {content:content, _token:_token},
-                success:function (data) {
-                    comment_count_int++;
-                    let notify_id = "notify_comment" + comment_count_int.toString();
-                    let comment_with_notify_append = $(
-                        "<li class=\"alert alert-primary text-left text-sm-center p-2\" id=\""+ notify_id +"\">\n" +
-                        "   <i class=\"fas fa-check-circle\"></i> Comment Post Successful\n" +
-                        "</li>" +
-                        "<li class=\"comment\">\n" +
-                        "   <div class=\"vcard\">\n" +
-                        "       <img src=\" "+ avatar_link +" \" alt=\"Image placeholder\">\n" +
-                        "   </div>\n" +
-                        "   <div class=\"comment-body\">\n" +
-                        "       <h3>" + "@if(Auth::check()){{ Auth::user()->name  }}@endif" +"</h3>\n" +
-                        "       <div class=\"meta\">"+ data.created_at +"</div>\n" +
-                        "       <div class=\"comment-body-content\"><p>" + content +"</p></div>\n" +
-                        "        <p><a href=\"#\" class=\"reply rounded\">Reply</a></p>\n" +
-                        "   </div>\n" +
-                        "</li>"
-                    ).hide();
+				$.ajax({
+					type: 'POST',
+					url : "{{asset('/post_comment_ajax/')}}/" + "{{$post->id}}",
+					data: {content:content, _token:_token},
+					success:function (data) {
+						comment_count_int++;
+						let notify_id = "notify_comment" + comment_count_int.toString();
+						let comment_with_notify_append = $(
+							"<li class=\"alert alert-primary text-left text-sm-center p-2\" id=\""+ notify_id +"\">\n" +
+							"   <i class=\"fas fa-check-circle\"></i> Comment Post Successful\n" +
+							"</li>" +
+							"<li class=\"comment\">\n" +
+							"   <div class=\"vcard\">\n" +
+							"       <img src=\" "+ avatar_link +" \" alt=\"Image placeholder\">\n" +
+							"   </div>\n" +
+							"   <div class=\"comment-body\">\n" +
+							"       <h3>" + "@if(Auth::check()){{ Auth::user()->name  }}@endif" +"</h3>\n" +
+							"       <div class=\"meta\">"+ data.created_at +"</div>\n" +
+							"       <div class=\"comment-body-content\"><p>" + content +"</p></div>\n" +
+							"   </div>\n" +
+							"</li>"
+						).hide();
 
 
-                    $(".comment-list").prepend(
-                        comment_with_notify_append
-                    );
-                    $(".comment-list-count").text(comment_count_int.toString());
-                    $(".comment-list-count-top").text(comment_count_int.toString());
-                    comment_with_notify_append.fadeIn(1500);
+						$(".comment-list").prepend(
+							comment_with_notify_append
+						);
+						$(".comment-list-count").text(comment_count_int.toString());
+						$(".comment-list-count-top").text(comment_count_int.toString());
+						comment_with_notify_append.fadeIn(1500);
 
 
-                    setTimeout(
-                        function()
-                        {
-                            $("#"+notify_id+"").fadeOut();
-                            setTimeout(
-                                function()
-                                {
-                                    $("#"+notify_id+"").remove();
-                                }, 1000);
-                        }, 5000);
-                }
-            })
+						setTimeout(
+							function()
+							{
+								$("#"+notify_id+"").fadeOut();
+								setTimeout(
+									function()
+									{
+										$("#"+notify_id+"").remove();
+									}, 1000);
+							}, 5000);
+					}
+				})
         });
 	</script>
 	<style type="text/css">

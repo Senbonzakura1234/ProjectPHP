@@ -51,6 +51,7 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/randomPost', 'HomePageController@randomPost');
 	Route::post('/post_comment/{id}', 'CommentController@post_comment');
 	Route::post('/post_comment_ajax/{id}', 'CommentController@post_comment_ajax');
+	Route::post('/delete_comment_ajax', 'CommentController@deleteCommentAjax');
 });
 Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
