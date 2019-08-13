@@ -45,10 +45,10 @@ Route::post('/contact/save', 'MessageController@store')->name('saveMessage');
 
 
 
+Route::get('/randomPost', 'HomePageController@randomPost');
 Route::group(['middleware'=>'auth'], function(){
 	Route::get('/gift', 'HomePageController@gift');
 	Route::get('/cart', 'HomePageController@cart');
-	Route::get('/randomPost', 'HomePageController@randomPost');
 	Route::post('/post_comment/{id}', 'CommentController@post_comment');
 	Route::post('/post_comment_ajax/{id}', 'CommentController@post_comment_ajax');
 	Route::post('/delete_comment_ajax', 'CommentController@deleteCommentAjax');

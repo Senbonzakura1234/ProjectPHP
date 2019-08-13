@@ -346,12 +346,6 @@
 			<!-- END sidebar-box -->
 
 				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-lightbulb"></i> Have a new ideal?</h3>
-					<a href="{{route('post.create')}}" style="width: 100%" class="btn btn-primary">
-						Create a new post
-					</a>
-				</div>
-				<div class="sidebar-box">
 					<h3 class="heading"><i class="fas fa-rss-square"></i> Popular Posts</h3>
 					<div class="post-entry-sidebar">
 						<ul>
@@ -380,12 +374,12 @@
 				</div>
 				<!-- END sidebar-box -->
 				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-rss-square"></i> Don't know what to read?
+					<h3 class="heading"><i class="fas fa-rss-square"></i> Don't know what to play?
 					</h3>
 					<form class="text-center" method="get" action="{{asset('/randomPost')}}">
 						@csrf
 						<input style="width: 100%" class="btn btn-primary"
-							   value="Get Random Post" type="submit">
+							   value="Get A Game" type="submit">
 					</form>
 				</div>
 				<div class="sidebar-box">

@@ -98,7 +98,9 @@ class CommentController extends Controller
 		    $comment->status = 0;
 		    $comment->save();
 		    return response()->json([
-			    'success' => 'delete comment successful'
+			    'success' => 'delete comment successful',
+			    'comment_content' => $comment->content,
+			    'comment_rating' => $comment->rating,
 		    ]);
 	    }
     }
