@@ -47,6 +47,15 @@ a:hover:not(.menu-header-sm a:hover, .menu-header-lg a:hover){
 .social a {
     line-height: 2.1;
 }
+h5.card-title a{
+	color: #000;
+}
+
+h5.card-title a:hover,
+h5.card-title a:focus,
+h5.card-title a:active{
+	color: #6e6e6e;
+}
 
 h1, h2, h3, h4, h5 {
     color: #000;
@@ -2031,4 +2040,7 @@ h1 svg, h2 svg, h3 svg, h4 svg, h5 svg{
 }
 .modal-open {
 	padding-right: 0 !important;
+}
+.text-compartible{
+	color: #62b1f6 !important;
 }

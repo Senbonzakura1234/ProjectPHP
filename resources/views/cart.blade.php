@@ -12,7 +12,7 @@
 			<table class="table table-striped" style="min-width: 500px">
 				<thead>
 				<tr>
-					<th scope="col">Product </th>
+					<th scope="col">Game </th>
 					<th scope="col"></th>
 					<th scope="col" class="text-left">Price</th>
 					<th> </th>
@@ -23,7 +23,7 @@
 {{--						https://dummyimage.com/50x50/55595c/fff--}}
 						<tr>
 							<td class="align-middle"><img src="https://via.placeholder.com/50/55595c/FFFFFF" alt="icon"/> </td>
-							<td class="align-middle">Product Name Titi</td>
+							<td class="align-middle">Game Name Titi</td>
 							<td class="align-middle text-left">70,00 €</td>
 							<td class="align-middle text-center">
 								<button class="btn btn-sm btn-danger" style="cursor: pointer">
@@ -80,28 +80,127 @@
 			<h2><i class="fas fa-user-clock"></i> Relate content</h2>
 		</div>
 		<div class="row my-5">
+			<div class="col-12"><h5>Games</h5></div>
 			@foreach($lsPopular as $post)
-				<div class="col-12" style="padding: 15px"><div class="card" style=" width: 100%">
+				<div class="col-12" style="padding: 15px">
+					<div class="card" style=" width: 100%">
 						<div class="row no-gutters">
 							<div class="col-12 col-md-3">
-								<a href="{{route('post.show', $post->id)}}" class="d-block" style="padding: 0;
+								<a href="{{asset('/view_post/'.$post->id)}}" class="d-block" style="padding: 0;
 									background:
-									url('https://via.placeholder.com/500/55595c/FFFFFF?text=Game Thumbnail')
+									url('{{asset($post->cover)}}')
 									no-repeat center; background-size: cover !important; min-height: 150px;
 									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
 								</a>
 							</div>
 							<div class="col-12 col-md-9">
 								<div class="card-body pb-md-0">
-									<h5 class="card-title">{{$post->title}}</h5>
+									<h5 class="card-title">
+										<a href="{{asset('/view_post/'.$post->id)}}">
+											{{$post->title}}
+										</a>
+									</h5>
 									<p class="card-text">
-										Price: 70,80 €
-										&bull; <small> <i class="fab fa-windows"></i>
-										<i class="fab fa-xbox"></i>
-										<i class="fab fa-playstation"></i></small>
+										Price:
+										@if($post->discount > 0 && $post->discount < 100 && $post->price > 0)
+											<small>
+												<span style="text-decoration: line-through;">
+													{{$post->price}} €
+												</span>
+											</small>
+											&nbsp;
+											<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$post->discount}}%
+												</span>
+											</strong>
+											{{$post->price * (1 - $post->discount/100)}} €
+										@elseif($post->price == 0 || $post->discount == 100)
+											<strong>
+												<span class="badge badge-success" style="font-size: 100%">FREE</span>
+											</strong>
+										@else
+											<small>
+												{{$post->price}} €
+											</small>
+										@endif
+										&bull;
+										<small>
+											<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
+											<i class="fab fa-xbox @if($post->xbox == 1) text-compartible @endif"></i>
+											<i class="fab fa-playstation
+												@if($post->playstation == 1) text-compartible @endif">
+											</i>
+										</small>
 									</p>
 								</div>
-								<div class="card-body text-center text-md-right pt-0">
+								<div class="card-body text-center text-md-right">
+									<a href="#" class="btn btn-sm btn-success">
+										Add to cart <i class="fas fa-cart-plus"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			@endforeach
+		</div>
+		<div class="row my-5">
+			<div class="col-12"><h5>DLCs</h5></div>
+			@foreach($lsPopularDlc as $dlc)
+				<div class="col-12" style="padding: 15px">
+					<div class="card" style=" width: 100%">
+						<div class="row no-gutters">
+							<div class="col-12 col-md-3">
+								<a href="{{route('post.show', $dlc->id)}}" class="d-block" style="padding: 0;
+									background:
+									url('{{asset($dlc->cover)}}')
+									no-repeat center; background-size: cover !important; min-height: 150px;
+									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
+								</a>
+							</div>
+							<div class="col-12 col-md-9">
+								<div class="card-body pb-md-0">
+									<h5 class="card-title">
+										<a href="{{route('post.show', $dlc->id)}}">
+											{{$dlc->title}}
+										</a>
+									</h5>
+									<p class="card-text">
+										Price:
+										@if($dlc->discount > 0 && $dlc->discount < 100 && $dlc->price > 0)
+											<small>
+												<span style="text-decoration: line-through;">
+													{{$dlc->price}} €
+												</span>
+											</small>
+											&nbsp;
+											<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$dlc->discount}}%
+												</span>
+											</strong>
+											{{$dlc->price * (1 - $dlc->discount/100)}} €
+										@elseif($dlc->price == 0 || $dlc->discount == 100)
+											<strong>
+												<span class="badge badge-success" style="font-size: 100%">FREE</span>
+											</strong>
+										@else
+											<small>
+												{{$dlc->price}} €
+											</small>
+										@endif
+										&bull;
+										<small>
+											<i class="fab fa-windows @if($dlc->windows == 1) text-compartible @endif"></i>
+											<i class="fab fa-xbox @if($dlc->xbox == 1) text-compartible @endif"></i>
+											<i class="fab fa-playstation
+												@if($dlc->playstation == 1) text-compartible @endif">
+											</i>
+										</small>
+									</p>
+								</div>
+								<div class="card-body text-center text-md-right">
 									<a href="#" class="btn btn-sm btn-success">
 										Add to cart <i class="fas fa-cart-plus"></i>
 									</a>
@@ -116,35 +215,57 @@
 			<h2><i class="fas fa-user-clock"></i> Sale Off</h2>
 		</div>
 		<div class="row my-5">
-			@foreach($lsPopular as $post)
-				<div class="col-12" style="padding: 15px"><div class="card" style=" width: 100%">
+			@foreach($lsDiscount as $post)
+				<div class="col-12" style="padding: 15px">
+					<div class="card" style=" width: 100%">
 						<div class="row no-gutters">
 							<div class="col-12 col-md-3">
-								<a href="{{route('post.show', $post->id)}}" class="d-block" style="padding: 0;
+								<a href="{{asset('/view_post/'.$post->id)}}" class="d-block" style="padding: 0;
 									background:
-									url('https://via.placeholder.com/500/55595c/FFFFFF?text=Game Thumbnail')
+									url('{{asset($post->cover)}}')
 									no-repeat center; background-size: cover !important; min-height: 150px;
 									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
 								</a>
 							</div>
 							<div class="col-12 col-md-9">
 								<div class="card-body pb-md-0">
-									<h5 class="card-title">{{$post->title}}</h5>
+									<h5 class="card-title">
+										<a href="{{asset('/view_post/'.$post->id)}}">
+											{{$post->title}}
+										</a>
+									</h5>
 									<p class="card-text">
 										Price:
-										<small>
-											<span style="text-decoration: line-through;">
-												70,80 €
-											</span>
-										</small>
-										&nbsp;
-										<strong>
-											<span style="font-size: 100%" class="badge badge-success"> -20% </span>
-										</strong>
-										56,6 €
-										&bull; <small> <i class="fab fa-windows"></i>
-										<i class="fab fa-xbox"></i>
-										<i class="fab fa-playstation"></i></small>
+										@if($post->discount > 0 && $post->discount < 100 && $post->price > 0)
+											<small>
+												<span style="text-decoration: line-through;">
+													{{$post->price}} €
+												</span>
+											</small>
+											&nbsp;
+											<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$post->discount}}%
+												</span>
+											</strong>
+											{{$post->price * (1 - $post->discount/100)}} €
+										@elseif($post->price == 0 || $post->discount == 100)
+											<strong>
+												<span class="badge badge-success" style="font-size: 100%">FREE</span>
+											</strong>
+										@else
+											<small>
+												{{$post->price}} €
+											</small>
+											@endif
+											&bull;
+											<small>
+												<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
+												<i class="fab fa-xbox @if($post->xbox == 1) text-compartible @endif"></i>
+												<i class="fab fa-playstation
+												@if($post->playstation == 1) text-compartible @endif">
+												</i>
+											</small>
 									</p>
 								</div>
 								<div class="card-body text-center text-md-right">

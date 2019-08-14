@@ -346,7 +346,7 @@
 			<!-- END sidebar-box -->
 
 				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-rss-square"></i> Popular Posts</h3>
+					<h3 class="heading"><i class="fas fa-rss-square"></i> Popular Games</h3>
 					<div class="post-entry-sidebar">
 						<ul>
 							@foreach($lsPopular as $popular)
@@ -438,13 +438,13 @@
 
 			</div>
 			<div class="col-12 col-sm-6 mb-3 col-lg-4">
-				<h3>Latest Post <i class="fas fa-clock"></i></h3>
+				<h3>Latest DLCs <i class="fas fa-clock"></i></h3>
 				<div class="post-entry-sidebar">
 					<ul>
 						@foreach($lsLatest as $latest)
 							<li>
 								<a class="post-entry-link"
-								   href="{{asset('/view_post/'.$latest->id)}}">
+								   href="{{asset('/view_dlc/'.$latest->id)}}">
 									<img src="{{asset($latest->cover)}}"
 										 alt="Image placeholder" class="mr-2">
 									<div class="text">

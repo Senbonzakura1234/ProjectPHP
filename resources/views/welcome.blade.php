@@ -66,7 +66,7 @@
     <a style="opacity: 0 !important;" id="page-target"></a>
     <div class="row">
         <div class="col-lg-6">
-            <h2 class="mb-4">Latest Posts <i class="far fa-clock"></i></h2>
+            <h2 class="mb-4">Latest Games <i class="far fa-clock"></i></h2>
         </div>
     </div>
 @endsection

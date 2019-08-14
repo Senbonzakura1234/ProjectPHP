@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Dlc;
 use App\User;
 use Illuminate\Support\ServiceProvider;
 use Schema;
@@ -33,7 +34,10 @@ class AppServiceProvider extends ServiceProvider
         $lsRandomCate = Category::all()->random(2);
         $lsRandomTag = Tag::all()->random(2);
         $lsPopular = Post::withCount('comment')->orderBy('comment_count', 'desc')->take(3)->get();
-        $lsLatest = Post::orderBy('created_at','desc')->take(3)->get();
+        $lsPopularDlc = Dlc::withCount('comment')->orderBy('comment_count', 'desc')->take(3)->get();
+        $lsDiscount = Post::withCount('comment')->orderBy('comment_count', 'desc')->where('discount', '>', 0)
+	        ->take(3)->get();
+        $lsLatest = Dlc::orderBy('created_at','desc')->take(3)->get();
         Schema::defaultStringLength(191);
         $lsCategory = Category::withCount('posts')->orderBy('posts_count', 'desc')->get();
         $lsTag = Tag::withCount('posts')->orderBy('posts_count', 'desc')->get();
@@ -42,6 +46,8 @@ class AppServiceProvider extends ServiceProvider
         View::share('lsTag',$lsTag);
         View::share('lsMessage',$lsMessage);
         View::share('lsPopular',$lsPopular);
+        View::share('lsPopularDlc',$lsPopularDlc);
+        View::share('lsDiscount',$lsDiscount);
         View::share('lsLatest',$lsLatest);
         View::share('lsRandomCate',$lsRandomCate);
         View::share('lsRandomTag',$lsRandomTag);

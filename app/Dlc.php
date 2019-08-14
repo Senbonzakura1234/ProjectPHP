@@ -12,6 +12,9 @@ class Dlc extends Model
 	public function post(){
 		return $this->belongsTo("App\Post");
 	}
+	public function comment(){
+		return $this->hasMany('App\Comment');
+	}
 	public function User(){
 		return $this ->belongsToMany('App\User','dlc_users');
 	}

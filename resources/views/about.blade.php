@@ -35,8 +35,11 @@
         </div>
         <div class="row mb-5 mt-5">
             <div class="col-md-12 mb-5">
-                <h2><i class="fas fa-user-clock"></i> My Latest Posts</h2>
+                <h2><i class="fas fa-user-clock"></i> Our Latest Games & DLCs</h2>
             </div>
+			<div class="col-md-12">
+				<h5>Games</h5>
+			</div>
             <div class="col-md-12">
                 @foreach($lsPost as $post)
                     <div class="post-entry-horzontal">
@@ -56,13 +59,39 @@
                     <!-- END post -->
                 @endforeach
             </div>
+			<div class="col-md-12">
+				<h5>DLCs</h5>
+			</div>
+            <div class="col-md-12">
+                @foreach($lsDlc as $dlc)
+                    <div class="post-entry-horzontal">
+                        <a href="{{asset('/view_post/'.$dlc->id)}}">
+                            <div class="image" style="background-image: url({{asset($dlc->cover)}});"></div>
+                            <span class="text">
+                                <div class="post-meta">
+                                    <span class="author mr-2"><img src=" {{asset('/images/person_1.jpg')}}"
+                                        alt="User"> User</span>&bullet;
+                                    <span class="mr-2">{{date('M d Y', strtotime($dlc->created_at))}} </span> &bullet;
+                                    <span class="ml-2"><span class="fa fa-comments"></span> {{count($dlc->comment->where('status', 1))}}</span>
+                                </div>
+                                <h2>{{$dlc->title}}</h2>
+                            </span>
+                        </a>
+                    </div>
+                    <!-- END dlc -->
+                @endforeach
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-center">
-                <a style="width: 50%; font-size: 20px; border-radius: 40px"
-                   href="{{asset('/post_list')}}" class="btn btn-primary">
-                    <i class="fas fa-th-list"></i> View more post
+                <a style="font-size: 15px; border-radius: 40px"
+                   href="{{asset('/post_list')}}" class="btn btn-primary d-inline-block mb-2">
+                    <i class="fas fa-th-list"></i> View more Games
+                </a>
+				<a style="font-size: 15px; border-radius: 40px"
+                   href="{{asset('/dlc_list')}}" class="btn btn-primary d-inline-block mb-2">
+                    <i class="fas fa-th-list"></i> View more DLCs
                 </a>
             </div>
         </div>

@@ -7,21 +7,17 @@
             <span class="author mr-2"><img src="{{asset('/images/person_1.jpg')}}" alt="User" class="mr-2">
                 User
             </span>&bullet;
-			<span class="mr-2">{{$post->created_at}}</span> &bullet;
+			<span class="mr-2">{{$dlc->created_at}}</span> &bullet;
 			<span class="ml-2">
                 <span class="fa fa-comments"></span>
-                <span class="comment-list-count-top">{{count($post->comment->where('status', 1))}}</span>
+                <span class="comment-list-count-top">{{count($dlc->comment->where('status', 1))}}</span>
             </span>
 		</div>
-		<h2 class="mb-4">{{$post->title}}</h2>
-		@foreach($post->categories as $cate)
-			<a class="category mb-sm-5" href="{{asset('/post_by_category/'.$cate->id)}}">
-				<i class="fas fa-rainbow"></i> {{$cate->name}}
-			</a>
-		@endforeach
-		<img src="{{asset($post->cover)}}" alt="Image" class="img-fluid mt-3 mt-sm-0 mb-5">
+		<h2 class="mb-4">{{$dlc->title}}</h2>
+{{--		Game has this DLC--}}
+		<img src="{{asset($dlc->cover)}}" alt="Image" class="img-fluid mt-3 mt-sm-0 mb-5">
 		<div class="post-content-body">
-			{!!$post->content!!}
+			{!!$dlc->content!!}
 		</div>
 
 
@@ -29,27 +25,13 @@
 @endsection
 @section('comment')
 	<div class="pt-5">
-		<p>
-			Categories:
-			@foreach($post->categories as $cate)
-				<a href="{{asset('/post_by_category/'.$cate->id)}}">
-					<i class="fas fa-rainbow"></i> {{$cate->name}}
-				</a>@if(!$loop->last),@endif
-				@endforeach
-				&nbsp;
-				Tags:
-				@foreach($post->tags as $tag)
-					<a href="{{asset('/post_by_tag/'.$tag->id)}}">
-						<i class="fas fa-tag"></i> {{$tag->name}}
-					</a>@if(!$loop->last),@endif
-					@endforeach
-		</p>
+{{--		game have this DLC--}}
 	</div>
 	<a id="comment-target" style="opacity: 0 !important;"></a>
 	<div class="pt-5">
 		<div class="comment-form-wrap">
 			<form class="row @if(Auth::check() && $lsUserRatingCount < 1) d-flex @else d-none @endif"
-				  action="{{asset('post_comment/'.$post->id)}}" id="comment-form" method="post">
+				  action="{{asset('dlc_comment/'.$dlc->id)}}" id="comment-form" method="post">
 				@csrf
 				<div class="form-group col-12">
 					<h3 class="mb-0">Write a review</h3>
@@ -149,7 +131,7 @@
 		</div>
 		<h3 class="my-5">
 			Reviews
-			(<span class="comment-list-count">{{count($post->comment->where('status', 1))}}</span>)
+			(<span class="comment-list-count">{{count($dlc->comment->where('status', 1))}}</span>)
 		</h3>
 		<ul class="comment-list" style="display: inline-block; width: 100%">
 			@foreach($listComment as $comment)
@@ -249,13 +231,13 @@
 
 	<script src="{{asset('/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
 	<script type="text/javascript">
-        let comment_count = "{{count($post->comment->where('status', 1))}}",
+        let comment_count = "{{count($dlc->comment->where('status', 1))}}",
             comment_count_int = parseInt(comment_count);
 
         $(document).ready(function () {
             $("#rating-1").click(function () {
-				$(".rating-color").removeClass("text-primary").removeClass("text-success")
-					.removeClass("text-secondary").removeClass("text-warning").addClass("text-danger");
+                $(".rating-color").removeClass("text-primary").removeClass("text-success")
+                    .removeClass("text-secondary").removeClass("text-warning").addClass("text-danger");
 
                 $("#icon-rating-1").removeClass("far").addClass("fas");
                 $("#icon-rating-2").removeClass("fas").addClass("far");
@@ -319,7 +301,7 @@
                 avatar_link = "{{asset('/images/avatar.png')}}";
             $.ajax({
                 type: 'POST',
-                url: "{{asset('/post_comment_ajax/')}}/" + "{{$post->id}}",
+                url: "{{asset('/dlc_comment_ajax/')}}/" + "{{$dlc->id}}",
                 data: {content: content, _token: _token, rating: rating},
                 success: function (data) {
                     comment_count_int++;
@@ -334,7 +316,7 @@
                     let notify_id = "notify_comment" + comment_count_int.toString();
                     let comment_with_notify_append = $(
                         "<li class=\"alert alert-primary text-left text-sm-center p-2\" id=\"" + notify_id + "\">" +
-                        "   <i class=\"fas fa-check-circle\"></i> Comment Post Successful" +
+                        "   <i class=\"fas fa-check-circle\"></i> Review Post Successful" +
                         "</li>" +
                         "<li class=\"comment\"  id=\"comment" + data.comment_id + "\">" +
                         "   <div class=\"vcard\">" +
@@ -350,10 +332,10 @@
                         (rating == 1? "text-danger":rating == 2?
                             "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
 
-						"\"  >" +
+                        "\"  >" +
                         "				<i id=\"icon-rated-1\" class=\" " +
-						(rating > 0? "fas" : "far" ) +
-						" 				fa-star\"></i>" +
+                        (rating > 0? "fas" : "far" ) +
+                        " 				fa-star\"></i>" +
                         "			</a>" +
                         "			<a class=\"  " +
 
