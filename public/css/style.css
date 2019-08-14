@@ -1893,9 +1893,10 @@ html, body {
 .dropDownMenu-sm li a svg{
     left: 26px;
 }
-.menu-header-lg .nav-link{
+.menu-header-lg .nav-link,
+.dropDownCart-lg .nav-link{
     position: relative;
-    z-index: 100;
+    z-index: 100 !important;
 }
 .dropDownMenu-lg{
     position: absolute;
@@ -1908,11 +1909,62 @@ html, body {
     left: 0;
     top: 50px;
     display: none;
-    z-index: 100;
+	z-index: 100;
+}
+.dropDownCart-lg{
+    position: absolute;
+    background: white;
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    width: 450px;
+    font-size: 17px;
+    right: 0;
+    top: 50px;
+    display: none;
+	z-index: 100;
+	border: 1px solid #e9ecef;
+	border-radius: 5px;
 }
 
 .menu-header-lg .nav-link .dropDownMenu-lg li a{
-    padding-left: 50px;
+	padding-left: 50px;
+}
+.menu-header-lg .nav-link .dropDownCart-lg .nav-item{
+	padding-right: 50px;
+	position: relative;
+}
+.menu-header-lg .nav-link .dropDownCart-lg li a{
+	padding-left: 80px;
+	padding-right: 80px;
+	color: #000 !important;
+}
+.menu-header-lg .nav-link .dropDownCart-lg .nav-item .cart-remove-btn{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+.menu-header-lg .nav-link .dropDownCart-lg li a .cart-game-icon{
+	position: absolute;
+	height: 80%;
+	top: 10%;
+	left: 10px;
+	width: 60px;
+}
+.menu-header-lg .nav-link .dropDownCart-lg .cart-top{
+	position: relative;
+}
+.menu-header-lg .nav-link .dropDownCart-lg .cart-top .cart-remove-all-btn{
+	position: absolute;
+	right: 10px;
+	top: 4px;
+	cursor: pointer;
+}
+.menu-header-lg .nav-link .dropDownCart-lg li a .cart-item-price{
+	position: absolute;
+	top: 8px;
+	right: 0;
 }
 .menu-header-lg .nav-link .dropDownMenu-lg li a svg{
     position: absolute;
@@ -1920,7 +1972,7 @@ html, body {
     top: 15px;
 }
 .close-menu-lg{
-    position: fixed;
+    position: absolute;
     height: 100%;
     width: 100%;
     top: 0;

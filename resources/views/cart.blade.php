@@ -19,11 +19,16 @@
 				</tr>
 				</thead>
 				<tbody>
-					@for($i = 0; $i < 3; $i++)
+					@foreach($lsPopular as $popular)
 {{--						https://dummyimage.com/50x50/55595c/fff--}}
 						<tr>
-							<td class="align-middle"><img src="https://via.placeholder.com/50/55595c/FFFFFF" alt="icon"/> </td>
-							<td class="align-middle">Game Name Titi</td>
+							<td class="align-middle">
+								<img src="{{asset($popular->cover)}}" style="max-height: 50px" alt="icon"/>
+							</td>
+							<td class="align-middle">
+								{{strlen($popular->title) > 20 ?
+											substr($popular->title, 0, 20)." ..." : $popular->title}}
+							</td>
 							<td class="align-middle text-left">70,00 €</td>
 							<td class="align-middle text-center">
 								<button class="btn btn-sm btn-danger" style="cursor: pointer">
@@ -31,7 +36,7 @@
 								</button>
 							</td>
 						</tr>
-					@endfor
+					@endforeach
 				</tbody>
 			</table>
 		</div>

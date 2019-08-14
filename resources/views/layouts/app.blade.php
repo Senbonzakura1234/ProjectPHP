@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Wordify</title>
+    <title>Woobly</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -166,7 +166,7 @@
             </div>
         </div>
         <div class="row text-center">
-            <a class="mx-auto" href="{{asset('/')}}"><h1>Wordify</h1></a>
+            <a class="mx-auto" href="{{asset('/')}}"><h1>Woobly</h1></a>
         </div>
         <div class="row text-center">
             <p class="small mx-auto">

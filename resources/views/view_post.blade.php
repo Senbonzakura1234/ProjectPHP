@@ -157,7 +157,7 @@
 					<div class="vcard">
 						<img src="{{asset('/images/avatar.png')}}" alt="Image placeholder">
 					</div>
-					<div class="comment-body">
+					<div class="comment-body pb-4 pb-md-0">
 						<h3>{{$comment->user->name}}</h3>
 						<div class="meta">{{date('M d Y - H:i:s', strtotime($comment->created_at))}}</div>
 						<div class="comment-body-content">
@@ -190,17 +190,17 @@
 								<i id="icon-rated-5" class="@if($comment->rating > 4) fas @else far @endif fa-star"></i>
 							</a>
 						</div>
-						@if(Auth::check() && Auth::user()->id === $comment->user->id)
-							<div class="comment-body-content text-right">
-								<p>
-									<button type="button" class="btn btn-info" data-toggle="modal"
-											data-target="#exampleModal" data-whatever="{{$comment->id}}">
-										Change Your Review
-									</button>
-								</p>
-							</div>
-						@endif
 					</div>
+					@if(Auth::check() && Auth::user()->id === $comment->user->id)
+						<div class="text-center text-md-right">
+							<p>
+								<button type="button" class="btn btn-info" data-toggle="modal"
+										data-target="#exampleModal" data-whatever="{{$comment->id}}">
+									Change Your Review
+								</button>
+							</p>
+						</div>
+					@endif
 				</li>
 			@endforeach
 		</ul>

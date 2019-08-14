@@ -10,7 +10,7 @@
                          alt="Image Placeholder" class="img-fluid">
                     <div class="about-name d-block d-lg-inline-block">
                         <h2 class="mb-0">
-                            Senbonzakura
+                            About Woobly
                         </h2>
                     </div>
                 </div>
