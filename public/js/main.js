@@ -81,6 +81,21 @@ let menuWidth = $(".menu-header-sm").outerWidth(),
     footerHeight = $(".site-footer").outerHeight(),
     maxScrollTop = $(document).height() - $(window).height() + 90 - footerHeight;
 $(function() {
+	$(".follow-btn").click(function () {
+		$(this).toggleClass("text-secondary").toggleClass("text-primary");
+	});
+	$(".add-to-cart-btn").click(function () {
+		$(this).find(".fast-spin").fadeIn().delay(1000).fadeOut();
+		$(this).toggleClass("btn-primary").toggleClass("btn-success");
+		if($(this).hasClass("btn-primary")){
+			$(this).find(".add-to-cart-btn-text").text("Add to cart");
+		}else if($(this).hasClass("btn-success")){
+			$(this).find(".add-to-cart-btn-text").text("Added to cart");
+		}
+		$(this).find(".add-to-cart-btn-text").text();
+	});
+
+
     $(".menu-button").click(function () {
         $(".menu-header-sm").css("left", 0);
         $(".close-menu-sm").css("display", "block");

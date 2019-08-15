@@ -137,6 +137,10 @@ class HomePageController extends Controller
 	{
 		return view('cart');
 	}
+	public function checkout()
+	{
+		return view('checkout');
+	}
 	public function gift()
 	{
 		return view('gift');

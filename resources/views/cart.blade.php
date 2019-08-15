@@ -72,7 +72,7 @@
 		<div class="row mx-0 my-3">
 			<div class="ml-auto">
 				<div class="d-inline-flex mb-2">
-					<a href="#" class="btn btn-success">
+					<a href="{{asset('/checkout')}}" class="btn btn-success">
 						Purchase for myself <i class="fas fa-cash-register"></i>
 					</a>
 				</div>
@@ -98,7 +98,7 @@
 									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
 								</a>
 							</div>
-							<div class="col-12 col-md-9">
+							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
 								<div class="card-body pb-md-0">
 									<h5 class="card-title">
 										<a href="{{asset('/view_post/'.$post->id)}}">
@@ -139,12 +139,12 @@
 										</small>
 									</p>
 								</div>
-								<div class="card-body text-center text-md-right">
-									<a href="#" class="btn btn-sm btn-success">
-										Add to cart <i class="fas fa-cart-plus"></i>
-									</a>
-								</div>
 							</div>
+							<button class="btn btn-sm btn-primary add-to-cart-btn">
+								<i class="fas fa-cart-plus"></i>
+								<span class="add-to-cart-btn-text">Add to cart</span>
+								<i class="fas fa-sync-alt fast-spin"></i>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -164,7 +164,7 @@
 									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
 								</a>
 							</div>
-							<div class="col-12 col-md-9">
+							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
 								<div class="card-body pb-md-0">
 									<h5 class="card-title">
 										<a href="{{route('post.show', $dlc->id)}}">
@@ -205,11 +205,11 @@
 										</small>
 									</p>
 								</div>
-								<div class="card-body text-center text-md-right">
-									<a href="#" class="btn btn-sm btn-success">
-										Add to cart <i class="fas fa-cart-plus"></i>
-									</a>
-								</div>
+								<button class="btn btn-sm btn-primary add-to-cart-btn">
+									<i class="fas fa-cart-plus"></i>
+									<span class="add-to-cart-btn-text">Add to cart</span>
+									<i class="fas fa-sync-alt fast-spin"></i>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -232,7 +232,7 @@
 									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
 								</a>
 							</div>
-							<div class="col-12 col-md-9">
+							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
 								<div class="card-body pb-md-0">
 									<h5 class="card-title">
 										<a href="{{asset('/view_post/'.$post->id)}}">
@@ -273,11 +273,11 @@
 											</small>
 									</p>
 								</div>
-								<div class="card-body text-center text-md-right">
-									<a href="#" class="btn btn-sm btn-success">
-										Add to cart <i class="fas fa-cart-plus"></i>
-									</a>
-								</div>
+								<button class="btn btn-sm btn-primary add-to-cart-btn">
+									<i class="fas fa-cart-plus"></i>
+									<span class="add-to-cart-btn-text">Add to cart</span>
+									<i class="fas fa-sync-alt fast-spin"></i>
+								</button>
 							</div>
 						</div>
 					</div>

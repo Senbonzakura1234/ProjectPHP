@@ -221,7 +221,7 @@
 								<a style="width: 40%" class="btn-info btn" href="{{asset('/cart')}}">
 									Go to Cart
 								</a>
-								<a style="width: 40%" class="btn-success btn" href="#">
+								<a style="width: 40%" class="btn-success btn" href="{{asset('/checkout')}}">
 									Checkout
 								</a>
 							</div>

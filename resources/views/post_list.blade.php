@@ -25,7 +25,7 @@
 									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
 								</a>
 							</div>
-							<div class="col-12 col-md-9">
+							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
 								<div class="card-body pb-md-0">
 									<h5 class="card-title">
 										<a href="{{asset('/view_post/'.$post->id)}}">
@@ -62,11 +62,11 @@
 											</small>
 									</p>
 								</div>
-								<div class="card-body text-center text-md-right">
-									<a href="#" class="btn btn-sm btn-success">
-										Add to cart <i class="fas fa-cart-plus"></i>
-									</a>
-								</div>
+								<button class="btn btn-sm btn-primary add-to-cart-btn">
+									<i class="fas fa-cart-plus"></i>
+									<span class="add-to-cart-btn-text">Add to cart</span>
+									<i class="fas fa-sync-alt fast-spin"></i>
+								</button>
 							</div>
 						</div>
 					</div>
