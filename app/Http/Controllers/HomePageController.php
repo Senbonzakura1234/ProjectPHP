@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Country;
 use App\Dlc;
 use App\Tag;
 use Illuminate\Http\Request;
@@ -139,10 +140,18 @@ class HomePageController extends Controller
 	}
 	public function checkout()
 	{
-		return view('checkout');
+		$lsCountries = Country::all();
+		return view('checkout')->with(['lsCountries' => $lsCountries]);
 	}
 	public function gift()
 	{
 		return view('gift');
+	}
+	public function get_country_selected_phone_code(Request $request){
+		$id = $request -> country_selected_id;
+		$country = Country::find($id);
+		return response()->json([
+			'country_selected_phone_code' => $country->phonecode,
+		]);
 	}
 }

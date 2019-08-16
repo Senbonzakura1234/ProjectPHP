@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Country;
 use App\Dlc;
 use App\User;
 use Illuminate\Support\ServiceProvider;

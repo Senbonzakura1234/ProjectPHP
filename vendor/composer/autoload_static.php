@@ -438,6 +438,7 @@ class ComposerStaticInit66f64b8ded5d29a2397319b7c3087ef5
         'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
         'App\\Comment' => __DIR__ . '/../..' . '/app/Comment.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Country' => __DIR__ . '/../..' . '/app/Country.php',
         'App\\Dlc' => __DIR__ . '/../..' . '/app/Dlc.php',
         'App\\DlcUser' => __DIR__ . '/../..' . '/app/DlcUser.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',

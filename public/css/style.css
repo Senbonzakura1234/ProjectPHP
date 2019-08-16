@@ -2144,3 +2144,22 @@ h1 svg, h2 svg, h3 svg, h4 svg, h5 svg{
 .custom-checkbox.custom-control .custom-control-label:after{
 	margin-top: 5px;
 }
+.select-wrapper button.btn{
+	border-radius: 0.25rem !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+	-moz-appearance:textfield; /* Firefox */
+}
+.payment-method svg{
+	cursor: pointer;
+}
+.payment-method svg:hover{
+	opacity: 0.7;
+}
