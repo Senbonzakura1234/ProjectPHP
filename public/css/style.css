@@ -2134,3 +2134,13 @@ h1 svg, h2 svg, h3 svg, h4 svg, h5 svg{
 	-webkit-animation: fa-spin 1s infinite linear;
 	animation: fa-spin 1s infinite linear;
 }
+.custom-control-label:before{
+
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+	background-color: #28a745;
+}
+.custom-checkbox.custom-control .custom-control-label:before,
+.custom-checkbox.custom-control .custom-control-label:after{
+	margin-top: 5px;
+}
