@@ -205,6 +205,20 @@
                     }
                 });
             });
+            (function(seconds) {
+                let refresh,
+                    intvrefresh = function() {
+                        clearInterval(refresh);
+                        refresh = setTimeout(function() {
+                            location.href = location.href;
+                        }, seconds * 1000);
+                    };
+
+                $(document).on('keypress click', function() { intvrefresh() });
+                intvrefresh();
+
+            }(2100)); // define here seconds
+
             // Example starter JavaScript for disabling form submissions if there are invalid fields
             (function () {
                 'use strict';
