@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Wordify</title>
+    <title>Woobly</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -117,7 +117,12 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
+								@if(strlen(Auth::user()->name) > 15)
+                                	{{substr(Auth::user()->name, 0, 15)}} ...
+								@else
+									{{Auth::user()->name}}
+								@endif
+								<span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -161,7 +166,7 @@
             </div>
         </div>
         <div class="row text-center">
-            <a class="mx-auto" href="{{asset('/')}}"><h1>Wordify</h1></a>
+            <a class="mx-auto" href="{{asset('/')}}"><h1>Woobly</h1></a>
         </div>
         <div class="row text-center">
             <p class="small mx-auto">

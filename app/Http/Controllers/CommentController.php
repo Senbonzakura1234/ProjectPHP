@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Dlc;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,8 @@ class CommentController extends Controller
 			$comment->post_id = $id;
 			$comment->save();
 			return redirect()->back();
+		}else{
+			return null;
 		}
     }
     public function post_comment_ajax(Request $request, $id){
@@ -57,6 +60,63 @@ class CommentController extends Controller
 			    'created_at' => $comment->created_at->format('M d Y - H:i:s'),
 			    'comment_id' => $comment->id,
 		    ]);
+	    }else{
+	    	return null;
+	    }
+    }
+    public function dlc_comment(Request $request, $id){
+        $this->validate($request,
+            [
+                'content' => 'required|max:1000|min:9',
+	            'rating' => 'required|numeric|max:5|min:0'
+            ]
+        );
+	    $user = auth()->user();
+	    $dlc = Dlc::find($id);
+	    $userID = $user->id;
+	    $lsUserRating = $dlc->comment()->where('status', 1)->where('user_id', $userID)->get();
+	    $lsUserRatingCount = count($lsUserRating);
+		if($lsUserRatingCount < 1){
+			$comment = new Comment();
+			$comment->user_id = $userID;
+			$comment->content = $request -> input("content");
+			$comment->rating = $request -> input("rating");
+			$comment->status = 1;
+			$comment->dlc_id = $id;
+			$comment->save();
+			return redirect()->back();
+		}else{
+			return null;
+		}
+    }
+    public function dlc_comment_ajax(Request $request, $id){
+        $this->validate($request,
+            [
+                'content' => 'required|max:1000|min:9',
+	            'rating' => 'required|numeric|max:5|min:0'
+            ]
+        );
+
+	    $user = auth()->user();
+	    $dlc = Dlc::find($id);
+	    $userID = $user->id;
+	    $lsUserRating = $dlc->comment()->where('status', 1)->where('user_id', $userID)->get();
+	    $lsUserRatingCount = count($lsUserRating);
+	    if($lsUserRatingCount < 1) {
+		    $comment = new Comment();
+		    $comment->user_id = $userID;
+		    $comment->dlc_id = $id;
+		    $comment->content = $request->input("content");
+		    $comment->rating = $request->input("rating");
+		    $comment->status = 1;
+		    $comment->save();
+		    return response()->json([
+			    'success' => 'comment successful',
+			    'created_at' => $comment->created_at->format('M d Y - H:i:s'),
+			    'comment_id' => $comment->id,
+		    ]);
+	    }else{
+	    	return null;
 	    }
     }
     public function listComment(){
@@ -66,7 +126,7 @@ class CommentController extends Controller
         }else{
             $countPage  = floor($countComment/6) + 1;
         }
-        $lsComment = Comment::orderBy('post_id','desc')->simplePaginate(6);
+        $lsComment = Comment::orderBy('created_at','desc')->simplePaginate(6);
         return view("comment.list")->with(['lsComment' => $lsComment, 'countPage'=> $countPage]);
     }
 
@@ -80,17 +140,17 @@ class CommentController extends Controller
             'success' => 'change status successful'
         ]);
     }
-    public function listCommentByProperties($postId){
-        $title = 'Comment In Post id '.$postId;
-        $countComment = Comment::where('post_Id', $postId)->count();
-        if($countComment % 6 === 0){
-            $countPage  = floor($countComment/6);
-        }else{
-            $countPage  = floor($countComment/6) + 1;
-        }
-        $lsComment = Comment::where('post_Id', $postId)->simplePaginate(6);
-        return view("comment.listByProperties")->with(['lsComment' => $lsComment, 'countPage'=> $countPage, 'title' => $title]);
-    }
+//    public function listCommentByProperties($postId){
+//        $title = 'Comment In Post id '.$postId;
+//        $countComment = Comment::where('post_Id', $postId)->count();
+//        if($countComment % 6 === 0){
+//            $countPage  = floor($countComment/6);
+//        }else{
+//            $countPage  = floor($countComment/6) + 1;
+//        }
+//        $lsComment = Comment::where('post_Id', $postId)->simplePaginate(6);
+//        return view("comment.listByProperties")->with(['lsComment' => $lsComment, 'countPage'=> $countPage, 'title' => $title]);
+//    }
     public function deleteCommentAjax(Request $request){
 	    $id = $request -> comment_id;
 	    $comment = Comment::find($id);
@@ -98,7 +158,9 @@ class CommentController extends Controller
 		    $comment->status = 0;
 		    $comment->save();
 		    return response()->json([
-			    'success' => 'delete comment successful'
+			    'success' => 'delete comment successful',
+			    'comment_content' => $comment->content,
+			    'comment_rating' => $comment->rating,
 		    ]);
 	    }
     }

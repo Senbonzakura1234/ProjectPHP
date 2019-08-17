@@ -28,7 +28,7 @@
         </div>
         <div class="col-12 p-2 col-sm-6">
             <div class="card">
-                <div class="card-header"><a href="{{route('post.index')}}"><i class="far fa-clipboard"></i> Post</a>
+                <div class="card-header"><a href="{{route('post.index')}}"><i class="far fa-clipboard"></i> Game</a>
                 </div>
                 <div class="card-body">
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the

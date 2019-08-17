@@ -10,7 +10,7 @@
                          alt="Image Placeholder" class="img-fluid">
                     <div class="about-name d-block d-lg-inline-block">
                         <h2 class="mb-0">
-                            Senbonzakura
+                            About Woobly
                         </h2>
                     </div>
                 </div>
@@ -35,34 +35,151 @@
         </div>
         <div class="row mb-5 mt-5">
             <div class="col-md-12 mb-5">
-                <h2><i class="fas fa-user-clock"></i> My Latest Posts</h2>
+                <h2><i class="fas fa-user-clock"></i> Our Latest Games & DLCs</h2>
             </div>
+			<div class="col-md-12">
+				<h5>Games</h5>
+			</div>
             <div class="col-md-12">
                 @foreach($lsPost as $post)
-                    <div class="post-entry-horzontal">
-                        <a href="{{asset('/view_post/'.$post->id)}}">
-                            <div class="image" style="background-image: url({{asset($post->cover)}});"></div>
-                            <span class="text">
-                                <div class="post-meta">
-                                    <span class="author mr-2"><img src=" {{asset('/images/person_1.jpg')}}"
-                                        alt="User"> User</span>&bullet;
-                                    <span class="mr-2">{{date('M d Y', strtotime($post->created_at))}} </span> &bullet;
-                                    <span class="ml-2"><span class="fa fa-comments"></span> {{count($post->comment->where('status', 1))}}</span>
-                                </div>
-                                <h2>{{$post->title}}</h2>
-                            </span>
-                        </a>
-                    </div>
-                    <!-- END post -->
+					<div class="card my-3" style=" width: 100%">
+						<div class="row no-gutters">
+							<div class="col-12 col-md-3">
+								<a href="{{asset('/view_post/'.$post->id)}}" class="d-block" style="padding: 0;
+									background:
+									url('{{asset($post->cover)}}')
+									no-repeat center; background-size: cover !important; min-height: 150px;
+									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
+								</a>
+							</div>
+							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
+								<div class="card-body pb-md-0">
+									<h5 class="card-title">
+										<a href="{{asset('/view_post/'.$post->id)}}">
+											{{$post->title}}
+										</a>
+									</h5>
+									<p class="card-text">
+										Price:
+										@if($post->discount > 0 && $post->discount < 100 && $post->price > 0)
+											<small>
+												<span style="text-decoration: line-through;">
+													{{$post->price}} €
+												</span>
+											</small>
+											&nbsp;
+											<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$post->discount}}%
+												</span>
+											</strong>
+											{{$post->price * (1 - $post->discount/100)}} €
+										@elseif($post->price == 0 || $post->discount == 100)
+											<strong>
+												<span class="badge badge-success" style="font-size: 100%">FREE</span>
+											</strong>
+										@else
+											<small>
+												{{$post->price}} €
+											</small>
+											@endif
+											&bull;
+											<small>
+												<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
+												<i class="fab fa-xbox @if($post->xbox == 1) text-compartible @endif"></i>
+												<i class="fab fa-playstation
+												@if($post->playstation == 1) text-compartible @endif">
+												</i>
+											</small>
+									</p>
+								</div>
+							</div>
+							<button class="btn btn-sm btn-primary add-to-cart-btn">
+								<i class="fas fa-cart-plus"></i>
+								<span class="add-to-cart-btn-text">Add to cart</span>
+								<i class="fas fa-sync-alt fast-spin"></i>
+							</button>
+						</div>
+					</div>
+                @endforeach
+            </div>
+			<div class="col-md-12">
+				<h5>DLCs</h5>
+			</div>
+            <div class="col-md-12">
+                @foreach($lsDlc as $dlc)
+					<div class="card my-3" style=" width: 100%">
+						<div class="row no-gutters">
+							<div class="col-12 col-md-3">
+								<a href="{{route('post.show', $dlc->id)}}" class="d-block" style="padding: 0;
+									background:
+									url('{{asset($dlc->cover)}}')
+									no-repeat center; background-size: cover !important; min-height: 150px;
+									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
+								</a>
+							</div>
+							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
+								<div class="card-body pb-md-0">
+									<h5 class="card-title">
+										<a href="{{route('post.show', $dlc->id)}}">
+											{{$dlc->title}}
+										</a>
+									</h5>
+									<p class="card-text">
+										Price:
+										@if($dlc->discount > 0 && $dlc->discount < 100 && $dlc->price > 0)
+											<small>
+												<span style="text-decoration: line-through;">
+													{{$dlc->price}} €
+												</span>
+											</small>
+											&nbsp;
+											<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$dlc->discount}}%
+												</span>
+											</strong>
+											{{$dlc->price * (1 - $dlc->discount/100)}} €
+										@elseif($dlc->price == 0 || $dlc->discount == 100)
+											<strong>
+												<span class="badge badge-success" style="font-size: 100%">FREE</span>
+											</strong>
+										@else
+											<small>
+												{{$dlc->price}} €
+											</small>
+											@endif
+											&bull;
+											<small>
+												<i class="fab fa-windows @if($dlc->windows == 1) text-compartible @endif"></i>
+												<i class="fab fa-xbox @if($dlc->xbox == 1) text-compartible @endif"></i>
+												<i class="fab fa-playstation
+												@if($dlc->playstation == 1) text-compartible @endif">
+												</i>
+											</small>
+									</p>
+								</div>
+								<button class="btn btn-sm btn-primary add-to-cart-btn">
+									<i class="fas fa-cart-plus"></i>
+									<span class="add-to-cart-btn-text">Add to cart</span>
+									<i class="fas fa-sync-alt fast-spin"></i>
+								</button>
+							</div>
+						</div>
+					</div>
                 @endforeach
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-center">
-                <a style="width: 50%; font-size: 20px; border-radius: 40px"
-                   href="{{asset('/post_list')}}" class="btn btn-primary">
-                    <i class="fas fa-th-list"></i> View more post
+                <a style="font-size: 15px; border-radius: 40px"
+                   href="{{asset('/post_list')}}" class="btn btn-primary d-inline-block mb-2">
+                    <i class="fas fa-th-list"></i> View more Games
+                </a>
+				<a style="font-size: 15px; border-radius: 40px"
+                   href="{{asset('/dlc_list')}}" class="btn btn-primary d-inline-block mb-2">
+                    <i class="fas fa-th-list"></i> View more DLCs
                 </a>
             </div>
         </div>

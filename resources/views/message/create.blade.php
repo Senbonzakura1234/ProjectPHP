@@ -2,7 +2,7 @@
 @section('content-title')
     <div class="row mb-4">
         <div class="col-md-6">
-            <h1>Contact Me <i class="fas fa-mail-bulk"></i></h1>
+            <h1>Contact Us <i class="fas fa-mail-bulk"></i></h1>
         </div>
     </div>
 @endsection

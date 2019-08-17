@@ -13,36 +13,65 @@
     <div class="col-md-12 col-lg-8 main-content">
         <div class="row mb-5 mt-5">
 
-            <div class="col-md-12">
-                @foreach($lsPostAll as $post)
-                    <div class="post-entry-horzontal">
-                        <a href="{{asset('/view_post/'.$post->id)}}">
-                            <div class="image element-animate"
-                                 style="background-image: url({{asset($post->cover)}});"></div>
-                            <span class="text">
-                                <div class="post-meta">
-                                    <span class="author mr-2">
-                                        <img src="{{asset('/images/person_1.jpg')}}" alt="User">
-                                        User
-                                    </span>
-                                    <span class="mr-2">{{date('M d Y', strtotime($post->created_at))}} </span>
-                                    @foreach($post->tags as $tag)
-                                        @if($loop->first)
-                                            <span class="mr-2">
-                                                <i class="fas fa-tag"></i> {{$tag->name}}
-                                            </span>
-                                        @endif
-                                    @endforeach
-                                    <span class="ml-2"><span class="fa fa-comments"></span>
-                                    {{count($post->comment->where('status', 1))}}</span>
-                                </div>
-                                <h2>{{$post->title}}</h2>
-                            </span>
-                        </a>
-                    </div>
-                    <!-- END post -->
-                @endforeach
-            </div>
+			@foreach($lsPostAll as $post)
+				<div class="col-12" style="padding: 15px">
+					<div class="card" style=" width: 100%">
+						<div class="row no-gutters">
+							<div class="col-12 col-md-3">
+								<a href="{{asset('/view_post/'.$post->id)}}" class="d-block" style="padding: 0;
+									background:
+									url('{{asset($post->cover)}}')
+									no-repeat center; background-size: cover !important; min-height: 150px;
+									height: 100%; border-radius: 0.25rem 0 0 0.25rem; width: 100%">
+								</a>
+							</div>
+							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
+								<div class="card-body pb-md-0">
+									<h5 class="card-title">
+										<a href="{{asset('/view_post/'.$post->id)}}">
+											{{$post->title}}
+										</a>
+									</h5>
+									<p class="card-text">
+										Price:
+										@if($post->discount > 0)
+											<small>
+												<span style="text-decoration: line-through;">
+													{{$post->price}} €
+												</span>
+											</small>
+											&nbsp;
+											<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$post->discount}}%
+												</span>
+											</strong>
+											{{$post->price * (1 - $post->discount/100)}} €
+										@else
+											<small>
+												{{$post->price}} €
+											</small>
+											@endif
+											&bull;
+											<small>
+												<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
+												<i class="fab fa-xbox @if($post->xbox == 1) text-compartible @endif"></i>
+												<i class="fab fa-playstation
+													@if($post->playstation == 1) text-compartible @endif">
+												</i>
+											</small>
+									</p>
+								</div>
+								<button class="btn btn-sm btn-primary add-to-cart-btn">
+									<i class="fas fa-cart-plus"></i>
+									<span class="add-to-cart-btn-text">Add to cart</span>
+									<i class="fas fa-sync-alt fast-spin"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			@endforeach
         </div>
 
         <div class="row mt-5">

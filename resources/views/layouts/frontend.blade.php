@@ -3,7 +3,7 @@
 <head>
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<title>Wordify</title>
+	<title>Woobly</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="theme-color" content="#62b1f6">
@@ -117,7 +117,7 @@
 				<div class="menu-button d-lg-none">
 					<span class="fas fa-bars"></span>
 				</div>
-				<h1 class="site-logo"><a href="{{asset('/')}}">Wordify</a></h1>
+				<h1 class="site-logo"><a href="{{asset('/')}}">Woobly</a></h1>
 			</div>
 			<div class="col-12 menu-header-lg d-none d-lg-inline">
 				<div class="text-center">
@@ -159,13 +159,73 @@
 					</div>
 					<div class="d-inline nav-link">
 						<a class="mx-auto" href="{{asset('/about')}}">
-							<i class="fas fa-info-circle"></i> About Me
+							<i class="fas fa-info-circle"></i> About Us
 						</a>
 					</div>
 					<div class="d-inline nav-link">
 						<a class="mx-auto" href="{{asset('/contact')}}">
-							<i class="fas fa-comment-dots"></i> Contact Me
+							<i class="fas fa-comment-dots"></i> Contact Us
 						</a>
+					</div>
+					<div class="d-inline nav-link active" id="dropDownMenuCart-lg-trigger">
+						<a class="mx-auto" href="#" id="dropDownMenuCart-lg-link">
+							<i class="fas fa-shopping-cart"></i>
+							<span class="badge badge-warning badge-pill" style="position: relative; top: -2px">
+								{{count($lsPopular)}}
+							</span>
+						</a>
+						<ul id="dropDownMenuCart-lg" class="dropDownCart-lg">
+							<div class="pt-2 px-3 text-left cart-top">
+								<h5 class="m-0">
+									New added games &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									Price
+								</h5>
+								<span class="cart-remove-all-btn">
+									<i class="fas text-danger fa-trash-restore-alt"></i>
+								</span>
+							</div>
+							<li class="dropdown-divider"></li>
+							@foreach($lsPopular as $popular)
+								<li class="nav-item">
+									<a class="nav-link" href="{{asset('/view_post/'.$popular->id)}}">
+										<div class="cart-game-icon"
+											 style="background: url('{{asset($popular->cover)}}');
+											 background-size: cover">
+										</div>
+										{{strlen($popular->title) > 20 ?
+											substr($popular->title, 0, 20)." ..." : $popular->title}}
+										<div class="cart-item-price d-block">
+											@if($popular->price > 0 && $popular->discount > 0
+												&& $popular->discount < 100)
+												<span class="text-primary">
+													{{$popular->price * (1-$popular->discount/100)}} €
+												</span>
+												<span class="badge badge-success badge-pill">
+													-{{ $popular->discount}}%
+												</span>
+											@elseif($popular->price == 0 || $popular->discount == 100)
+												<span class="badge badge-success badge-pill">Free</span>
+											@else
+												<span>{{$popular->price}} €</span>
+											@endif
+										</div>
+									</a>
+									<div class="text-danger cart-remove-btn">
+										<i class="fas fa-times-circle"></i>
+									</div>
+								</li>
+							@endforeach
+							<li class="dropdown-divider"></li>
+							<div class="text-center px-2 pb-2">
+								<a style="width: 40%" class="btn-info btn" href="{{asset('/cart')}}">
+									Go to Cart
+								</a>
+								<a style="width: 40%" class="btn-success btn" href="{{asset('/checkout')}}">
+									Checkout
+								</a>
+							</div>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -184,7 +244,7 @@
 <ul class="menu-header-sm d-lg-none" style="list-style: none">
 	<li class="nav-item text-center logo-header-wrap">
 		<a class="nav-link" href="{{asset('/')}}">
-			<img src="{{asset('/images/LogoMobile.png')}}" alt="Wordify" width="100" height="100">
+			<img src="{{asset('/images/LogoMobile.png')}}" alt="Woobly" width="100" height="100">
 		</a>
 	</li>
 	<li class="nav-item search-top-sm">
@@ -231,12 +291,20 @@
 	<div class="dropdown-divider"></div>
 	<li class="nav-item">
 		<a class="nav-link" href="{{asset('/about')}}">
-			<i class="fas fa-info-circle"></i> About Me
+			<i class="fas fa-info-circle"></i> About Us
 		</a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="{{asset('/contact')}}">
-			<i class="fas fa-comment-dots"></i> Contact Me
+			<i class="fas fa-comment-dots"></i> Contact Us
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="{{asset('/cart')}}">
+			<i class="fas fa-shopping-cart"></i> Go To Cart
+			<span class="badge-pill badge-info badge">
+				 {{count($lsPopular)}}
+			</span>
 		</a>
 	</li>
 	<div class="dropdown-divider"></div>
@@ -321,7 +389,7 @@
 								<p>
 									<a href="{{asset('/about')}}"
 									   class="btn btn-primary btn-sm rounded">
-										Read my bio
+										Read more
 									</a>
 								</p>
 								<p class="social">
@@ -346,13 +414,7 @@
 			<!-- END sidebar-box -->
 
 				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-lightbulb"></i> Have a new ideal?</h3>
-					<a href="{{route('post.create')}}" style="width: 100%" class="btn btn-primary">
-						Create a new post
-					</a>
-				</div>
-				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-rss-square"></i> Popular Posts</h3>
+					<h3 class="heading"><i class="fas fa-rss-square"></i> Popular Games</h3>
 					<div class="post-entry-sidebar">
 						<ul>
 							@foreach($lsPopular as $popular)
@@ -380,12 +442,13 @@
 				</div>
 				<!-- END sidebar-box -->
 				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-rss-square"></i> Don't know what to read?
+					<h3 class="heading"><i class="fas fa-rss-square"></i> Don't know what to play?
 					</h3>
 					<form class="text-center" method="get" action="{{asset('/randomPost')}}">
 						@csrf
-						<input style="width: 100%" class="btn btn-primary"
-							   value="Get Random Post" type="submit">
+						<button style="width: 100%" class="btn btn-primary" type="submit">
+							<i class="fas fa-random"></i> Get A Game
+						</button>
 					</form>
 				</div>
 				<div class="sidebar-box">
@@ -429,7 +492,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-sm-6 mb-3 col-lg-4 ">
-				<h3>About Me <i class="fas fa-info-circle"></i></h3>
+				<h3>About Us <i class="fas fa-info-circle"></i></h3>
 				<a href="{{asset('/about')}}" class="footer-banner footer-banner-img">
 					<img src="{{asset('/images/img_1.jpg')}}" alt="Image placeholder">
 				</a>
@@ -444,13 +507,13 @@
 
 			</div>
 			<div class="col-12 col-sm-6 mb-3 col-lg-4">
-				<h3>Latest Post <i class="fas fa-clock"></i></h3>
+				<h3>Latest DLCs <i class="fas fa-clock"></i></h3>
 				<div class="post-entry-sidebar">
 					<ul>
 						@foreach($lsLatest as $latest)
 							<li>
 								<a class="post-entry-link"
-								   href="{{asset('/view_post/'.$latest->id)}}">
+								   href="{{asset('/view_dlc/'.$latest->id)}}">
 									<img src="{{asset($latest->cover)}}"
 										 alt="Image placeholder" class="mr-2">
 									<div class="text">
@@ -519,7 +582,7 @@
 						</ul>
 					</div>
 					<div class="col-12 col-sm-6 col-lg-12 text-center mt-4 mt-sm-5 mt-lg-4">
-						<a class="footer-logo" href="{{asset('/')}}"><h1>Wordify</h1></a>
+						<a class="footer-logo" href="{{asset('/')}}"><h1>Woobly</h1></a>
 						<p class="small d-none d-sm-block d-lg-none mt-3">
 							Copyright &copy; Phạm Anh Dũng @Senbonzakura97
 							anhdunngpham090@gmail.com

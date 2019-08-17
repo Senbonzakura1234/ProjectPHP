@@ -31,16 +31,18 @@
                                 @endif
                             </span>
                             &bull;
-                            <span class="d-inline-block">Post id: {{$comment->post->id}} &bull;</span>
+{{--                            <span class="d-inline-block">Post id: {{$comment->post->id}} &bull;</span>--}}
                             <span class="d-inline-block">
-                                <a href="{{asset('/admin/commentByProperties/post/'.$comment->post->id)}}">
+{{--								{{asset('/admin/commentByProperties/post/'.$comment->post->id)}}--}}
+                                <a href="#">
                                     Same post
                                 </a>
                             </span>
                             &bull;
                             <span class="d-inline-block">Post : &nbsp;
-                                <a href="{{asset('/view_post/'.$comment->post->id)}}" class="card-link">
-                                    {{substr($comment->post->title, 0, 15)}} ...
+{{--								{{asset('/view_post/'.$comment->post->id)}}--}}
+                                <a href="" class="card-link">
+{{--                                    {{substr($comment->post->title, 0, 15)}} ...--}}
                                 </a>
                             </span>
                         </small>
