@@ -72,7 +72,7 @@
             </div>
 
             <div class="form-group text-center">
-                <input id="form-submit" class="btn btn-dark" type="submit" value="Update" style="width: 100%">
+                <input id="form-submit" class="btn btn-primary" type="submit" value="Update" style="width: 100%">
                 <div>
                     <p>Return to <a href="{{route('post.index')}}">dashboard</a></p>
                 </div>

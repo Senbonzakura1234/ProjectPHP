@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('content')
         <div class="text-center mb-4 mt-2">
@@ -11,7 +11,7 @@
                 <div class="d-none needToRemove">
                     {{$commentCount = 0}}
                     @foreach($cate->posts as $countEach)
-                        {{$commentCount = $commentCount + count($countEach->comment)}}
+                        {{$commentCount = $commentCount + count($countEach->comment->where('status',1))}}
                     @endforeach
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4
@@ -21,22 +21,39 @@
                         mr-auto
                     @endif
                     "
-                    style="padding-top: 10px; padding-bottom: 10px">
-                    <div class="card border-dark">
-                        <div class="card-header bg-dark text-light">
+                    style="padding-top: 10px; padding-bottom: 10px; border: none">
+                    <div class="card text-white">
+                        <div class="card-header text-white
+							@if(($i + 3)%3 === 0) bg-primary
+							@elseif(($i + 3)%3 === 1) bg-success
+							@elseif(($i + 3)%3 === 2) bg-dark
+							@endif
+							">
                             <a href="{{route('category.show', $cate->id)}}">
                                 {{$i+1}}/ {{$cate->name}}
                             </a>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body
+                        		text-white
+								@if(($i + 3)%3 === 0) bg-primary
+							@elseif(($i + 3)%3 === 1) bg-success
+							@elseif(($i + 3)%3 === 2) bg-dark
+							@endif
+							">
                             <p class="card-text">Post Count: {{count($cate->posts)}}</p>
                             <p class="card-text">
                                 Comment Count: {{$commentCount}}
                             </p>
                         </div>
-                        <div class="card-footer row mx-0  bg-dark text-light">
+                        <div class="card-footer row mx-0
+								text-white
+								@if(($i + 3)%3 === 0) bg-primary
+							@elseif(($i + 3)%3 === 1) bg-success
+							@elseif(($i + 3)%3 === 2) bg-dark
+							@endif
+							">
                             <div class="mx-auto ml-sm-auto mr-sm-0">
-                                <a class="btn-dark btn" href="{{route('category.edit', $cate->id)}}">Update</a>
+                                <a class="btn-warning btn" href="{{route('category.edit', $cate->id)}}">Update</a>
                                 <form method="post" onsubmit="return confirm('Sure ?')"
                                       action="{{route('category.destroy', $cate->id)}}" style="display: inline">
                                     @csrf
@@ -58,7 +75,7 @@
         @endforeach
         <div class="mt-4 text-center">
             <div>
-                <a class="btn btn-outline-dark my-auto" href="{{route('category.create')}}">Create New</a>
+                <a class="btn btn-primary my-auto" href="{{route('category.create')}}">Create New</a>
             </div>
         </div>
 @endsection

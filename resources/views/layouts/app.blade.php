@@ -8,7 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Woobly</title>
-
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -39,12 +41,12 @@
 
     {{--    <script src="https://kit.fontawesome.com/f4bb5974c6.js"></script>--}}
     <script src="{{asset('/fonts/fontawesome/js/all.js')}}"></script>
-    <link rel="icon" href="https://res.cloudinary.com/senbonzakura/image/upload/v1561652707/fav-icon-admin_xgv1bf.png"
+    <link rel="icon" href="https://res.cloudinary.com/senbonzakura/image/upload/v1566057715/fav-icon-admin_gtqrop.png"
           type="image/png">
     <!-- Theme Style -->
     <link rel="stylesheet" href="{{asset('/css/dashboard.css')}}">
 </head>
-<body style="background-image: url({{asset('/images/photography.png')}})">
+<body>
 <div class="loading text-center">
     <i class="fas fa-dharmachakra fa-spin"></i>
 </div>
@@ -108,7 +110,7 @@
                                 <span>Message</span>
                                 <i class="fas fa-bell"></i>
                                 @if(count($lsMessage) > 0)
-                                    <span class="badge badge-pill badge-danger badge-message">
+                                    <span class="badge badge-pill badge-danger badge-message2">
                                         {{count($lsMessage)}}
                                     </span>
                                 @endif
@@ -155,14 +157,14 @@
     <div class="container main-dashboard">
         @yield('content')
     </div>
-    <div class="container-fluid footer py-5" style="background: #343a40">
+    <div class="container-fluid footer py-5" style="background: #4e73df">
         <div class="row text-center">
             <div class="mx-auto mb-3">
-                <a class="btn btn-secondary" href="{{route('category.index')}}">Category</a>
-                <a class="btn btn-secondary" href="{{route('tag.index')}}">Tag</a>
-                <a class="btn btn-secondary" href="{{route('post.index')}}">Post</a>
-                <a class="btn btn-secondary" href="{{asset('/admin/comment')}}">Comment</a>
-                <a class="btn btn-secondary" href="{{asset('/admin/dlc')}}">DLC</a>
+                <a class="btn btn-primary" href="{{route('category.index')}}">Category</a>
+                <a class="btn btn-success" href="{{route('tag.index')}}">Tag</a>
+                <a class="btn btn-dark" href="{{route('post.index')}}">Post</a>
+                <a class="btn btn-warning" href="{{asset('/admin/comment')}}">Comment</a>
+                <a class="btn btn-danger" href="{{asset('/admin/dlc')}}">DLC</a>
             </div>
         </div>
         <div class="row text-center">

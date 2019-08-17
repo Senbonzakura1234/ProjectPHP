@@ -14,7 +14,7 @@
 					</ol>
 					<div class="carousel-inner">
 						@foreach($lsPopular as $carousel)
-							<div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="3000">
+							<div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="6000">
 								<div class="carousel-home-span" id="carousel-home-bg-1"
 									 style="background-image: url('{{asset($carousel->cover)}}')">
 								</div>

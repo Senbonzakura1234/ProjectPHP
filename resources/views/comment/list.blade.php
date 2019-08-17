@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="text-center mb-3 mt-2">
+    <div class="text-center my-5">
         <div class="col">
             <h2>Comment Management</h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-5">
         @foreach($lsComment as $comment)
             <div class="mb-4 col-12 ">
-                <div class="card @if($comment->status === 1) text-white bg-secondary @else bg-light @endif"
+                <div class="card @if($comment->status === 1) text-white bg-success @else bg-light @endif"
                      id="comment{{$comment->id}}"
                      style="border-radius: 10px">
                     <div class="card-header">
@@ -46,7 +46,7 @@
                                 </a>
                             </span>
                         </small>
-                        <button class="@if($comment->status === 1) btn btn-danger @else btn btn-dark @endif
+                        <button class="@if($comment->status === 1) btn btn-danger @else btn btn-primary @endif
                             mt-4 mt-md-3 mt-lg-0 float-right" data-toggle="modal"
                                 data-target="#exampleModal" data-whatever="{{$comment->id}}">
                             Change Status
@@ -98,7 +98,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                     <button type="button" id="btn-change-status" class="btn btn-danger">Confirm Change</button>
                 </div>
             </div>
@@ -125,13 +125,13 @@
                 data: {comment_id: comment_id, comment_status: comment_status, _token: _token},
                 success: function (data) {
                     if (comment_status == 1) {
-                        $('#comment' + comment_id).addClass("text-white").addClass("bg-secondary").removeClass("bg-light");
+                        $('#comment' + comment_id).addClass("text-white").addClass("bg-success").removeClass("bg-light");
                         $('#comment' + comment_id).find(".status").text("Status: Show");
-                        $('#comment' + comment_id).find(".btn").addClass("btn-danger").removeClass("btn-dark");
+                        $('#comment' + comment_id).find(".btn").addClass("btn-danger").removeClass("btn-primary");
                     } else if (comment_status == 0) {
-                        $('#comment' + comment_id).addClass("bg-light").removeClass("text-white").removeClass("bg-secondary");
+                        $('#comment' + comment_id).addClass("bg-light").removeClass("text-white").removeClass("bg-success");
                         $('#comment' + comment_id).find(".status").text("Status: Hide");
-                        $('#comment' + comment_id).find(".btn").addClass("btn-dark").removeClass("btn-danger");
+                        $('#comment' + comment_id).find(".btn").addClass("btn-primary").removeClass("btn-danger");
                     }
                     $('.modal').modal('toggle');
                 },
@@ -151,7 +151,7 @@
                 "       </form>\n" +
                 "   </div>\n" +
                 "   <div>\n" +
-                "       <button class=\"btn-dark btn\" id=\"goToPage\">\n" +
+                "       <button class=\"btn-primary btn\" id=\"goToPage\">\n" +
                 "           Go to Page\n" +
                 "       </button>\n" +
                 "   </div>\n" +

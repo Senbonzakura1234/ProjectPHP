@@ -24,6 +24,9 @@ Route::get('/dlc_list', 'HomePageController@dlc_list');
 Route::get('/category.php', function () {
     return view('category');
 });
+Route::get('/homeAdmin', function () {
+    return view('home2');
+});
 Route::get('/tag.php', function () {
     return view('tag');
 });
