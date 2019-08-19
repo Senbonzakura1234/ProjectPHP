@@ -167,66 +167,68 @@
 							<i class="fas fa-comment-dots"></i> Contact Us
 						</a>
 					</div>
-					<div class="d-inline nav-link active" id="dropDownMenuCart-lg-trigger">
-						<a class="mx-auto" href="#" id="dropDownMenuCart-lg-link">
-							<i class="fas fa-shopping-cart"></i>
-							<span class="badge badge-warning badge-pill" style="position: relative; top: -2px">
-								{{count($lsPopular)}}
-							</span>
-						</a>
-						<ul id="dropDownMenuCart-lg" class="dropDownCart-lg">
-							<div class="pt-2 px-3 text-left cart-top">
-								<h5 class="m-0">
-									New added games &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									Price
-								</h5>
-								<span class="cart-remove-all-btn">
-									<i class="fas text-danger fa-trash-restore-alt"></i>
+					@if(Auth::check())
+						<div class="d-inline nav-link active" id="dropDownMenuCart-lg-trigger">
+							<a class="mx-auto" href="#" id="dropDownMenuCart-lg-link">
+								<i class="fas fa-shopping-cart"></i>
+								<span class="badge badge-warning badge-pill" style="position: relative; top: -2px">
+									{{count($lsPopular)}}
 								</span>
-							</div>
-							<li class="dropdown-divider"></li>
-							@foreach($lsPopular as $popular)
-								<li class="nav-item">
-									<a class="nav-link" href="{{asset('/view_post/'.$popular->id)}}">
-										<div class="cart-game-icon"
-											 style="background: url('{{asset($popular->cover)}}');
-											 background-size: cover">
+							</a>
+							<ul id="dropDownMenuCart-lg" class="dropDownCart-lg">
+								<div class="pt-2 px-3 text-left cart-top">
+									<h5 class="m-0">
+										New added games &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										Price
+									</h5>
+									<span class="cart-remove-all-btn">
+										<i class="fas text-danger fa-trash-restore-alt"></i>
+									</span>
+								</div>
+								<li class="dropdown-divider"></li>
+								@foreach($lsPopular as $popular)
+									<li class="nav-item">
+										<a class="nav-link" href="{{asset('/view_post/'.$popular->id)}}">
+											<div class="cart-game-icon"
+												 style="background: url('{{asset($popular->cover)}}');
+												 background-size: cover">
+											</div>
+											{{strlen($popular->title) > 20 ?
+												substr($popular->title, 0, 20)." ..." : $popular->title}}
+											<div class="cart-item-price d-block">
+												@if($popular->price > 0 && $popular->discount > 0
+													&& $popular->discount < 100)
+													<span class="text-primary">
+														{{$popular->price * (1-$popular->discount/100)}} €
+													</span>
+													<span class="badge badge-success badge-pill">
+														-{{ $popular->discount}}%
+													</span>
+												@elseif($popular->price == 0 || $popular->discount == 100)
+													<span class="badge badge-success badge-pill">Free</span>
+												@else
+													<span>{{$popular->price}} €</span>
+												@endif
+											</div>
+										</a>
+										<div class="text-danger cart-remove-btn">
+											<i class="fas fa-times-circle"></i>
 										</div>
-										{{strlen($popular->title) > 20 ?
-											substr($popular->title, 0, 20)." ..." : $popular->title}}
-										<div class="cart-item-price d-block">
-											@if($popular->price > 0 && $popular->discount > 0
-												&& $popular->discount < 100)
-												<span class="text-primary">
-													{{$popular->price * (1-$popular->discount/100)}} €
-												</span>
-												<span class="badge badge-success badge-pill">
-													-{{ $popular->discount}}%
-												</span>
-											@elseif($popular->price == 0 || $popular->discount == 100)
-												<span class="badge badge-success badge-pill">Free</span>
-											@else
-												<span>{{$popular->price}} €</span>
-											@endif
-										</div>
+									</li>
+								@endforeach
+								<li class="dropdown-divider"></li>
+								<div class="text-center px-2 pb-2">
+									<a style="width: 40%" class="btn-info btn" href="{{asset('/cart')}}">
+										Go to Cart
 									</a>
-									<div class="text-danger cart-remove-btn">
-										<i class="fas fa-times-circle"></i>
-									</div>
-								</li>
-							@endforeach
-							<li class="dropdown-divider"></li>
-							<div class="text-center px-2 pb-2">
-								<a style="width: 40%" class="btn-info btn" href="{{asset('/cart')}}">
-									Go to Cart
-								</a>
-								<a style="width: 40%" class="btn-success btn" href="{{asset('/checkout')}}">
-									Checkout
-								</a>
-							</div>
-						</ul>
-					</div>
+									<a style="width: 40%" class="btn-success btn" href="{{asset('/checkout')}}">
+										Checkout
+									</a>
+								</div>
+							</ul>
+						</div>
+					@endif
 				</div>
 			</div>
 		</div>

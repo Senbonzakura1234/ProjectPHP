@@ -61,6 +61,7 @@
 <div id="wrapper">
 
 	<!-- Sidebar -->
+	@if(Auth::check())
 	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
 		<!-- Sidebar - Brand -->
@@ -77,37 +78,38 @@
 		<hr class="sidebar-divider my-0">
 
 		<!-- Nav Item - Dashboard -->
-		<li class="nav-item">
-			<a class="nav-link" href="{{asset('/admin')}}">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Dashboard</span>
-			</a>
 
-			<a href="{{route('category.index')}}" class="nav-link">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Category</span>
-			</a>
+			<li class="nav-item">
+				<a class="nav-link" href="{{asset('/admin')}}">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
 
-			<a href="{{route('tag.index')}}" class="nav-link">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Tag</span>
-			</a>
+				<a href="{{route('category.index')}}" class="nav-link">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Category</span>
+				</a>
 
-			<a href="{{route('post.index')}}" class="nav-link">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Post</span>
-			</a>
+				<a href="{{route('tag.index')}}" class="nav-link">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Tag</span>
+				</a>
 
-			<a href="{{asset('/admin/dlc')}}" class="nav-link">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>DLC</span>
-			</a>
+				<a href="{{route('post.index')}}" class="nav-link">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Post</span>
+				</a>
 
-			<a class="nav-link" href="{{asset('/admin/comment')}}">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Comment</span>
-			</a>
-		</li>
+				<a href="{{asset('/admin/dlc')}}" class="nav-link">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>DLC</span>
+				</a>
+
+				<a class="nav-link" href="{{asset('/admin/comment')}}">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Comment</span>
+				</a>
+			</li>
 
 		<!-- Heading -->
 
@@ -116,12 +118,13 @@
 		<hr class="sidebar-divider d-none d-md-block">
 
 		<!-- Sidebar Toggler (Sidebar) -->
-		<div class="text-center d-none d-md-inline">
-			<button class="rounded-circle border-0" id="sidebarToggle"></button>
-		</div>
+
+			<div class="text-center d-none d-md-inline">
+				<button class="rounded-circle border-0" id="sidebarToggle"></button>
+			</div>
 
 	</ul>
-
+	@endif
 
 	<!-- Content Wrapper -->
 	<div id="content-wrapper" class="d-flex flex-column">

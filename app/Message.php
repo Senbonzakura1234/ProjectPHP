@@ -9,4 +9,7 @@ class Message extends Model
 {
     use SoftDeletes;
     protected $date = ['deleted_at'];
+	public function user(){
+		return $this->belongsTo("App\User");
+	}
 }

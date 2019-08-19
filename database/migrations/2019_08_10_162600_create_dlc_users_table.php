@@ -17,7 +17,6 @@ class CreateDlcUsersTable extends Migration
             $table->bigIncrements('id');
 	        $table->bigInteger('dlc_id');
 	        $table->bigInteger('user_id');
-	        $table->timestamp("buy_at")->nullable();
             $table->timestamps();
         });
     }
