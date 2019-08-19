@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
@@ -42,6 +43,15 @@ class User extends Authenticatable
 //    }
 	public function comment(){
 		return $this->hasMany('App\Comment');
+	}
+	public function invoice(){
+		return $this->hasMany('App\Invoice');
+	}
+	public function product(){
+		return $this->hasMany('App\ProductInvoice');
+	}
+	public function message(){
+		return $this->hasMany('App\Message');
 	}
 	public function Posts(){
 		return $this ->belongsToMany('App\Post','post_users');

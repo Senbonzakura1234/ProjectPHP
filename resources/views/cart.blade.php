@@ -54,10 +54,6 @@
 						<td class="align-middle text-right">255,90 €</td>
 					</tr>
 					<tr>
-						<td >Tax</td>
-						<td class="align-middle text-right">0 €</td>
-					</tr>
-					<tr>
 						<td>Discount</td>
 						<td class="align-middle text-right">0 €</td>
 					</tr>
