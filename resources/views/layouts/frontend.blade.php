@@ -244,7 +244,7 @@
 </div>
 <a class="back-to-top"><i class="fas fa-arrow-alt-circle-up"></i></a>
 <ul class="menu-header-sm d-lg-none" style="list-style: none">
-	<li class="nav-item text-center logo-header-wrap">
+	<li class="nav-item text-center logo-header-wrap-sm">
 		<a class="nav-link" href="{{asset('/')}}">
 			<img src="{{asset('/images/LogoMobile.png')}}" alt="Woobly" width="100" height="100">
 		</a>
@@ -370,50 +370,56 @@
 					</form>
 				</div>
 				<!-- END sidebar-box -->
-				@foreach($adminUser as $admin)
-					<div class="sidebar-box">
-						<div class="bio text-center">
-							<a href="{{asset('/about')}}" class="avatar-bio mx-auto">
-								<img src="{{asset('/images/person_1.jpg')}}"
-									 alt="Image Placeholder" class="img-fluid">
-							</a>
-							<div class="bio-body">
-								<a href="{{asset('/about')}}"><h2>{{$admin->name}}</h2>
+				@if(Auth::check())
+					@if (\Request::route()->getName() != 'user_profile' &&
+						\Request::route()->getName() != 'profile_edit')
+						<div class="sidebar-box">
+							<div class="bio text-center">
+								<a href="{{asset('/user')}}" class="avatar-bio mx-auto">
+									<img src="{{
+									Auth::user()->avatar != null? asset(Auth::user()->avatar) :
+									'https://res.cloudinary.com/senbonzakura/image/upload/v1566237952/default_re2ods.png'
+									}}"
+										 alt="Image Placeholder" class="img-fluid bg-white">
 								</a>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Exercitationem facilis
-									sunt
-									repellendus excepturi beatae porro debitis
-									voluptate nulla quo veniam fuga sit
-									molestias minus.
-								</p>
-								<p>
-									<a href="{{asset('/about')}}"
-									   class="btn btn-primary btn-sm rounded">
-										Read more
+								<div class="bio-body">
+									<a href="{{asset('/about')}}"><h2>{{Auth::user()->name}}</h2>
 									</a>
-								</p>
-								<p class="social">
-									<a href="https://www.facebook.com/" class="p-2">
-										<span class="fab fa-facebook-square"></span>
-									</a>
-									<a href="https://twitter.com/" class="p-2">
-										<span class="fab fa-twitter"></span>
-									</a>
-									<a href="https://www.instagram.com/"
-									   class="p-2">
-										<span class="fab fa-instagram"></span>
-									</a>
-									<a href="https://www.youtube.com/" class="p-2">
-										<span class="fab fa-youtube"></span>
-									</a>
-								</p>
+									<p>
+										@if(Auth::user()->desc != null)
+											<br>
+											{!!Auth::user()->desc!!}
+										@else
+											<small>- not set -</small>
+										@endif
+									</p>
+									<p>
+										<a href="{{asset('/user')}}"
+										   class="btn btn-primary btn-sm rounded">
+											See your profile
+										</a>
+									</p>
+									<p class="social">
+										<a href="https://www.facebook.com/" class="p-2">
+											<span class="fab fa-facebook-square"></span>
+										</a>
+										<a href="https://twitter.com/" class="p-2">
+											<span class="fab fa-twitter"></span>
+										</a>
+										<a href="https://www.instagram.com/"
+										   class="p-2">
+											<span class="fab fa-instagram"></span>
+										</a>
+										<a href="https://www.youtube.com/" class="p-2">
+											<span class="fab fa-youtube"></span>
+										</a>
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
-			@endforeach
-			<!-- END sidebar-box -->
+					@endif
+				@endif
+				<!-- END sidebar-box -->
 
 				<div class="sidebar-box">
 					<h3 class="heading"><i class="fas fa-rss-square"></i> Popular Games</h3>
@@ -627,6 +633,26 @@
 		@yield('modal')
 	</div>
 </div>
+
+<style type="text/css">
+	@if(\Request::route()->getName() != 'homepage')
+		@media (max-width: 992px){
+			.logo-header-wrap {
+				background: #62b1f6;
+			}
+		}
+		@media (max-width: 992px){
+			.menu-button {
+				color: white !important;
+			}
+		}
+		@media (max-width: 992px) {
+			.site-logo a {
+				color: white !important;
+			}
+		}
+	@endif
+</style>
 <script src="{{asset('/js/main.js')}}"></script>
 </body>
 </html>

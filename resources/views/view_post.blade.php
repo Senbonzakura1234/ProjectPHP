@@ -155,7 +155,10 @@
 			@foreach($listComment as $comment)
 				<li class="comment" id="comment{{$comment->id}}">
 					<div class="vcard">
-						<img src="{{asset('/images/avatar.png')}}" alt="Image placeholder">
+						<img src="{{
+							$comment->user->avatar != null? asset($comment->user->avatar) :
+							'https://res.cloudinary.com/senbonzakura/image/upload/v1566237952/default_re2ods.png'
+							}}" alt="Image placeholder">
 					</div>
 					<div class="comment-body pb-4 pb-md-0">
 						<h3>{{$comment->user->name}}</h3>

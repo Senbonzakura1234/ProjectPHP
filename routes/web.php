@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomePageController@index');
+Route::get('/', 'HomePageController@index')->name('homepage');
 Route::get('/about', 'HomePageController@about');
 Route::get('/gift', 'HomePageController@gift');
 Route::get('/view_post/{id}', 'HomePageController@viewPost');
@@ -49,7 +49,6 @@ Route::post('/contact/save', 'MessageController@store')->name('saveMessage');
 
 
 
-
 Route::get('/randomPost', 'HomePageController@randomPost');
 Route::group(['middleware'=>'auth'], function(){
 	Route::get('/gift', 'HomePageController@gift');
@@ -61,6 +60,9 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::post('/dlc_comment/{id}', 'CommentController@dlc_comment');
 	Route::post('/dlc_comment_ajax/{id}', 'CommentController@dlc_comment_ajax');
 	Route::post('/delete_comment_ajax', 'CommentController@deleteCommentAjax');
+	Route::get('/user', 'HomePageController@userProfile')->name('user_profile');
+	Route::get('/edit_profile', 'HomePageController@editProfile')->name('profile_edit');
+	Route::post('/save_profile', 'HomePageController@saveProfile');
 });
 Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
