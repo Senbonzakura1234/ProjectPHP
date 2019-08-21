@@ -9,6 +9,10 @@ use App\Tag;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\Cart;
+use App\Invoice;
+use App\ProductInvoice;
+use Session;
 use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
@@ -153,5 +157,117 @@ class HomePageController extends Controller
 		return response()->json([
 			'country_selected_phone_code' => $country->phonecode,
 		]);
+	}
+
+	public function getAddtoCart(Request $req, $id){
+		// Kiem tra game da co trong gio hang chua???
+		$dayidpost = array();
+		if(Session::has('cart')){
+			$giohang = Session::get('cart');
+			foreach($giohang->items as $key => $product){
+				array_push($dayidpost, $key);
+			}
+			if(in_array($id, $dayidpost)){
+				return redirect()->back();
+			}else{
+				$product = Post::find($id);
+				$oldCart = Session::get('cart');
+				$cart = new Cart($oldCart);
+				$cart->add($product, $id);
+				$req->session()->put('cart', $cart);
+				return redirect()->back();
+			}
+		}else{
+			$product = Post::find($id);
+			$oldCart = null;
+			$cart = new Cart($oldCart);
+			$cart->add($product, $id);
+			$req->session()->put('cart', $cart);
+			return redirect()->back();
+		}
+	}
+
+	public function getDlctoCart(Request $req, $id){
+		// Kiem tra dlc da co trong gio hang chua???
+		$dayiddlc = array();
+		if(Session::has('cart')){
+			$giohang = Session::get('cart');
+			foreach($giohang->items as $key => $product){
+				array_push($dayiddlc, $key);
+			}
+			if(in_array($id, $dayiddlc)){
+				return redirect()->back();
+			}else{
+				$product = Dlc::find($id);
+				$oldCart = Session::get('cart');
+				$cart = new Cart($oldCart);
+				$cart->add($product, $id);
+				$req->session()->put('cart', $cart);
+				return redirect()->back();
+			}
+		}else{
+			$product = Dlc::find($id);
+			$oldCart = null;
+			$cart = new Cart($oldCart);
+			$cart->add($product, $id);
+			$req->session()->put('cart', $cart);
+			return redirect()->back();
+		}
+	}
+
+	public function getDelItemCart($id){
+		$oldCart = Session::has('cart')?Session::get('cart'):null;
+		$cart = new Cart($oldCart);
+		$cart -> removeItem($id);
+		if(count($cart->items)>0){
+			Session::put('cart',$cart);
+		}else{
+			Session::forget('cart');
+		}
+		return redirect()->back();
+	}
+	public function delAllCart(){
+		if(Session::has('cart')){
+			Session::forget('cart');
+			return redirect()->back();
+		}
+	}
+	public function postCheckout(Request $req){
+		if(Session::has('cart')){
+			$cart = Session::get('cart');
+			// dd($cart->items);
+			$user = auth()->user();
+			// dd($user);
+			$invoice = new Invoice;
+			$invoice -> user_id = $user->id;
+			$invoice -> total = $cart -> totalPrice;
+			$invoice -> city = $req -> city;
+			$invoice -> state = $req -> state;
+			$invoice -> zip = $req -> zip;
+			$invoice -> bAddress1 = $req -> address1;
+			$invoice -> bAddress2 = $req -> address2;
+			$invoice -> country_id = $req -> countries;
+			$invoice -> phone = $req -> phone;
+			$invoice -> buy_at = date('Y-m-d H:i:s');
+			$invoice -> save();
+
+			foreach ($cart->items as $key => $product) {				
+				$product_invoice = new ProductInvoice;
+				$product_invoice -> user_id = $user->id;
+				$product_invoice -> invoice_id = $invoice -> id;
+				if($product['postid']){
+					$product_invoice -> dlc_id = $key;
+				}else{
+					$product_invoice -> post_id = $key;
+				}				
+				$product_invoice -> save();
+			}
+			Session::forget('cart');
+			return redirect()->back();
+		}else{
+			return redirect()->back();
+		}
+		
+
 	}
 }

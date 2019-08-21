@@ -60,7 +60,16 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::post('/post_comment_ajax/{id}', 'CommentController@post_comment_ajax');
 	Route::post('/dlc_comment/{id}', 'CommentController@dlc_comment');
 	Route::post('/dlc_comment_ajax/{id}', 'CommentController@dlc_comment_ajax');
-	Route::post('/delete_comment_ajax', 'CommentController@deleteCommentAjax');
+    Route::post('/delete_comment_ajax', 'CommentController@deleteCommentAjax');
+    Route::get('/add_to_cart/{id}','HomePageController@getAddtoCart');
+    Route::get('/add_dlc_to_cart/{id}','HomePageController@getDlctoCart');
+
+    Route::get('/del_cart/{id}','HomePageController@getDelItemCart');
+    Route::get('/del_all_cart','HomePageController@delAllCart');
+    Route::post('dat_hang',[
+        'as'=>'dathang',
+        'uses'=>'HomePageController@postCheckout'
+    ]);
 });
 Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');

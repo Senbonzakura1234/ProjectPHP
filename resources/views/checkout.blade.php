@@ -8,7 +8,8 @@
 @endsection
 @section('content')
 	<div class="col-md-12 col-lg-8 main-content">
-		<form class="needs-validation my-4" novalidate>
+		<form class="needs-validation my-4" method="post" action="{{route('dathang')}}" novalidate>
+			@csrf
 			<h4>Payment Method</h4>
 			<div class="form-row">
 				<div class="col-md-6 mb-3 form-group select-wrapper">
@@ -107,7 +108,7 @@
 			<div class="form-row">
 				<div class="col-md-6 mb-3 form-group">
 					<label for="validationCustom03">City</label>
-					<input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+					<input type="text" class="form-control" id="validationCustom03" placeholder="City" name ="city" required>
 					<div class="valid-feedback">
 						Looks good!
 					</div>
@@ -117,7 +118,7 @@
 				</div>
 				<div class="col-md-3 mb-3 form-group">
 					<label for="validationCustom04">State</label>
-					<input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+					<input type="text" class="form-control" id="validationCustom04" placeholder="State" name="state" required>
 					<div class="valid-feedback">
 						Looks good!
 					</div>
@@ -127,7 +128,7 @@
 				</div>
 				<div class="col-md-3 mb-3 form-group">
 					<label for="validationCustom05">Zip</label>
-					<input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+					<input type="text" class="form-control" id="validationCustom05" placeholder="Zip" name="zip" required>
 					<div class="valid-feedback">
 						Looks good!
 					</div>
@@ -138,7 +139,7 @@
 				<div class="col-md-6 mb-3 form-group">
 					<label for="validationAddress">Billing address</label>
 					<input type="text" class="form-control" id="validationAddress"
-						   placeholder="Billing address" required>
+						   placeholder="Billing address" name="address1" required>
 					<div class="valid-feedback">
 						Looks good!
 					</div>
@@ -148,12 +149,12 @@
 				</div>
 				<div class="col-md-6 mb-3 form-group">
 					<label for="validationAddress2">Billing address, line 2</label>
-					<input type="text" class="form-control" id="validationAddress2" placeholder="Billing address">
+					<input type="text" class="form-control" id="validationAddress2" name="address2" placeholder="Billing address">
 				</div>
 				<div class="col-md-6 mb-3 select-wrapper form-group">
 					<label for="exampleFormControlSelect2">Country</label>
 					<select class="selectpicker form-control select-form" id="exampleFormControlSelect2"
-							data-live-search="true" required>
+							data-live-search="true" name="countries" required>
 						<option value=" ">____________________________</option>
 						@foreach($lsCountries as $i => $country)
 							<option value="{{$country->id}}">
@@ -169,7 +170,7 @@
 				<div class="col-md-4 mb-3 form-group">
 					<label for="validationCustom06">Phone Number</label>
 					<input type="number" class="form-control" id="validationCustom06"
-						   placeholder="Phone Number" required step="1" minlength="5">
+						   placeholder="Phone Number" name="phone" required step="1" minlength="5">
 					<div class="valid-feedback">
 						Looks good!
 					</div>
