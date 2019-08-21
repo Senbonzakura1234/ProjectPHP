@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('content')
     <div class="text-center my-5">
@@ -30,20 +30,24 @@
                                     Status: Hide
                                 @endif
                             </span>
-                            &bull;
+{{--                            &bull;--}}
 {{--                            <span class="d-inline-block">Post id: {{$comment->post->id}} &bull;</span>--}}
-                            <span class="d-inline-block">
+{{--                            <span class="d-inline-block">--}}
 {{--								{{asset('/admin/commentByProperties/post/'.$comment->post->id)}}--}}
-                                <a href="#">
-                                    Same post
-                                </a>
-                            </span>
+{{--                                <a href="#">--}}
+{{--                                    Same Game--}}
+{{--                                </a>--}}
+{{--                            </span>--}}
                             &bull;
-                            <span class="d-inline-block">Post : &nbsp;
-{{--								{{asset('/view_post/'.$comment->post->id)}}--}}
-                                <a href="" class="card-link">
-{{--                                    {{substr($comment->post->title, 0, 15)}} ...--}}
-                                </a>
+                            <span class="d-inline-block">Comment in: &nbsp;
+								@if($comment->post_id != null)
+									{{asset('/view_post/'.$comment->post->id)}}
+									<a href="" class="card-link">
+										{{substr($comment->post->title, 0, 15)}} ...
+									</a>
+								@else
+
+								@endif
                             </span>
                         </small>
                         <button class="@if($comment->status === 1) btn btn-danger @else btn btn-primary @endif

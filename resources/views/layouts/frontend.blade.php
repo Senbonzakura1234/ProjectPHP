@@ -10,38 +10,49 @@
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700"
 		  rel="stylesheet">
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
+	{{--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"--}}
+	{{--			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"--}}
+	{{--			crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/jquery-3.3.1.slim.min.js')}}"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.1.0/jquery-migrate.min.js"
-			integrity="sha256-91c9XEM8yFH2Mn9fn8yQaNRvJsEruL7Hctr6JiIY7Uw=" crossorigin="anonymous"></script>
+	{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"--}}
+	{{--			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/jquery.min.js')}}"></script>
+
+	{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.1.0/jquery-migrate.min.js"--}}
+	{{--			integrity="sha256-91c9XEM8yFH2Mn9fn8yQaNRvJsEruL7Hctr6JiIY7Uw=" crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/jquery-migrate.min.js')}}"></script>
 
 	{{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--}}
 	{{--          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--}}
 	<link rel="stylesheet" href="{{asset("/vendor/bootstrap-4.3.1/dist/css/bootstrap.css")}}">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-			crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-			crossorigin="anonymous"></script>
+
+	{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"--}}
+	{{--			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"--}}
+	{{--			crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/popper.min.js')}}"></script>
+
+	{{--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--}}
+	{{--			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--}}
+	{{--			crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/bootstrap.min.js')}}"></script>
+
 	{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">--}}
 	{{--    <script src="https://kit.fontawesome.com/f4bb5974c6.js"></script>--}}
 
 
 	<link rel="stylesheet" href="{{asset("/vendor/bootstrap-select-1.13.9/dist/css/bootstrap-select.css")}}">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/js/bootstrap-select.min.js"></script>
+
+	{{--	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/js/bootstrap-select.min.js"></script>--}}
+	<script src="{{asset('/js/bootstrap-select.min.js')}}"></script>
 
 	<script src="{{asset('/fonts/fontawesome/js/all.js')}}"></script>
 	<link rel="icon" href="https://res.cloudinary.com/senbonzakura/image/upload/v1561568547/fav-icon_hoxtht.png"
 		  type="image/png">
 
-	{{--	Star rating--}}
+{{--	Star rating--}}
 
-	<!-- Theme Style -->
+<!-- Theme Style -->
 	<link rel="stylesheet" href="{{asset('/css/style.css')}}">
 
 </head>
@@ -195,8 +206,10 @@
 									<li class="nav-item">
 									<a class="nav-link" href="{{asset('/view_post/'.$product['item']['id'])}}">
 											<div class="cart-game-icon"
+
 												 style="background: url('{{asset($product['item']['cover'])}}');
 												 background-size: cover">
+
 											</div>
 											{{strlen($product['item']['title']) > 20 ?
 												substr($product['item']['title'], 0, 20)." ..." : $product['item']['title']}}
@@ -259,7 +272,7 @@
 </div>
 <a class="back-to-top"><i class="fas fa-arrow-alt-circle-up"></i></a>
 <ul class="menu-header-sm d-lg-none" style="list-style: none">
-	<li class="nav-item text-center logo-header-wrap">
+	<li class="nav-item text-center logo-header-wrap-sm">
 		<a class="nav-link" href="{{asset('/')}}">
 			<img src="{{asset('/images/LogoMobile.png')}}" alt="Woobly" width="100" height="100">
 		</a>
@@ -385,49 +398,55 @@
 					</form>
 				</div>
 				<!-- END sidebar-box -->
-				@foreach($adminUser as $admin)
-					<div class="sidebar-box">
-						<div class="bio text-center">
-							<a href="{{asset('/about')}}" class="avatar-bio mx-auto">
-								<img src="{{asset('/images/person_1.jpg')}}"
-									 alt="Image Placeholder" class="img-fluid">
-							</a>
-							<div class="bio-body">
-								<a href="{{asset('/about')}}"><h2>{{$admin->name}}</h2>
+				@if(Auth::check())
+					@if (\Request::route()->getName() != 'user_profile' &&
+						\Request::route()->getName() != 'profile_edit')
+						<div class="sidebar-box">
+							<div class="bio text-center">
+								<a href="{{asset('/user')}}" class="avatar-bio mx-auto">
+									<img src="{{
+									Auth::user()->avatar != null? asset(Auth::user()->avatar) :
+									'https://res.cloudinary.com/senbonzakura/image/upload/v1566237952/default_re2ods.png'
+									}}"
+										 alt="Image Placeholder" class="img-fluid bg-white">
 								</a>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Exercitationem facilis
-									sunt
-									repellendus excepturi beatae porro debitis
-									voluptate nulla quo veniam fuga sit
-									molestias minus.
-								</p>
-								<p>
-									<a href="{{asset('/about')}}"
-									   class="btn btn-primary btn-sm rounded">
-										Read more
+								<div class="bio-body">
+									<a href="{{asset('/user')}}"><h2>{{Auth::user()->name}}</h2>
 									</a>
-								</p>
-								<p class="social">
-									<a href="https://www.facebook.com/" class="p-2">
-										<span class="fab fa-facebook-square"></span>
-									</a>
-									<a href="https://twitter.com/" class="p-2">
-										<span class="fab fa-twitter"></span>
-									</a>
-									<a href="https://www.instagram.com/"
-									   class="p-2">
-										<span class="fab fa-instagram"></span>
-									</a>
-									<a href="https://www.youtube.com/" class="p-2">
-										<span class="fab fa-youtube"></span>
-									</a>
-								</p>
+									<p>
+										@if(Auth::user()->desc != null)
+											<br>
+											{!!Auth::user()->desc!!}
+										@else
+											<small>- not set -</small>
+										@endif
+									</p>
+									<p>
+										<a href="{{asset('/user')}}"
+										   class="btn btn-primary btn-sm rounded">
+											See your profile
+										</a>
+									</p>
+									<p class="social">
+										<a href="https://www.facebook.com/" class="p-2">
+											<span class="fab fa-facebook-square"></span>
+										</a>
+										<a href="https://twitter.com/" class="p-2">
+											<span class="fab fa-twitter"></span>
+										</a>
+										<a href="https://www.instagram.com/"
+										   class="p-2">
+											<span class="fab fa-instagram"></span>
+										</a>
+										<a href="https://www.youtube.com/" class="p-2">
+											<span class="fab fa-youtube"></span>
+										</a>
+									</p>
+								</div>
 							</div>
 						</div>
-					</div>
-			@endforeach
+				@endif
+			@endif
 			<!-- END sidebar-box -->
 
 				<div class="sidebar-box">
@@ -510,15 +529,16 @@
 		<div class="row">
 			<div class="col-12 col-sm-6 mb-3 col-lg-4 ">
 				<h3>About Us <i class="fas fa-info-circle"></i></h3>
-				<a href="{{asset('/about')}}" class="footer-banner footer-banner-img">
-					<img src="{{asset('/images/img_1.jpg')}}" alt="Image placeholder">
-				</a>
+				<div class="footer-banner footer-banner-img">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1224.9553473187261!2d105.78229749273773!3d21.028298437912536!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b3285df81f%3A0x97be82a66bbe646b!2sDetech+Building!5e0!3m2!1svi!2sus!4v1566401417243!5m2!1svi!2sus" allowfullscreen></iframe>
+
+				</div>
 				<div class="footer-banner">
 					Lorem ipsum dolor sit amet sa ksal sk sa, ...
 					<span>
-                        <a style="display: inline" href="{{asset('/about')}}">
-                            Read More
-                        </a>
+						<a style="display: inline" href="{{asset('/about')}}">
+							Read More
+						</a>
                     </span>
 				</div>
 
@@ -642,6 +662,29 @@
 		@yield('modal')
 	</div>
 </div>
+
+
 <script src="{{asset('/js/main.js')}}"></script>
 </body>
+<style type="text/css">
+	@if(\Request::route()->getName() != 'homepage')
+		@media (max-width: 992px) {
+		.logo-header-wrap {
+			background: #62b1f6;
+		}
+	}
+
+	@media (max-width: 992px) {
+		.menu-button {
+			color: white !important;
+		}
+	}
+
+	@media (max-width: 992px) {
+		.site-logo a {
+			color: white !important;
+		}
+	}
+	@endif
+</style>
 </html>

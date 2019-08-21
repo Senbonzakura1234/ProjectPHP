@@ -56,6 +56,7 @@
 												{{$post->price}} €
 											</small>
 										@endif
+
 										&bull;
 										<small>
 											<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
@@ -74,9 +75,10 @@
 												</small>
 											@endif
 										@endforeach
+
 									</p>
 								</div>
-								<button class="btn btn-sm btn-primary add-to-cart-btn">
+								<button class="btn btn-sm btn-primary add-to-cart-btn position-modify">
 									<i class="fas fa-cart-plus"></i>
 									<span class="add-to-cart-btn-text">Add to cart</span>
 									<i class="fas fa-sync-alt fast-spin"></i>

@@ -154,15 +154,16 @@
 									</p>
 								</div>
 							</div>
+
 							@if(Auth::check())								
 								@if(in_array($post->id, $gamedamua))
-									<button class="btn btn-sm btn-info add-to-cart-btn">
+									<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
 										<i class="fas fa-check"></i>
 										<span class="add-to-cart-btn-text">Da mua</span>
 										<i class="fas fa-sync-alt fast-spin"></i>
 									</button>
 								@else
-								<a href="{{asset('/add_to_cart/'.$post->id)}}">
+								<a href="{{asset('/add_to_cart/'.$post->id)}}" class="position-modify">
 										<button class="btn btn-sm btn-primary add-to-cart-btn">
 											<i class="fas fa-cart-plus"></i>
 											<span class="add-to-cart-btn-text">Add to cart</span>
@@ -171,6 +172,8 @@
 									</a>
 								@endif									
 							@endif
+
+
 						</div>
 					</div>
 				</div>
@@ -232,6 +235,7 @@
 									</p>
 								</div>
 
+
 								<!-- <a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}">
 									<button class="btn btn-sm btn-primary add-to-cart-btn">
 										<i class="fas fa-cart-plus"></i>
@@ -242,13 +246,13 @@
 								
 								@if(Auth::check())								
 									@if(in_array($dlc->id, $dlcdamua))
-										<button class="btn btn-sm btn-info add-to-cart-btn">
+										<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
 											<i class="fas fa-check"></i>
 											<span class="add-to-cart-btn-text">Da mua</span>
 											<i class="fas fa-sync-alt fast-spin"></i>
 										</button>
 									@else
-									<a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}">
+									<a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}" class="position-modify">
 											<button class="btn btn-sm btn-primary add-to-cart-btn">
 												<i class="fas fa-cart-plus"></i>
 												<span class="add-to-cart-btn-text">Add to cart</span>
@@ -257,6 +261,7 @@
 										</a>
 									@endif									
 								@endif
+
 							</div>
 						</div>
 					</div>
@@ -320,7 +325,7 @@
 											</small>
 									</p>
 								</div>
-								<button class="btn btn-sm btn-primary add-to-cart-btn">
+								<button class="btn btn-sm btn-primary add-to-cart-btn position-modify">
 									<i class="fas fa-cart-plus"></i>
 									<span class="add-to-cart-btn-text">Add to cart</span>
 									<i class="fas fa-sync-alt fast-spin"></i>

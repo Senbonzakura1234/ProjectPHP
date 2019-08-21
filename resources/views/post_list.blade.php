@@ -32,6 +32,7 @@
 											{{$post->title}}
 										</a>
 									</h5>
+
 									<p class="card-text">
 										Price:
 										@if($post->discount > 0)
@@ -51,18 +52,21 @@
 											<small>
 												{{$post->price}} €
 											</small>
-											@endif
+										@endif
+										<span class="follow-btn text-secondary mb-2 ml-sm-auto mr-2 px-2">
+											Follow <i class="fas fa-rss"></i>
+										</span>
 											&bull;
-											<small>
-												<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
-												<i class="fab fa-xbox @if($post->xbox == 1) text-compartible @endif"></i>
-												<i class="fab fa-playstation
-													@if($post->playstation == 1) text-compartible @endif">
-												</i>
-											</small>
+										<small>
+											<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
+											<i class="fab fa-xbox @if($post->xbox == 1) text-compartible @endif"></i>
+											<i class="fab fa-playstation
+												@if($post->playstation == 1) text-compartible @endif">
+											</i>
+										</small>
 									</p>
 								</div>
-								<button class="btn btn-sm btn-primary add-to-cart-btn">
+								<button class="btn btn-sm btn-primary add-to-cart-btn position-modify">
 									<i class="fas fa-cart-plus"></i>
 									<span class="add-to-cart-btn-text">Add to cart</span>
 									<i class="fas fa-sync-alt fast-spin"></i>

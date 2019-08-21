@@ -6,6 +6,7 @@ use App\Comment;
 use App\Country;
 use App\Dlc;
 use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
@@ -150,6 +151,84 @@ class HomePageController extends Controller
 	public function gift()
 	{
 		return view('gift');
+	}
+	public function userProfile()
+	{
+		return view('custom');
+	}
+	public function editProfile()
+	{
+		$lsCountries = Country::all();
+		return view('edit_profile')->with(['lsCountries' => $lsCountries]);
+	}
+	public function saveProfile(Request $request)
+	{
+		$this->validate($request,
+			[
+				'cover' => 'image|mimes:jpeg,png,gif,jpg,svg|nullable',
+				'avatar' => 'image|mimes:jpeg,png,gif,jpg,svg|nullable',
+				'firstName'  => 'max:255|min:3|nullable',
+				'lastName'  => 'max:255|min:3|nullable',
+				'email'  => 'required|email',
+				'phone' => 'regex:/[0-9]/|nullable',
+				'desc' => 'max:800|nullable'
+			]
+		);
+		$user = User::find(auth()->user()->id);
+
+		$cover = $request->cover;
+		if($cover != null){
+			$image_name_cover = time() . "_" . $cover->getClientOriginalName();
+			if ($cover->isValid()) {
+				$cover->move('images', $image_name_cover);
+			}
+			$path_cover = "images/" . $image_name_cover;
+			$user->cover = $path_cover;
+		}
+		$avatar = $request->avatar;
+		if($avatar != null){
+			$image_name_avatar = time() . "_" . $avatar->getClientOriginalName();
+			if ($avatar->isValid()) {
+				$avatar->move('images', $image_name_avatar);
+			}
+			$path_avatar = "images/" . $image_name_avatar;
+			$user->avatar = $path_avatar;
+		}
+
+		if($request->firstName != null){
+			$user->firstName = $request->firstName;
+		}else{
+			$user->firstName = null;
+		}
+
+		if($request->lastName != null){
+			$user->lastName = $request->lastName;
+		}else{
+			$user->lastName = null;
+		}
+
+		$user->email = $request->email;
+
+		if($request->country != null){
+			$user->country_id = $request->country;
+		}else{
+			$user->country_id = null;
+		}
+
+		if($request->phone != null){
+			$user->phone = $request->phone;
+		}else{
+			$user->phone = null;
+		}
+
+		if($request->desc != null){
+			$user->desc = $request->desc;
+		}else{
+			$user->desc = null;
+		}
+
+		$user->save();
+		return redirect()->route('user_profile');
 	}
 	public function get_country_selected_phone_code(Request $request){
 		$id = $request -> country_selected_id;
