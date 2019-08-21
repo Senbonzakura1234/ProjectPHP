@@ -231,7 +231,7 @@
 										</a>
 										<a href="{{asset('/del_cart/'.$product['item']['id'])}}">
 										<div class="text-danger cart-remove-btn">
-											
+
 												<i class="fas fa-times-circle"></i>
 
 										</div>
@@ -250,7 +250,7 @@
 									</a>
 								</div>
 							</ul>
-						@endif						
+						@endif
 
 						</div>
 					@endif
@@ -672,19 +672,19 @@
 		.logo-header-wrap {
 			background: #62b1f6;
 		}
-	}
-
-	@media (max-width: 992px) {
-		.menu-button {
-			color: white !important;
 		}
-	}
 
-	@media (max-width: 992px) {
-		.site-logo a {
-			color: white !important;
+		@media (max-width: 992px) {
+			.menu-button {
+				color: white !important;
+			}
 		}
-	}
+
+		@media (max-width: 992px) {
+			.site-logo a {
+				color: white !important;
+			}
+		}
 	@endif
 </style>
 </html>
