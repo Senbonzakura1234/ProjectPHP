@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
         // dd($user);
         // $id = $user -> id;
         // $lsBought = DB::table('product_invoices')->where('user_id',$id)->get();
-        
+
         // dd($lsBought);
 
 
@@ -67,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('lsRandomCate',$lsRandomCate);
         View::share('lsRandomTag',$lsRandomTag);
 
-        View::share('adminUser',$adminUser);
+
         view()->composer(['layouts.frontend','cart'],function($view){
             if(Session('cart')){
                 $oldCart = Session::get('cart');
@@ -79,16 +79,16 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view){
             if (Auth::check()){
                 $lsBought = NULL;
-                $lsBought = ProductInvoice::where('user_id', Auth::user()->id)->get(); 
+                $lsBought = ProductInvoice::where('user_id', Auth::user()->id)->get();
                 $gamedamua = array();
                 $dlcdamua = array();
                 foreach($lsBought as $bought){
-                    array_push($gamedamua, $bought['post_id']); 
+                    array_push($gamedamua, $bought['post_id']);
                     array_push($dlcdamua, $bought['dlc_id']);
                 }
-                $view->with(['gamedamua'=>$gamedamua, 'dlcdamua'=>$dlcdamua]);    
-            } 
-        });  
+                $view->with(['gamedamua'=>$gamedamua, 'dlcdamua'=>$dlcdamua]);
+            }
+        });
 
     }
 }
