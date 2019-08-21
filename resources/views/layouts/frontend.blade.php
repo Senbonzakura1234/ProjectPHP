@@ -178,14 +178,17 @@
 							<i class="fas fa-comment-dots"></i> Contact Us
 						</a>
 					</div>
+
+					<!-- GIO HANG -->
 					@if(Auth::check())
 						<div class="d-inline nav-link active" id="dropDownMenuCart-lg-trigger">
 							<a class="mx-auto" href="#" id="dropDownMenuCart-lg-link">
 								<i class="fas fa-shopping-cart"></i>
 								<span class="badge badge-warning badge-pill" style="position: relative; top: -2px">
-									{{count($lsPopular)}}
+								@if(Session::has('cart')){{Session('cart')->totalQty}}@else Empty @endif
 								</span>
 							</a>
+							@if(Session::has('cart'))
 							<ul id="dropDownMenuCart-lg" class="dropDownCart-lg">
 								<div class="pt-2 px-3 text-left cart-top">
 									<h5 class="m-0">
@@ -198,36 +201,45 @@
 									</span>
 								</div>
 								<li class="dropdown-divider"></li>
-								@foreach($lsPopular as $popular)
+
+								@foreach($product_cart as $product)
 									<li class="nav-item">
-										<a class="nav-link" href="{{asset('/view_post/'.$popular->id)}}">
+									<a class="nav-link" href="{{asset('/view_post/'.$product['item']['id'])}}">
 											<div class="cart-game-icon"
-												 style="background: url('{{asset($popular->cover)}}');
-													 background-size: cover">
+
+												 style="background: url('{{asset($product['item']['cover'])}}');
+												 background-size: cover">
+
 											</div>
-											{{strlen($popular->title) > 20 ?
-												substr($popular->title, 0, 20)." ..." : $popular->title}}
+											{{strlen($product['item']['title']) > 20 ?
+												substr($product['item']['title'], 0, 20)." ..." : $product['item']['title']}}
 											<div class="cart-item-price d-block">
-												@if($popular->price > 0 && $popular->discount > 0
-													&& $popular->discount < 100)
+												@if($product['item']['price'] > 0 && $product['item']['discount'] > 0
+													&& $product['item']['discount'] < 100)
 													<span class="text-primary">
-														{{$popular->price * (1-$popular->discount/100)}} €
+														{{$product['item']['price'] * (1-$product['item']['discount']/100)}} €
 													</span>
 													<span class="badge badge-success badge-pill">
-														-{{ $popular->discount}}%
+														-{{$product['item']['discount']}}%
 													</span>
-												@elseif($popular->price == 0 || $popular->discount == 100)
+												@elseif($product['item']['price'] == 0 || $product['item']['discount'] == 100)
 													<span class="badge badge-success badge-pill">Free</span>
 												@else
-													<span>{{$popular->price}} €</span>
+													<span>{{$product['item']['price']}} €</span>
 												@endif
 											</div>
 										</a>
+										<a href="{{asset('/del_cart/'.$product['item']['id'])}}">
 										<div class="text-danger cart-remove-btn">
-											<i class="fas fa-times-circle"></i>
+											
+												<i class="fas fa-times-circle"></i>
+
 										</div>
+										</a>
 									</li>
 								@endforeach
+
+
 								<li class="dropdown-divider"></li>
 								<div class="text-center px-2 pb-2">
 									<a style="width: 40%" class="btn-info btn" href="{{asset('/cart')}}">
@@ -238,8 +250,13 @@
 									</a>
 								</div>
 							</ul>
+						@endif						
+
 						</div>
 					@endif
+
+
+
 				</div>
 			</div>
 		</div>

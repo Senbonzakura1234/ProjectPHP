@@ -12,6 +12,10 @@ use App\Tag;
 use App\Category;
 use App\Post;
 use App\Message;
+use App\Cart;
+use App\ProductInvoice;
+use Session;
+use Illuminate\Support\Facades\Auth;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -42,6 +46,17 @@ class AppServiceProvider extends ServiceProvider
         $lsCategory = Category::withCount('posts')->orderBy('posts_count', 'desc')->get();
         $lsTag = Tag::withCount('posts')->orderBy('posts_count', 'desc')->get();
         $lsMessage = Message::all();
+
+        // $user = auth()->user();
+        // dd($user);
+        // $user = auth()->user();
+        // dd($user);
+        // $id = $user -> id;
+        // $lsBought = DB::table('product_invoices')->where('user_id',$id)->get();
+        
+        // dd($lsBought);
+
+
         View::share('lsCategory',$lsCategory);
         View::share('lsTag',$lsTag);
         View::share('lsMessage',$lsMessage);
@@ -51,5 +66,29 @@ class AppServiceProvider extends ServiceProvider
         View::share('lsLatest',$lsLatest);
         View::share('lsRandomCate',$lsRandomCate);
         View::share('lsRandomTag',$lsRandomTag);
+
+        View::share('adminUser',$adminUser);
+        view()->composer(['layouts.frontend','cart'],function($view){
+            if(Session('cart')){
+                $oldCart = Session::get('cart');
+                $cart = new Cart($oldCart);
+                $view->with(['cart'=>Session::get('cart'), 'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
+            }
+        });
+        // Kiem tra game, dlc cua user da mua chua:
+        view()->composer('*', function ($view){
+            if (Auth::check()){
+                $lsBought = NULL;
+                $lsBought = ProductInvoice::where('user_id', Auth::user()->id)->get(); 
+                $gamedamua = array();
+                $dlcdamua = array();
+                foreach($lsBought as $bought){
+                    array_push($gamedamua, $bought['post_id']); 
+                    array_push($dlcdamua, $bought['dlc_id']);
+                }
+                $view->with(['gamedamua'=>$gamedamua, 'dlcdamua'=>$dlcdamua]);    
+            } 
+        });  
+
     }
 }

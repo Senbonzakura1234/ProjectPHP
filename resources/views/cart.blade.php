@@ -8,6 +8,7 @@
 @endsection
 @section('content')
 	<div class="col-md-12 col-lg-8 main-content">
+		@if(Session::has('cart'))
 		<div class="table-responsive row m-0">
 			<table class="table table-striped" style="min-width: 500px">
 				<thead>
@@ -19,31 +20,44 @@
 				</tr>
 				</thead>
 				<tbody>
-					@foreach($lsPopular as $popular)
+					@foreach($product_cart as $product)
 {{--						https://dummyimage.com/50x50/55595c/fff--}}
 						<tr>
 							<td class="align-middle">
-								<img src="{{asset($popular->cover)}}" style="max-height: 50px" alt="icon"/>
+								<img src="{{asset($product['item']['cover'])}}" style="max-height: 50px" alt="icon"/>
 							</td>
 							<td class="align-middle">
-								{{strlen($popular->title) > 20 ?
-											substr($popular->title, 0, 20)." ..." : $popular->title}}
+								{{substr($product['item']['title'], 0, 20)}}
 							</td>
-							<td class="align-middle text-left">70,00 €</td>
+							@if($product['item']['discount'] > 0)
+								<td class="align-middle text-left">
+									{{$product['item']['price'] * (1 - $product['item']['discount']/100)}} €
+								</td>
+							@else
+								<td class="align-middle text-left">
+									{{$product['item']['price']}} €
+								</td>
+							@endif
+
 							<td class="align-middle text-center">
+							<a href="{{asset('/del_cart/'.$product['item']['id'])}}">
 								<button class="btn btn-sm btn-danger" style="cursor: pointer">
 									<i class="fas fa-trash-alt"></i>
 								</button>
+							</a>
+								
 							</td>
 						</tr>
 					@endforeach
 				</tbody>
 			</table>
 		</div>
-		<button class="btn btn-sm btn-danger my-2" style="cursor: pointer">
-			Remove All Item <i class="fas fa-trash-restore-alt"></i>
-		</button>
-		<a href="#" class="btn btn-secondary my-2">
+		<a href="{{asset('/del_all_cart')}}">
+			<button class="btn btn-sm btn-danger my-2" style="cursor: pointer">
+				Remove All Item <i class="fas fa-trash-restore-alt"></i>
+			</button>
+		</a>	
+		<a href="{{asset('/')}}" class="btn btn-secondary my-2">
 			Continue Shopping <i class="fas fa-shopping-cart"></i>
 		</a>
 		<div class="table-responsive row mx-0 mt-3">
@@ -51,15 +65,17 @@
 				<tbody>
 					<tr>
 						<td>Sub-Total</td>
-						<td class="align-middle text-right">255,90 €</td>
+						<td class="align-middle text-right">{{$cart->subTotal}} €</td>
 					</tr>
 					<tr>
 						<td>Discount</td>
-						<td class="align-middle text-right">0 €</td>
+						<td class="align-middle text-right">{{$cart->discountTotal}} €</td>
 					</tr>
 					<tr>
 						<th scope="col"><strong>Total</strong></th>
-						<th scope="col" class="align-middle text-right"><strong>255,90 €</strong></th>
+						<th scope="col" class="align-middle text-right"><strong>
+						{{$totalPrice}}
+						 €</strong></th>
 					</tr>
 				</tbody>
 			</table>
@@ -77,6 +93,8 @@
 				</div>
 			</div>
 		</div>
+
+		@endif
 		<div class="row my-5 px-md-3">
 			<h2><i class="fas fa-user-clock"></i> Relate content</h2>
 		</div>
@@ -136,11 +154,26 @@
 									</p>
 								</div>
 							</div>
-							<button class="btn btn-sm btn-primary add-to-cart-btn position-modify">
-								<i class="fas fa-cart-plus"></i>
-								<span class="add-to-cart-btn-text">Add to cart</span>
-								<i class="fas fa-sync-alt fast-spin"></i>
-							</button>
+
+							@if(Auth::check())								
+								@if(in_array($post->id, $gamedamua))
+									<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
+										<i class="fas fa-check"></i>
+										<span class="add-to-cart-btn-text">Da mua</span>
+										<i class="fas fa-sync-alt fast-spin"></i>
+									</button>
+								@else
+								<a href="{{asset('/add_to_cart/'.$post->id)}}" class="position-modify">
+										<button class="btn btn-sm btn-primary add-to-cart-btn">
+											<i class="fas fa-cart-plus"></i>
+											<span class="add-to-cart-btn-text">Add to cart</span>
+											<i class="fas fa-sync-alt fast-spin"></i>
+										</button>
+									</a>
+								@endif									
+							@endif
+
+
 						</div>
 					</div>
 				</div>
@@ -201,11 +234,34 @@
 										</small>
 									</p>
 								</div>
-								<button class="btn btn-sm btn-primary add-to-cart-btn position-modify">
-									<i class="fas fa-cart-plus"></i>
-									<span class="add-to-cart-btn-text">Add to cart</span>
-									<i class="fas fa-sync-alt fast-spin"></i>
-								</button>
+
+
+								<!-- <a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}">
+									<button class="btn btn-sm btn-primary add-to-cart-btn">
+										<i class="fas fa-cart-plus"></i>
+										<span class="add-to-cart-btn-text">Add to cart</span>
+										<i class="fas fa-sync-alt fast-spin"></i>
+									</button>
+								</a> -->
+								
+								@if(Auth::check())								
+									@if(in_array($dlc->id, $dlcdamua))
+										<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
+											<i class="fas fa-check"></i>
+											<span class="add-to-cart-btn-text">Da mua</span>
+											<i class="fas fa-sync-alt fast-spin"></i>
+										</button>
+									@else
+									<a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}" class="position-modify">
+											<button class="btn btn-sm btn-primary add-to-cart-btn">
+												<i class="fas fa-cart-plus"></i>
+												<span class="add-to-cart-btn-text">Add to cart</span>
+												<i class="fas fa-sync-alt fast-spin"></i>
+											</button>
+										</a>
+									@endif									
+								@endif
+
 							</div>
 						</div>
 					</div>
