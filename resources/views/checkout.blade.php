@@ -164,7 +164,8 @@
 				</div>
 				<div class="col-4 col-md-2 mb-3 form-group">
 					<label for="phoneCode">Ph.Code</label>
-					<input type="text" class="form-control text-right border-primary bg-white" id="phoneCode" readonly>
+					<input type="text" class="form-control text-right border-primary
+						bg-white" id="phoneCode" readonly style="cursor: not-allowed">
 				</div>
 				<div class="col-md-4 mb-3 form-group">
 					<label for="validationCustom06">Phone Number</label>

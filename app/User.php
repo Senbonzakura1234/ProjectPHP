@@ -59,4 +59,7 @@ class User extends Authenticatable
 	public function Dlcs(){
 		return $this ->belongsToMany('App\Dlc','dlc_users');
 	}
+	public function country(){
+		return $this->belongsTo("App\Country");
+	}
 }

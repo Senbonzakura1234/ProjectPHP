@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $adminUser = User::orderBy('created_at','asc')->take(1)->get();
         $lsRandomCate = Category::all()->random(2);
         $lsRandomTag = Tag::all()->random(2);
         $lsPopular = Post::withCount('comment')->orderBy('comment_count', 'desc')->take(3)->get();
@@ -52,6 +51,5 @@ class AppServiceProvider extends ServiceProvider
         View::share('lsLatest',$lsLatest);
         View::share('lsRandomCate',$lsRandomCate);
         View::share('lsRandomTag',$lsRandomTag);
-        View::share('adminUser',$adminUser);
     }
 }
