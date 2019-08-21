@@ -3,22 +3,65 @@
 
 
 	<div class="col-md-12 col-lg-8 main-content">
+		<h2 class="mb-0">{{$post->title}}</h2>
 		<div class="post-meta">
-            <span class="author mr-2"><img src="{{asset('/images/person_1.jpg')}}" alt="User" class="mr-2">
-                User
-            </span>&bullet;
-			<span class="mr-2">{{$post->created_at}}</span> &bullet;
-			<span class="ml-2">
+			<strong>
+				Statistic:
+			</strong>
+			<small class="ml-2">
+				<i class="fab fa-windows @if($post->windows == 1) text-compartible @endif"></i>
+				<i class="fab fa-xbox @if($post->xbox == 1) text-compartible @endif"></i>
+				<i class="fab fa-playstation
+											@if($post->playstation == 1) text-compartible @endif">
+				</i>
+			</small> &bullet;
+			<small class="ml-2">
                 <span class="fa fa-comments"></span>
                 <span class="comment-list-count-top">{{count($post->comment->where('status', 1))}}</span>
-            </span>
+            </small> &bullet;
+			<small>
+				@if($lsRatingScore > 0)
+					<i class="fas fa-star @if($lsRatingScore <= 1) text-danger
+						@elseif($lsRatingScore >1 && $lsRatingScore <= 2) text-warning
+						@elseif($lsRatingScore >2 && $lsRatingScore <= 3) text-secondary
+						@elseif($lsRatingScore >3 && $lsRatingScore <= 4) text-success @else text-primary @endif">
+					</i>
+					<span>{{number_format($lsRatingScore, 1, '.', ',')}}</span>
+				@else
+					<i class="far fa-star text-secondary"></i>
+					<span>{{number_format($lsRatingScore, 1, '.', ',')}}</span>
+				@endif
+			</small> &bullet;
+			<small>
+				@foreach($post->tags->take(1) as $tag)
+					<a href="{{asset('/post_by_tag/'.$tag->id)}}">
+						{{$tag->name}}
+					</a>@if(!$loop->last), @endif
+				@endforeach
+			</small>
 		</div>
-		<h2 class="mb-4">{{$post->title}}</h2>
-		@foreach($post->categories as $cate)
-			<a class="category mb-sm-5" href="{{asset('/post_by_category/'.$cate->id)}}">
-				<i class="fas fa-rainbow"></i> {{$cate->name}}
-			</a>
-		@endforeach
+
+
+
+
+		<div class="row mx-0 mb-3 mb-lg-0 position-modify-on-page">
+			<div class="mb-2">
+				@foreach($post->categories as $cate)
+					<a class="category" href="{{asset('/post_by_category/'.$cate->id)}}">
+						<i class="fas fa-rainbow"></i> {{$cate->name}}
+					</a>
+				@endforeach
+			</div>
+
+			<div class="follow-btn text-secondary mb-2 ml-sm-auto mr-2 px-2">
+				Follow <i class="fas fa-rss"></i>
+			</div>
+			<button class="btn btn-sm btn-primary add-to-cart-btn mb-2">
+				<i class="fas fa-cart-plus"></i>
+				<span class="add-to-cart-btn-text">Add to cart</span>
+				<i class="fas fa-sync-alt fast-spin"></i>
+			</button>
+		</div>
 		<img src="{{asset($post->cover)}}" alt="Image" class="img-fluid mt-3 mt-sm-0 mb-5">
 		<div class="post-content-body">
 			{!!$post->content!!}
@@ -34,15 +77,15 @@
 			@foreach($post->categories as $cate)
 				<a href="{{asset('/post_by_category/'.$cate->id)}}">
 					<i class="fas fa-rainbow"></i> {{$cate->name}}
-				</a>@if(!$loop->last),@endif
-				@endforeach
+				</a>@if(!$loop->last), @endif
+			@endforeach
 				&nbsp;
-				Tags:
-				@foreach($post->tags as $tag)
-					<a href="{{asset('/post_by_tag/'.$tag->id)}}">
-						<i class="fas fa-tag"></i> {{$tag->name}}
-					</a>@if(!$loop->last),@endif
-					@endforeach
+			Tags:
+			@foreach($post->tags as $tag)
+				<a href="{{asset('/post_by_tag/'.$tag->id)}}">
+					<i class="fas fa-tag"></i> {{$tag->name}}
+				</a>@if(!$loop->last), @endif
+			@endforeach
 		</p>
 	</div>
 	<a id="comment-target" style="opacity: 0 !important;"></a>

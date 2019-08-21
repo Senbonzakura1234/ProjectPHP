@@ -635,10 +635,18 @@ a.avatar-bio {
 	transition: .3s all ease;
 }
 .add-to-cart-btn{
+	border-radius: 20px 0 0 20px !important;
+}
+.position-modify{
 	position: absolute;
 	bottom: 15px;
 	right: 0;
-	border-radius: 20px 0 0 20px !important;
+}
+
+@media (max-width: 992px) {
+	.position-modify-on-page .btn{
+		border-radius: 0.5rem !important;
+	}
 }
 .follow-btn.text-secondary{
 	opacity: 0.4;
