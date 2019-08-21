@@ -10,31 +10,31 @@
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700"
 		  rel="stylesheet">
 
-{{--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"--}}
-{{--			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"--}}
-{{--			crossorigin="anonymous"></script>--}}
+	{{--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"--}}
+	{{--			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"--}}
+	{{--			crossorigin="anonymous"></script>--}}
 	<script src="{{asset('/js/jquery-3.3.1.slim.min.js')}}"></script>
 
-{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"--}}
-{{--			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>--}}
+	{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"--}}
+	{{--			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>--}}
 	<script src="{{asset('/js/jquery.min.js')}}"></script>
 
-{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.1.0/jquery-migrate.min.js"--}}
-{{--			integrity="sha256-91c9XEM8yFH2Mn9fn8yQaNRvJsEruL7Hctr6JiIY7Uw=" crossorigin="anonymous"></script>--}}
+	{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.1.0/jquery-migrate.min.js"--}}
+	{{--			integrity="sha256-91c9XEM8yFH2Mn9fn8yQaNRvJsEruL7Hctr6JiIY7Uw=" crossorigin="anonymous"></script>--}}
 	<script src="{{asset('/js/jquery-migrate.min.js')}}"></script>
 
 	{{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--}}
 	{{--          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--}}
 	<link rel="stylesheet" href="{{asset("/vendor/bootstrap-4.3.1/dist/css/bootstrap.css")}}">
 
-{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"--}}
-{{--			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"--}}
-{{--			crossorigin="anonymous"></script>--}}
+	{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"--}}
+	{{--			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"--}}
+	{{--			crossorigin="anonymous"></script>--}}
 	<script src="{{asset('/js/popper.min.js')}}"></script>
 
-{{--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--}}
-{{--			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--}}
-{{--			crossorigin="anonymous"></script>--}}
+	{{--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--}}
+	{{--			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--}}
+	{{--			crossorigin="anonymous"></script>--}}
 	<script src="{{asset('/js/bootstrap.min.js')}}"></script>
 
 	{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">--}}
@@ -43,7 +43,7 @@
 
 	<link rel="stylesheet" href="{{asset("/vendor/bootstrap-select-1.13.9/dist/css/bootstrap-select.css")}}">
 
-{{--	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/js/bootstrap-select.min.js"></script>--}}
+	{{--	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/js/bootstrap-select.min.js"></script>--}}
 	<script src="{{asset('/js/bootstrap-select.min.js')}}"></script>
 
 	<script src="{{asset('/fonts/fontawesome/js/all.js')}}"></script>
@@ -513,14 +513,15 @@
 			<div class="col-12 col-sm-6 mb-3 col-lg-4 ">
 				<h3>About Us <i class="fas fa-info-circle"></i></h3>
 				<div class="footer-banner footer-banner-img">
-					<iframe style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=17&center=21.0283%2C105.7820&key=AIzaSyBECxAF0iTR4yraOjYBBP01v5iiWBy6teU" allowfullscreen></iframe>
+					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1224.9553473187261!2d105.78229749273773!3d21.028298437912536!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b3285df81f%3A0x97be82a66bbe646b!2sDetech+Building!5e0!3m2!1svi!2sus!4v1566401417243!5m2!1svi!2sus" allowfullscreen></iframe>
+
 				</div>
 				<div class="footer-banner">
 					Lorem ipsum dolor sit amet sa ksal sk sa, ...
 					<span>
-                        <a style="display: inline" href="{{asset('/about')}}">
-                            Read More
-                        </a>
+						<a style="display: inline" href="{{asset('/about')}}">
+							Read More
+						</a>
                     </span>
 				</div>
 
