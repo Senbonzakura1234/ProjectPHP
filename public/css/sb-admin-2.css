@@ -5125,7 +5125,6 @@ input[type="button"].btn-block {
 .card-header {
 	padding: 0.75rem 1.25rem;
 	margin-bottom: 0;
-	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
 }
 
@@ -5139,7 +5138,6 @@ input[type="button"].btn-block {
 
 .card-footer {
 	padding: 0.75rem 1.25rem;
-	background-color: #f8f9fc;
 	border-top: 1px solid #e3e6f0;
 }
 

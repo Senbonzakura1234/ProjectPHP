@@ -18,12 +18,12 @@
             @foreach($ls_dlc as $i => $dlc)
                 <div class="col-12 col-sm-6 col-lg-4 message-item">
                     <div class="card" style="border-radius: 10px">
-                        <a href="{{route('dlc.show', $dlc->id)}}" class="card-header" style="padding: 0;
+                        <a href="{{asset('/view_dlc/'.$dlc->id)}}" class="card-header" style="padding: 0;
                             height: 180px; background: url('{{asset($dlc->cover)}}') no-repeat center;
                             background-size: auto 250px; border-radius: 10px 10px 0 0">
                         </a>
                         <div class="card-body">
-                            <a class="card-title" href="{{route('dlc.show', $dlc->id)}}">
+                            <a class="card-title" href="{{asset('/view_dlc/'.$dlc->id)}}">
                                 @if(strlen($dlc->title) <= 25)
                                     <h5>{{$dlc->title}}</h5>
                                 @else

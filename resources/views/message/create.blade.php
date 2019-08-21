@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+
 @section('content-title')
     <div class="row mb-4">
         <div class="col-md-6">

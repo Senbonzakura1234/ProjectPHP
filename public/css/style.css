@@ -1810,7 +1810,7 @@ html, body {
     }
 }
 
-.footer-banner img {
+.footer-banner iframe {
     max-width: 100%;
 }
 
@@ -1825,7 +1825,7 @@ html, body {
         width: 90%;
     }
 }
-.footer-banner-img img{
+.footer-banner-img iframe{
     border-radius: 10px;
 }
 .footer-banner-img:hover{

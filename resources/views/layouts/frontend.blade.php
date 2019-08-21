@@ -10,38 +10,49 @@
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700"
 		  rel="stylesheet">
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
+{{--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"--}}
+{{--			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"--}}
+{{--			crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/jquery-3.3.1.slim.min.js')}}"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.1.0/jquery-migrate.min.js"
-			integrity="sha256-91c9XEM8yFH2Mn9fn8yQaNRvJsEruL7Hctr6JiIY7Uw=" crossorigin="anonymous"></script>
+{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"--}}
+{{--			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/jquery.min.js')}}"></script>
+
+{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.1.0/jquery-migrate.min.js"--}}
+{{--			integrity="sha256-91c9XEM8yFH2Mn9fn8yQaNRvJsEruL7Hctr6JiIY7Uw=" crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/jquery-migrate.min.js')}}"></script>
 
 	{{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--}}
 	{{--          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--}}
 	<link rel="stylesheet" href="{{asset("/vendor/bootstrap-4.3.1/dist/css/bootstrap.css")}}">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-			crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-			crossorigin="anonymous"></script>
+
+{{--	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"--}}
+{{--			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"--}}
+{{--			crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/popper.min.js')}}"></script>
+
+{{--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--}}
+{{--			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--}}
+{{--			crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/bootstrap.min.js')}}"></script>
+
 	{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">--}}
 	{{--    <script src="https://kit.fontawesome.com/f4bb5974c6.js"></script>--}}
 
 
 	<link rel="stylesheet" href="{{asset("/vendor/bootstrap-select-1.13.9/dist/css/bootstrap-select.css")}}">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/js/bootstrap-select.min.js"></script>
+
+{{--	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/js/bootstrap-select.min.js"></script>--}}
+	<script src="{{asset('/js/bootstrap-select.min.js')}}"></script>
 
 	<script src="{{asset('/fonts/fontawesome/js/all.js')}}"></script>
 	<link rel="icon" href="https://res.cloudinary.com/senbonzakura/image/upload/v1561568547/fav-icon_hoxtht.png"
 		  type="image/png">
 
-	{{--	Star rating--}}
+{{--	Star rating--}}
 
-	<!-- Theme Style -->
+<!-- Theme Style -->
 	<link rel="stylesheet" href="{{asset('/css/style.css')}}">
 
 </head>
@@ -192,7 +203,7 @@
 										<a class="nav-link" href="{{asset('/view_post/'.$popular->id)}}">
 											<div class="cart-game-icon"
 												 style="background: url('{{asset($popular->cover)}}');
-												 background-size: cover">
+													 background-size: cover">
 											</div>
 											{{strlen($popular->title) > 20 ?
 												substr($popular->title, 0, 20)." ..." : $popular->title}}
@@ -383,7 +394,7 @@
 										 alt="Image Placeholder" class="img-fluid bg-white">
 								</a>
 								<div class="bio-body">
-									<a href="{{asset('/about')}}"><h2>{{Auth::user()->name}}</h2>
+									<a href="{{asset('/user')}}"><h2>{{Auth::user()->name}}</h2>
 									</a>
 									<p>
 										@if(Auth::user()->desc != null)
@@ -417,9 +428,9 @@
 								</div>
 							</div>
 						</div>
-					@endif
 				@endif
-				<!-- END sidebar-box -->
+			@endif
+			<!-- END sidebar-box -->
 
 				<div class="sidebar-box">
 					<h3 class="heading"><i class="fas fa-rss-square"></i> Popular Games</h3>
@@ -501,9 +512,9 @@
 		<div class="row">
 			<div class="col-12 col-sm-6 mb-3 col-lg-4 ">
 				<h3>About Us <i class="fas fa-info-circle"></i></h3>
-				<a href="{{asset('/about')}}" class="footer-banner footer-banner-img">
-					<img src="{{asset('/images/img_1.jpg')}}" alt="Image placeholder">
-				</a>
+				<div class="footer-banner footer-banner-img">
+					<iframe style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=17&center=21.0283%2C105.7820&key=AIzaSyBECxAF0iTR4yraOjYBBP01v5iiWBy6teU" allowfullscreen></iframe>
+				</div>
 				<div class="footer-banner">
 					Lorem ipsum dolor sit amet sa ksal sk sa, ...
 					<span>
@@ -634,25 +645,28 @@
 	</div>
 </div>
 
-<style type="text/css">
-	@if(\Request::route()->getName() != 'homepage')
-		@media (max-width: 992px){
-			.logo-header-wrap {
-				background: #62b1f6;
-			}
-		}
-		@media (max-width: 992px){
-			.menu-button {
-				color: white !important;
-			}
-		}
-		@media (max-width: 992px) {
-			.site-logo a {
-				color: white !important;
-			}
-		}
-	@endif
-</style>
+
 <script src="{{asset('/js/main.js')}}"></script>
 </body>
+<style type="text/css">
+	@if(\Request::route()->getName() != 'homepage')
+		@media (max-width: 992px) {
+		.logo-header-wrap {
+			background: #62b1f6;
+		}
+	}
+
+	@media (max-width: 992px) {
+		.menu-button {
+			color: white !important;
+		}
+	}
+
+	@media (max-width: 992px) {
+		.site-logo a {
+			color: white !important;
+		}
+	}
+	@endif
+</style>
 </html>
