@@ -44,7 +44,31 @@ class AppServiceProvider extends ServiceProvider
         $lsLatest = Dlc::orderBy('created_at','desc')->take(3)->get();
         Schema::defaultStringLength(191);
         $lsCategory = Category::withCount('posts')->orderBy('posts_count', 'desc')->get();
+	    $lsCateName = $lsCategory->pluck('name');
+	    $lsCatePostCount = [];
+	    $lsCatePostCommentCount = [];
+	    foreach ($lsCategory as $cate){
+		    $lsCatePostCount[] = $cate->posts->count();
+		    $commentCount = 0;
+		    foreach($cate->posts as $countEach){
+			    $commentCount = $commentCount + count($countEach->comment->where('status',1));
+		    }
+		    $lsCatePostCommentCount[] = $commentCount;
+	    }
+
         $lsTag = Tag::withCount('posts')->orderBy('posts_count', 'desc')->get();
+	    $lsTagName = $lsTag->pluck('name');
+	    $lsTagPostCount = [];
+	    $lsTagPostCommentCount = [];
+	    foreach ($lsTag as $tag){
+		    $lsTagPostCount[] = $tag->posts->count();
+		    $commentCount = 0;
+		    foreach($tag->posts as $countEach){
+			    $commentCount = $commentCount + count($countEach->comment->where('status',1));
+		    }
+		    $lsTagPostCommentCount[] = $commentCount;
+	    }
+
         $lsMessage = Message::all();
 
         // $user = auth()->user();
@@ -66,6 +90,12 @@ class AppServiceProvider extends ServiceProvider
         View::share('lsLatest',$lsLatest);
         View::share('lsRandomCate',$lsRandomCate);
         View::share('lsRandomTag',$lsRandomTag);
+        View::share('lsCateName',$lsCateName);
+        View::share('lsCatePostCount',$lsCatePostCount);
+        View::share('lsCatePostCommentCount',$lsCatePostCommentCount);
+        View::share('lsTagName',$lsTagName);
+        View::share('lsTagPostCount',$lsTagPostCount);
+        View::share('lsTagPostCommentCount',$lsTagPostCommentCount);
 
 
         view()->composer(['layouts.frontend','cart'],function($view){

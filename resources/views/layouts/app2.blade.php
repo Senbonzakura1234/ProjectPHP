@@ -62,6 +62,17 @@
 	<link rel="icon" href="https://res.cloudinary.com/senbonzakura/image/upload/v1566057715/fav-icon-admin_gtqrop.png"
 		  type="image/png">
 
+{{--	<script src="https://cdn.jsdelivr.net/npm/jquery.stellar@0.6.2/jquery.stellar.js"--}}
+{{--			integrity="sha256-yv3HV4PGYVVN8MVB/2YRgbXgntRArNmMuwPV4KeL3qc=" crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/jquery.stellar.js')}}"></script>
+
+{{--	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"--}}
+{{--			integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>--}}
+	<script src="{{asset('/js/chart.min.js')}}"></script>
+
+{{--	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"--}}
+{{--		  integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />--}}
+	<link rel="stylesheet" href="{{asset('/css/chart.min.css')}}"/>
 
 	<!-- Custom styles for this template-->
 	<link href="{{asset('/css/sb-admin-2.css')}}" rel="stylesheet">
@@ -122,7 +133,12 @@
 
 				<a class="nav-link" href="{{asset('/admin/comment')}}">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Comment</span>
+					<span>Review</span>
+				</a>
+
+				<a class="nav-link" href="#">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Billing</span>
 				</a>
 			</li>
 
