@@ -20,9 +20,13 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        $lsPost = Post::orderBy('created_at','desc')->paginate(8);
-        $lsPost->fragment('page-target')->links();
-        return view('welcome')->with(['lsPost' => $lsPost]);
+        $lsPost = Post::orderBy('created_at','desc')->take(4)->get();
+	    $lsDiscountPost = Post::where('discount','>', 0)->orderBy('discount','desc')->take(2)->get();
+        $lsDlc = Dlc::orderBy('created_at','desc')->take(4)->get();
+	    $lsDlcFree = Dlc::where('price', 0)->orderBy('created_at','desc')->get();
+	    $lsDiscountDlc = Dlc::where('discount','>', 0)->orderBy('discount','desc')->take(2)->get();
+        return view('welcome')->with(['lsPost' => $lsPost, 'lsDiscountPost' => $lsDiscountPost,
+	        'lsDlc' => $lsDlc, 'lsDiscountDlc' => $lsDiscountDlc, 'lsDlcFree' => $lsDlcFree]);
     }
     public function viewPost($id){
         $post = Post::find($id);
@@ -136,8 +140,15 @@ class HomePageController extends Controller
     }
     public function dlc_list()
     {
+    	$Title = 'All DLCs';
         $lsDlcAll = Dlc::orderBy('created_at','desc')->paginate(8);
-        return view('dlc_list')->with(['lsDlcAll' => $lsDlcAll]);
+        return view('dlc_list')->with(['lsDlcAll' => $lsDlcAll, 'Title' => $Title]);
+    }
+    public function dlc_list_by_game($id)
+    {
+	    $Title = Post::find($id)->title;
+        $lsDlcAll = Dlc::where('post_id', $id)->orderBy('created_at','desc')->paginate(8);
+        return view('dlc_list')->with(['lsDlcAll' => $lsDlcAll, 'Title' => $Title]);
     }
 	public function cart()
 	{
@@ -330,7 +341,7 @@ class HomePageController extends Controller
 			$invoice -> buy_at = date('Y-m-d H:i:s');
 			$invoice -> save();
 
-			foreach ($cart->items as $key => $product) {				
+			foreach ($cart->items as $key => $product) {
 				$product_invoice = new ProductInvoice;
 				$product_invoice -> user_id = $user->id;
 				$product_invoice -> invoice_id = $invoice -> id;
@@ -338,7 +349,7 @@ class HomePageController extends Controller
 					$product_invoice -> dlc_id = $key;
 				}else{
 					$product_invoice -> post_id = $key;
-				}				
+				}
 				$product_invoice -> save();
 			}
 			Session::forget('cart');
@@ -346,7 +357,7 @@ class HomePageController extends Controller
 		}else{
 			return redirect()->back();
 		}
-		
+
 
 	}
 }

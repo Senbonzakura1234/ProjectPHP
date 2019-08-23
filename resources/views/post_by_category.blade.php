@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 @section('content-title')
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h2 class="mb-4">
                 <i class="fas fa-th-large"></i>
                 Category: {{$cate->name}} ({{count($cate->posts)}})

@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
 	        ->take(3)->get();
         $lsLatest = Dlc::orderBy('created_at','desc')->take(3)->get();
         Schema::defaultStringLength(191);
-        $lsCategory = Category::withCount('posts')->orderBy('posts_count', 'desc')->get();
+        $lsCategory = Category::withCount('posts')->orderBy('posts_count', 'desc')->take(6)->get();
 	    $lsCateName = $lsCategory->pluck('name');
 	    $lsCatePostCount = [];
 	    $lsCatePostCommentCount = [];
@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
 		    $lsCatePostCommentCount[] = $commentCount;
 	    }
 
-        $lsTag = Tag::withCount('posts')->orderBy('posts_count', 'desc')->get();
+        $lsTag = Tag::withCount('posts')->orderBy('posts_count', 'desc')->take(6)->get();
 	    $lsTagName = $lsTag->pluck('name');
 	    $lsTagPostCount = [];
 	    $lsTagPostCommentCount = [];

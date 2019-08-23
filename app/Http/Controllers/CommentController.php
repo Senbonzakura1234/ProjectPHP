@@ -12,8 +12,8 @@ class CommentController extends Controller
     public function post_comment(Request $request, $id){
         $this->validate($request,
             [
-                'content' => 'required|max:1000|min:9',
-	            'rating' => 'required|numeric|max:5|min:0'
+                'content' => 'required|max:3000|min:9',
+	            'rating' => 'required|numeric|max:5|min:1'
             ]
         );
 	    $user = auth()->user();
@@ -37,8 +37,8 @@ class CommentController extends Controller
     public function post_comment_ajax(Request $request, $id){
         $this->validate($request,
             [
-                'content' => 'required|max:1000|min:9',
-	            'rating' => 'required|numeric|max:5|min:0'
+                'content' => 'required|max:3000|min:9',
+	            'rating' => 'required|numeric|max:5|min:1'
             ]
         );
 
@@ -67,8 +67,8 @@ class CommentController extends Controller
     public function dlc_comment(Request $request, $id){
         $this->validate($request,
             [
-                'content' => 'required|max:1000|min:9',
-	            'rating' => 'required|numeric|max:5|min:0'
+                'content' => 'required|max:3000|min:9',
+	            'rating' => 'required|numeric|max:5|min:1'
             ]
         );
 	    $user = auth()->user();
@@ -92,8 +92,8 @@ class CommentController extends Controller
     public function dlc_comment_ajax(Request $request, $id){
         $this->validate($request,
             [
-                'content' => 'required|max:1000|min:9',
-	            'rating' => 'required|numeric|max:5|min:0'
+                'content' => 'required|max:3000|min:9',
+	            'rating' => 'required|numeric|max:5|min:1'
             ]
         );
 

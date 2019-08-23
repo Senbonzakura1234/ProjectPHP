@@ -45,6 +45,9 @@ class DlcController extends Controller
 			    'content' => 'required|max:20000|min:9',
 			    'price' => 'required|numeric|min:0',
 			    'discount' => 'required|numeric|max:100|min:0',
+			    'windows' => 'required',
+			    'xbox' => 'required',
+			    'playstation' => 'required',
 		    ]
 	    );
 	    $cover = $request->cover;
@@ -64,6 +67,9 @@ class DlcController extends Controller
 	    $dlc->user_id = $user->id;
 	    $dlc->content = $request->content;
 	    $dlc->post_id = $request->post;
+	    $dlc->windows = $request->windows;
+	    $dlc->xbox = $request->xbox;
+	    $dlc->playstation = $request->playstation;
 	    $dlc->save();
 	    return redirect()->route("dlc.index");
     }
@@ -108,6 +114,9 @@ class DlcController extends Controller
 			    'content' => 'required|max:20000|min:9',
 			    'price' => 'required|numeric|min:0',
 			    'discount' => 'required|numeric|max:100|min:0',
+			    'windows' => 'required',
+			    'xbox' => 'required',
+			    'playstation' => 'required',
 		    ]
 	    );
 	    $cover = $request->cover;
@@ -130,6 +139,9 @@ class DlcController extends Controller
 	    $dlc->user_id = $user->id;
 	    $dlc->content = $request->content;
 	    $dlc->post_id = $request->post;
+	    $dlc->windows = $request->windows;
+	    $dlc->xbox = $request->xbox;
+	    $dlc->playstation = $request->playstation;
 	    $dlc->save();
 	    return redirect()->route("dlc.index");
     }

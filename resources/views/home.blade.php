@@ -85,12 +85,12 @@
                     label: 'Game count',
                     data: {!! json_encode($lsCatePostCount) !!},
                     backgroundColor: [
-						@foreach($lsTag as $tag)
+						@foreach($lsCategory as $cate)
                             '#3762A5',
 						@endforeach
                     ],
                     borderColor: [
-						@foreach($lsTag as $tag)
+						@foreach($lsCategory as $cate)
                             '#3762A5',
 						@endforeach
                     ],
@@ -99,12 +99,12 @@
                     label: 'Review count',
                     data: {!! json_encode($lsCatePostCommentCount) !!},
                     backgroundColor: [
-                        @foreach($lsTag as $tag)
+						@foreach($lsCategory as $cate)
                         	'#5886ff',
 						@endforeach
                     ],
                     borderColor: [
-						@foreach($lsTag as $tag)
+						@foreach($lsCategory as $cate)
                             '#5886ff',
 						@endforeach
                     ],
@@ -166,7 +166,7 @@
             }
         });
         let gameChart = new Chart(gameChartArea, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels:	['Windows', 'Xbox', 'Playstation'],
                 datasets: [{
@@ -188,7 +188,7 @@
             }
         });
         let dlcChart = new Chart(dlcChartArea, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels:	['Windows', 'Xbox', 'Playstation'],
                 datasets: [{

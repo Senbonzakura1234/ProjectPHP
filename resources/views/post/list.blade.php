@@ -3,7 +3,7 @@
 @section('content')
     <div class="text-center mb-3 mt-2">
         <div class="col">
-            <h2>Post Management</h2>
+            <h2>Game Management</h2>
         </div>
     </div>
     @foreach(['success', 'danger'] as $msg)
@@ -50,7 +50,7 @@
             @endforeach
         @else
             <h3 class="mx-auto mt-5" style="opacity: 0.5; text-align: center; display: block">
-                There are currently no Post to read
+                There are currently no Game added yet
             </h3>
         @endif
     </div>

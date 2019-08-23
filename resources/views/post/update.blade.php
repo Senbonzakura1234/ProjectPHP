@@ -17,7 +17,8 @@
                            class="form-control" value="{{$post->title}}" placeholder="Post"/>
 
                     <label class="mt-2" for="exampleFormControlSelect2">Category</label>
-                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="category[]">
+                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="category[]"
+							data-live-search="true">
                         @foreach($lsCate as $i => $cate)
                             <option value="{{$cate->id}}"
                                 {{in_array($cate->id, $lsSelectedCateID) ? 'selected' : ''}}
@@ -26,7 +27,8 @@
                     </select>
 
                     <label class="mt-2" for="exampleFormControlSelect2">Tag</label>
-                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="tag[]">
+                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="tag[]"
+							data-live-search="true">
                         @foreach($lsTag as $i => $tag)
                             <option value="{{$tag->id}}"
                                 {{in_array($tag->id, $lsSelectedTagID) ? 'selected' : ''}}
@@ -50,7 +52,38 @@
                     </div>
                 </div>
             </div>
-
+			<div class="form-row">
+				<div class="form-group col-12">
+					<label>Select platform compatible</label>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectWindows">Windows</label>
+					<select class="form-control select-form" id="exampleFormControlSelectWindows"
+							name="windows" required>
+						<option></option>
+						<option value="1" {{$post->windows != 0? 'selected':''}}>Available</option>
+						<option value="0" {{$post->windows != 1? 'selected':''}}>Not Available</option>
+					</select>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectXbox">Xbox</label>
+					<select class="form-control select-form" id="exampleFormControlSelectXbox"
+							name="xbox" required>
+						<option></option>
+						<option value="1" {{$post->xbox != 0? 'selected':''}}>Available</option>
+						<option value="0" {{$post->xbox != 1? 'selected':''}}>Not Available</option>
+					</select>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectPlaystation">Playstation</label>
+					<select class="form-control select-form" id="exampleFormControlSelectPlaystation"
+							name="playstation" required>
+						<option></option>
+						<option value="1" {{$post->playstation != 0? 'selected':''}}>Available</option>
+						<option value="0" {{$post->playstation != 1? 'selected':''}}>Not Available</option>
+					</select>
+				</div>
+			</div>
 			<div class="form-row">
 				<div class="form-group col-12 col-md-6">
 					<label for="price">Price</label>

@@ -143,7 +143,7 @@
 							<i class="fas fa-th-large"></i> Categories
 						</a>
 						<ul id="dropDownMenu2-lg" class="dropDownMenu-lg">
-							@foreach($lsCategory as $cate)
+							@foreach($lsCategory->take(5) as $cate)
 								<li class="nav-item">
 									<a class="nav-link"
 									   href="{{asset('/post_by_category/'.$cate->id)}}">
@@ -151,14 +151,19 @@
 									</a>
 								</li>
 							@endforeach
+								<li class="nav-item">
+									<a class="nav-link" href="#">
+										<i class="fas fa-plus-circle"></i>View more
+									</a>
+								</li>
 						</ul>
 					</div>
 					<div class="d-inline nav-link" id="dropDownMenu1-lg-trigger">
 						<a class="mx-auto" href="#" id="dropDownMenu1-lg-link">
 							<i class="fas fa-tags"></i> Tag
 						</a>
-						<ul id="dropDownMenu1-lg" class="dropDownMenu-lg">
-							@foreach($lsTag as $tag)
+						<ul id="dropDownMenu1-lg" class="dropDownMenu-lg dropDownMenu-lg-tag">
+							@foreach($lsTag->take(5) as $tag)
 								<li class="nav-item">
 									<a class="nav-link"
 									   href="{{asset('/post_by_tag/'.$tag->id)}}">
@@ -166,6 +171,11 @@
 									</a>
 								</li>
 							@endforeach
+								<li class="nav-item">
+									<a class="nav-link" href="#">
+										<i class="fas fa-plus-circle"></i>View more
+									</a>
+								</li>
 						</ul>
 					</div>
 					<div class="d-inline nav-link">
@@ -295,13 +305,18 @@
 			<i class="fas fa-th-large"></i>Categories<i class="fas fa-caret-down"></i>
 		</a>
 		<ul id="dropDownMenu2-sm" class="dropDownMenu-sm">
-			@foreach($lsCategory as $cate)
+			@foreach($lsCategory->take(5) as $cate)
 				<li class="nav-item">
 					<a class="nav-link" href="{{asset('/post_by_category/'.$cate->id)}}">
 						<i class="fas fa-rainbow"></i>{{$cate->name}}
 					</a>
 				</li>
 			@endforeach
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						<i class="fas fa-plus-circle"></i> View more
+					</a>
+				</li>
 		</ul>
 	</li>
 	<li class="nav-item">
@@ -309,13 +324,18 @@
 			<i class="fas fa-tags"></i>Tag<i class="fas fa-caret-down"></i>
 		</a>
 		<ul id="dropDownMenu1-sm" class="dropDownMenu-sm">
-			@foreach($lsTag as $tag)
+			@foreach($lsTag->take(5) as $tag)
 				<li class="nav-item">
 					<a class="nav-link" href="{{asset('/post_by_tag/'.$tag->id)}}">
 						<i class="fas fa-tag"></i>{{$tag->name}}
 					</a>
 				</li>
 			@endforeach
+				<li class="nav-item">
+					<a class="nav-link" href="#">
+						<i class="fas fa-plus-circle"></i> View more
+					</a>
+				</li>
 		</ul>
 	</li>
 	<div class="dropdown-divider"></div>
@@ -518,6 +538,7 @@
 			</div>
 			<!-- END sidebar -->
 			<div class="col-md-12">
+				@yield('miscellaneous')
 				@yield('comment')
 			</div>
 		</div>

@@ -1813,6 +1813,12 @@ html, body {
 .footer-banner iframe {
     max-width: 100%;
 }
+.about-main iframe {
+    max-width: 100%;
+	width: 100%;
+	border-radius: 10px;
+	height: 300px;
+}
 
 @media (max-width: 575px) {
     .footer-banner {
@@ -1956,6 +1962,9 @@ html, body {
     display: none;
 	z-index: 100;
 }
+.dropDownMenu-lg-tag{
+	width: 250px;
+}
 .dropDownCart-lg{
     position: absolute;
     background: white;
@@ -2084,6 +2093,22 @@ h1 svg, h2 svg, h3 svg, h4 svg, h5 svg{
 }
 .post-content-body img{
     max-width: 100%;
+}
+.post-content-body iframe{
+    max-width: 100%;
+	width: 100%;
+	margin-bottom: 2em;
+	min-height: 500px;
+}
+@media (max-width: 992px) {
+	.post-content-body iframe{
+		min-height: 300px;
+	}
+}
+@media (max-width: 767px) {
+	.post-content-body iframe{
+		min-height: 200px;
+	}
 }
 .post-entry-horzontal svg{
     color: #77DAF6;
