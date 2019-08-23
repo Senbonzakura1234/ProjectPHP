@@ -27,9 +27,26 @@
 											</a>
 										@endif
 									@endforeach
-									<span
-										class="ml-2 mb-2"> {{date('M d Y', strtotime($carousel->created_at))}} &bullet;
-                                    <span class="fa fa-comments"></span>
+									<span class="ml-2 mb-2">
+										<strong>Price:</strong>
+										@if($carousel->discount > 0)
+											<small>
+												<span style="text-decoration: line-through;">
+													{{$carousel->price}} $
+												</span>
+											</small>
+											&nbsp;
+											<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$carousel->discount}}%
+												</span>
+											</strong>
+											{{$carousel->price * (1 - $carousel->discount/100)}} $
+										@else
+											{{$carousel->price}} $
+										@endif
+										&bullet;
+                                    	<span class="fa fa-comments"></span>
                                         {{count($carousel->comment->where('status', 1))}}
                                     </span>
 									<a class="carousel-post-link" href="{{asset('/view_post/'.$carousel->id)}}">
@@ -104,7 +121,25 @@
 									<h2>{{substr($post->title, 0, 27)}} ...</h2>
 								@endif
 							</a>
-
+							<p>
+								<strong>Price:</strong>
+								@if($post->discount > 0)
+									<small>
+												<span style="text-decoration: line-through;">
+													{{$post->price}} $
+												</span>
+									</small>
+									&nbsp;
+									<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$post->discount}}%
+												</span>
+									</strong>
+									{{$post->price * (1 - $post->discount/100)}} $
+								@else
+									{{$post->price}} $
+								@endif
+							</p>
 
 
 
@@ -179,7 +214,25 @@
 									<h2>{{substr($dlc->title, 0, 27)}} ...</h2>
 								@endif
 							</a>
-
+							<p>
+								<strong>Price:</strong>
+								@if($dlc->discount > 0)
+									<small>
+												<span style="text-decoration: line-through;">
+													{{$dlc->price}} $
+												</span>
+									</small>
+									&nbsp;
+									<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$dlc->discount}}%
+												</span>
+									</strong>
+									{{$dlc->price * (1 - $dlc->discount/100)}} $
+								@else
+									{{$dlc->price}} $
+								@endif
+							</p>
 
 
 
@@ -254,7 +307,25 @@
 								@endif
 							</a>
 
-
+							<p>
+								<strong>Price:</strong>
+								@if($post->discount > 0)
+									<small>
+												<span style="text-decoration: line-through;">
+													{{$post->price}} $
+												</span>
+									</small>
+									&nbsp;
+									<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$post->discount}}%
+												</span>
+									</strong>
+									{{$post->price * (1 - $post->discount/100)}} $
+								@else
+									{{$post->price}} $
+								@endif
+							</p>
 
 
 							@if(Auth::check())
@@ -308,13 +379,31 @@
 								</div>
 							</div>
 							<a href="{{asset('/view_dlc/'.$dlc->id)}}">
-								@if(strlen($dlc->title) <= 30)
+								@if(strlen($dlc->title) <= 27)
 									<h2>{{$dlc->title}}</h2>
 								@else
-									<h2>{{substr($dlc->title, 0, 27)}} ...</h2>
+									<h2>{{substr($dlc->title, 0, 24)}} ...</h2>
 								@endif
 							</a>
-
+							<p>
+								<strong>Price:</strong>
+								@if($dlc->discount > 0)
+									<small>
+												<span style="text-decoration: line-through;">
+													{{$dlc->price}} $
+												</span>
+									</small>
+									&nbsp;
+									<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$dlc->discount}}%
+												</span>
+									</strong>
+									{{$dlc->price * (1 - $dlc->discount/100)}} $
+								@else
+									{{$dlc->price}} $
+								@endif
+							</p>
 
 
 
@@ -383,7 +472,25 @@
 									<h2>{{substr($dlc->title, 0, 27)}} ...</h2>
 								@endif
 							</a>
-
+							<p>
+								<strong>Price:</strong>
+								@if($dlc->discount > 0)
+									<small>
+												<span style="text-decoration: line-through;">
+													{{$dlc->price}} $
+												</span>
+									</small>
+									&nbsp;
+									<strong>
+												<span style="font-size: 100%" class="badge badge-success">
+													-{{$dlc->discount}}%
+												</span>
+									</strong>
+									{{$dlc->price * (1 - $dlc->discount/100)}} $
+								@else
+									{{$dlc->price}} $
+								@endif
+							</p>
 
 
 
