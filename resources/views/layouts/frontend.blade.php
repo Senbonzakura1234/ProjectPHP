@@ -86,7 +86,7 @@
 					@if (Route::has('login'))
 						@auth
 							<a class="btn btn-outline-primary" href="{{ url('/admin') }}">
-								@if(strlen(Auth::user()->name) <= 3)
+								@if(strlen(Auth::user()->name) <= 6)
 									{{Auth::user()->name}} <span
 										class="fas fa-user"></span>
 								@else
@@ -180,7 +180,7 @@
 					</div>
 
 					<!-- GIO HANG -->
-					@if(Auth::check())
+					@if(Auth::check() && Request::route()->getName() != 'checkout')
 						<div class="d-inline nav-link active" id="dropDownMenuCart-lg-trigger">
 							<a class="mx-auto" href="#" id="dropDownMenuCart-lg-link">
 								<i class="fas fa-shopping-cart"></i>
@@ -196,9 +196,11 @@
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										Price
 									</h5>
-									<span class="cart-remove-all-btn">
-										<i class="fas text-danger fa-trash-restore-alt"></i>
-									</span>
+									<a href="{{asset('/del_all_cart')}}">
+										<span class="cart-remove-all-btn">
+											<i class="fas text-danger fa-trash-restore-alt"></i>
+										</span>
+									</a>
 								</div>
 								<li class="dropdown-divider"></li>
 

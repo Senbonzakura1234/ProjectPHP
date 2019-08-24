@@ -21,6 +21,9 @@ Route::get('/post_by_tag/{id}', 'HomePageController@tagSingle');
 Route::get('/post_list', 'HomePageController@post_list');
 Route::get('/dlc_list', 'HomePageController@dlc_list');
 
+Route::get('/del_account', function () {
+    return view('delaccount');
+});
 Route::get('/category.php', function () {
     return view('category');
 });
@@ -32,8 +35,8 @@ Route::get('/tag.php', function () {
 });
 Auth::routes();
 
-Route::get('/admin', 'HomeController@index')->name('user');
-Route::group(['prefix' =>'admin', 'middleware'=>'auth'], function(){
+Route::get('/admin', 'HomeController@index')->name('user')->middleware('role');
+Route::group(['prefix' =>'admin', 'middleware'=>['auth','role']], function(){
     Route::resource('/category','CategoryController');
     Route::resource('/tag','TagController');
     Route::resource('/post','PostController');
@@ -43,6 +46,13 @@ Route::group(['prefix' =>'admin', 'middleware'=>'auth'], function(){
 //    Route::get('/commentByProperties/post/{postId}', 'CommentController@listCommentByProperties');
     Route::post('/change_comment_status_ajax', 'CommentController@changeStatus');
 });
+Route::group(['prefix' =>'admin', 'middleware'=>['auth','master']], function(){
+    Route::get('/ql_user', 'UserController@listUser');
+    Route::post('/change_user_role', 'UserController@changeStatus');
+});
+
+
+
 Route::get('/contact', 'MessageController@create')->name('createMessage');
 Route::post('/contact/save', 'MessageController@store')->name('saveMessage');
 
@@ -53,7 +63,7 @@ Route::get('/randomPost', 'HomePageController@randomPost');
 Route::group(['middleware'=>'auth'], function(){
 	Route::get('/gift', 'HomePageController@gift');
 	Route::get('/cart', 'HomePageController@cart');
-	Route::get('/checkout', 'HomePageController@checkout');
+	Route::get('/checkout', 'HomePageController@checkout')->name('checkout');
 	Route::get('/get_country_selected_phone_code', 'HomePageController@get_country_selected_phone_code');
 	Route::post('/post_comment/{id}', 'CommentController@post_comment');
 	Route::post('/post_comment_ajax/{id}', 'CommentController@post_comment_ajax');

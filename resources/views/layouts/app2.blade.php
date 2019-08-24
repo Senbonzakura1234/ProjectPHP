@@ -124,6 +124,14 @@
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Comment</span>
 				</a>
+
+				@if(Auth::user()->role == 'master')
+					<a class="nav-link" href="{{asset('/admin/ql_user')}}">
+						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<span>User</span>
+					</a>
+				@endif
+
 			</li>
 
 		<!-- Heading -->
