@@ -52,11 +52,24 @@
 			<div class="follow-btn text-secondary mb-2 ml-sm-auto mr-2 px-2">
 				Follow <i class="fas fa-rss"></i>
 			</div>
-			<button class="btn btn-sm btn-primary add-to-cart-btn mb-2">
-				<i class="fas fa-cart-plus"></i>
-				<span class="add-to-cart-btn-text">Add to cart</span>
-				<i class="fas fa-sync-alt fast-spin"></i>
-			</button>
+			@if(Auth::check())								
+				@if(in_array($dlc->id, $dlcdamua))
+					<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
+						<i class="fas fa-check"></i>
+						<span class="add-to-cart-btn-text">Da mua</span>
+						<i class="fas fa-sync-alt fast-spin"></i>
+					</button>
+				@else
+				<a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}" class="position-modify">
+						<button class="btn btn-sm btn-primary add-to-cart-btn">
+							<i class="fas fa-cart-plus"></i>
+							<span class="add-to-cart-btn-text">Add to cart</span>
+							<i class="fas fa-sync-alt fast-spin"></i>
+						</button>
+					</a>
+				@endif									
+			@endif
+
 		</div>
 {{--		Game has this DLC--}}
 		<img src="{{asset($dlc->cover)}}" alt="Image" class="img-fluid mt-3 mt-sm-0 mb-5">
