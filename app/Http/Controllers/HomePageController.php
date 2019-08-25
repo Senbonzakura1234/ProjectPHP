@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Country;
 use App\Dlc;
+use App\Gallery;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class HomePageController extends Controller
     }
     public function viewPost($id){
         $post = Post::find($id);
+        $lsGallery = Gallery::where('post_id', $id)->get();
         if (Auth::check()){
 	        $userID = auth()->user()->id;
 	        $lsUserRating = $post->comment()->where('status', 1)->where('user_id', $userID)->get();
@@ -66,7 +68,7 @@ class HomePageController extends Controller
 	        'lsRating5Score'=>$lsRating5Score, 'lsRating4Score'=>$lsRating4Score,
 	        'lsRating3Score'=>$lsRating3Score, 'lsRating2Score'=>$lsRating2Score,
 	        'lsRating1Score'=>$lsRating1Score, 'lsRatingTotal'=>$lsRatingTotal,
-	        'lsRatingScore'=>$lsRatingScore])
+	        'lsRatingScore'=>$lsRatingScore, 'lsGallery' => $lsGallery])
 	        ->with('lsUserRatingCount', isset($lsUserRatingCount)?$lsUserRatingCount:null);
     }
 

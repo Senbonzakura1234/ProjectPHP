@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $ls_category = Category::all();
+        $ls_category = Category::orderBy('name','asc')->paginate(9);
+//        dd($ls_category);
         return view("category.list")->with(['lsCate' => $ls_category]);
     }
 
@@ -46,15 +47,6 @@ class CategoryController extends Controller
         $new_category = new Category();
         $new_category->name = $name;
         $new_category->save();
-
-	    $to_name = 'Phạm Anh Dũng';
-	    $to_email = "anhdung.pham090@gmail.com" ;
-	    $data = array('name'=>'Phạm Anh Dũng', 'body' =>' A test mail ');
-	    \Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
-		    $message->to($to_email, $to_name)
-			    ->subject('Artisans Web Testing Mail');
-		    $message->from('projectphpsellinggame@gmail.com','Artisans Web');
-	    });
 
         return redirect()->route("category.index");
     }

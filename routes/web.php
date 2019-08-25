@@ -39,6 +39,9 @@ Route::group(['prefix' =>'admin', 'middleware'=>'auth'], function(){
     Route::resource('/tag','TagController');
     Route::resource('/post','PostController');
     Route::resource('/dlc','DlcController');
+    Route::resource('/gallery','GalleryController')->except('index', 'show');
+	Route::get('/gallery/game/{id}', 'GalleryController@showGame')->name('galleryGame');
+	Route::get('/gallery/dlc/{id}', 'GalleryController@showDlc')->name('galleryDlc');
     Route::resource('/message', 'MessageController')->except('create', 'store');
     Route::get('/comment', 'CommentController@listComment');
 //    Route::get('/commentByProperties/post/{postId}', 'CommentController@listCommentByProperties');

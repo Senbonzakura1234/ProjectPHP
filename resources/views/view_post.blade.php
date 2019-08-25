@@ -62,6 +62,8 @@
 				<i class="fas fa-sync-alt fast-spin"></i>
 			</button>
 		</div>
+
+
 		<img src="{{asset($post->cover)}}" alt="Image" class="img-fluid mt-3 mt-sm-0 mb-5">
 		<div class="post-content-body">
 			{!!$post->content!!}
@@ -71,6 +73,37 @@
 	</div>
 @endsection
 @section('comment')
+	<div class="my-3 row galleries">
+		<div class="col-12">
+			<h4>Game galleries</h4>
+		</div>
+		<div class="col-12">
+			<div id="galleriesCarousel" class="carousel slide" data-ride="carousel" data-interval="4000"
+			 data-pause="hover">
+			<ol class="carousel-indicators">
+				@foreach($lsGallery as $gallery)
+					<li data-target="#galleriesCarousel" data-slide-to="{{ $loop->index }}"
+						class="{{ $loop->first ? 'active' : '' }}"></li>
+				@endforeach
+			</ol>
+			<div class="carousel-inner">
+				@foreach($lsGallery as $gallery)
+					<div class="carousel-item {{ $loop->first ? 'active' : '' }} galleryItem">
+						<img src="{{asset($gallery->link)}}" class="d-block w-100" alt="...">
+					</div>
+				@endforeach
+			</div>
+			<a class="carousel-control-prev" href="#galleriesCarousel" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#galleriesCarousel" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+		</div>
+	</div>
 	<div class="row my-2">
 		<div class="col-12">
 			<h4>Relate content</h4>

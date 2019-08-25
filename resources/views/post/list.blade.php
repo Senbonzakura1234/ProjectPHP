@@ -34,6 +34,11 @@
                                 <small class="text-muted">{{$post->created_at}}</small>
                                 <small class="text-muted">Price: $ {{$post->price}}</small>
                                 <small class="text-muted">Discount: - {{$post->discount}}%</small>
+                                <small class="text-muted">
+									<a href="{{asset('/admin/gallery/game/'.$post->id)}}">
+										View gallery
+									</a>
+								</small>
                             </p>
                         </div>
                         <div class="card-body text-right">

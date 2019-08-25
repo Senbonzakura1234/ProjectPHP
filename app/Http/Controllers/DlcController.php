@@ -26,7 +26,7 @@ class DlcController extends Controller
      */
     public function create()
     {
-	    $lsPost = Post::all();
+	    $lsPost = Post::orderBy('title','asc')->get();
 	    return view("dlc.create")->with(['lsPost' => $lsPost]);
     }
 
@@ -94,7 +94,7 @@ class DlcController extends Controller
     public function edit($id)
     {
         $dlc = Dlc::find($id);
-	    $lsPost = Post::all();
+	    $lsPost = Post::orderBy('title','asc')->get();
 	    return view("dlc.update")->with(['lsPost' => $lsPost, 'dlc' => $dlc]);
     }
 

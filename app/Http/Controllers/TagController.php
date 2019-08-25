@@ -14,7 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $ls_tag = Tag::all();
+        $ls_tag = Tag::orderBy('name','asc')->paginate(9);
         $ls_message = Message::all();
         return view("tag.list")->with(['lsTag'=>$ls_tag])->with(['lsMessage'=>$ls_message]);
     }

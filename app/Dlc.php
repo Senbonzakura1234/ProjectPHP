@@ -15,6 +15,9 @@ class Dlc extends Model
 	public function comment(){
 		return $this->hasMany('App\Comment');
 	}
+	public function gallery(){
+		return $this->hasMany('App\Gallery');
+	}
 	public function User(){
 		return $this ->belongsToMany('App\User','dlc_users');
 	}

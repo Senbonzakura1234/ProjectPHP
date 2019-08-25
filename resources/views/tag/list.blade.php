@@ -14,14 +14,7 @@
 					{{$commentCount = $commentCount + count($countEach->comment->where('status',1))}}
 				@endforeach
 			</div>
-			<div class="col-12 col-sm-6 col-lg-4
-                    @if(($i+1)%3 === 1)
-					ml-auto
-					@elseif(($i+1)%3 === 2)
-					mr-auto
-					@endif
-					"
-				 style="padding-top: 10px; padding-bottom: 10px; border: none">
+			<div class="col-12 col-sm-6 col-lg-4" style="padding-top: 10px; padding-bottom: 10px; border: none">
 				<div class="card text-white">
 					<div class="card-header text-white
 							@if(($i + 3)%3 === 0) bg-primary
@@ -30,7 +23,7 @@
 							@endif
 						">
 						<a href="{{route('tag.show', $tag->id)}}">
-							{{$i+1}}/ {{$tag->name}}
+							{{$i + $lsTag->perPage()*($lsTag->currentPage() - 1) + 1}}/ {{$tag->name}}
 						</a>
 					</div>
 					<div class="card-body
@@ -40,7 +33,7 @@
 							@elseif(($i + 3)%3 === 2) bg-dark
 							@endif
 						">
-						<p class="card-text">Post Count: {{count($tag->posts)}}</p>
+						<p class="card-text">Game Count: {{count($tag->posts)}}</p>
 						<p class="card-text">
 							Comment Count: {{$commentCount}}
 						</p>
@@ -76,6 +69,11 @@
 	<div class="mt-4 text-center">
 		<div>
 			<a class="btn btn-primary my-auto" href="{{route('tag.create')}}">Create New</a>
+		</div>
+	</div>
+	<div class="mt-4 mx-0 row">
+		<div class="mx-auto">
+			{{$lsTag->links()}}
 		</div>
 	</div>
 @endsection

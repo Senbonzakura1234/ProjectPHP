@@ -140,6 +140,11 @@
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Billing</span>
 				</a>
+
+				<a class="nav-link" href="{{route('gallery.create')}}">
+					<i class="fas fa-palette"></i>
+					<span>Gallery</span>
+				</a>
 			</li>
 
 		<!-- Heading -->

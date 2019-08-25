@@ -56,7 +56,14 @@ class LoginController extends Controller
 			if($finduser){
 
 				Auth::login($finduser);
-
+				$to_name = $user->name;
+				$to_email = $user->email ;
+				$data = array('name'=>$user->name, 'body' =>'You have login to Woobly by this Google account');
+				\Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+					$message->to($to_email, $to_name)
+						->subject('Login to Woobly');
+					$message->from('projectphpsellinggame@gmail.com','Woobly .inc');
+				});
 				return redirect('/');
 
             }else{
@@ -67,6 +74,15 @@ class LoginController extends Controller
 				]);
 
 				Auth::login($newUser);
+				$to_name = $user->name;
+				$to_email = $user->email ;
+				$data = array('name'=>$user->name, 'body' =>'Welcome to Woobly, 
+					now you can login to us by this google account');
+				\Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email) {
+					$message->to($to_email, $to_name)
+						->subject('Welcome to Woobly');
+					$message->from('projectphpsellinggame@gmail.com','Woobly .inc');
+				});
 				return redirect('/');
 				//return redirect()->back();
 			}

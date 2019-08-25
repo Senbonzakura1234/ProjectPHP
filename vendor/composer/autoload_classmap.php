@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Cart' => $baseDir . '/app/Cart.php',
     'App\\Category' => $baseDir . '/app/Category.php',
     'App\\Comment' => $baseDir . '/app/Comment.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
@@ -13,6 +14,7 @@ return array(
     'App\\Dlc' => $baseDir . '/app/Dlc.php',
     'App\\DlcUser' => $baseDir . '/app/DlcUser.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Gallery' => $baseDir . '/app/Gallery.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -22,6 +24,7 @@ return array(
     'App\\Http\\Controllers\\CommentController' => $baseDir . '/app/Http/Controllers/CommentController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DlcController' => $baseDir . '/app/Http/Controllers/DlcController.php',
+    'App\\Http\\Controllers\\GalleryController' => $baseDir . '/app/Http/Controllers/GalleryController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\HomePageController' => $baseDir . '/app/Http/Controllers/HomePageController.php',
     'App\\Http\\Controllers\\MessageController' => $baseDir . '/app/Http/Controllers/MessageController.php',
@@ -39,6 +42,7 @@ return array(
     'App\\Invoice' => $baseDir . '/app/Invoice.php',
     'App\\MemberMessage' => $baseDir . '/app/MemberMessage.php',
     'App\\Message' => $baseDir . '/app/Message.php',
+    'App\\News' => $baseDir . '/app/News.php',
     'App\\Post' => $baseDir . '/app/Post.php',
     'App\\PostCategory' => $baseDir . '/app/PostCategory.php',
     'App\\PostTag' => $baseDir . '/app/PostTag.php',

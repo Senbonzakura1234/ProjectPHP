@@ -29,8 +29,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $lsCate = Category::all();
-        $lsTag = Tag::all();
+        $lsCate = Category::orderBy('name','asc')->get();
+        $lsTag = Tag::orderBy('name','asc')->get();
         return view("post.create")->with(['lsCate' => $lsCate, 'lsTag' => $lsTag]);
     }
 
@@ -128,8 +128,8 @@ class PostController extends Controller
         foreach ($lsPostTag as $PostTag){
             $lsSelectedTagID[] = $PostTag->id;
         };
-        $lsCate = Category::all();
-        $lsTag = Tag::all();
+        $lsCate = Category::orderBy('name','asc')->get();
+        $lsTag = Tag::orderBy('name','asc')->get();
         return view("post.update")->with(['lsCate' => $lsCate, 'lsTag' => $lsTag,
         'post' => $post, 'lsPostCate' => $lsPostCate, 'lsPostTag' => $lsPostTag,
         'lsSelectedCateID' => $lsSelectedCateID, 'lsSelectedTagID' => $lsSelectedTagID]);
