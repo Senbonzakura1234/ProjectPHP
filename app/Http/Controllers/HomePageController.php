@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Country;
 use App\Dlc;
+use App\Gallery;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
@@ -20,12 +21,17 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        $lsPost = Post::orderBy('created_at','desc')->paginate(8);
-        $lsPost->fragment('page-target')->links();
-        return view('welcome')->with(['lsPost' => $lsPost]);
+        $lsPost = Post::orderBy('created_at','desc')->take(4)->get();
+	    $lsDiscountPost = Post::where('discount','>', 0)->orderBy('discount','desc')->take(2)->get();
+        $lsDlc = Dlc::orderBy('created_at','desc')->take(4)->get();
+	    $lsDlcFree = Dlc::where('price', 0)->orderBy('created_at','desc')->get();
+	    $lsDiscountDlc = Dlc::where('discount','>', 0)->orderBy('discount','desc')->take(2)->get();
+        return view('welcome')->with(['lsPost' => $lsPost, 'lsDiscountPost' => $lsDiscountPost,
+	        'lsDlc' => $lsDlc, 'lsDiscountDlc' => $lsDiscountDlc, 'lsDlcFree' => $lsDlcFree]);
     }
     public function viewPost($id){
         $post = Post::find($id);
+        $lsGallery = Gallery::where('post_id', $id)->get();
         if (Auth::check()){
 	        $userID = auth()->user()->id;
 	        $lsUserRating = $post->comment()->where('status', 1)->where('user_id', $userID)->get();
@@ -62,7 +68,7 @@ class HomePageController extends Controller
 	        'lsRating5Score'=>$lsRating5Score, 'lsRating4Score'=>$lsRating4Score,
 	        'lsRating3Score'=>$lsRating3Score, 'lsRating2Score'=>$lsRating2Score,
 	        'lsRating1Score'=>$lsRating1Score, 'lsRatingTotal'=>$lsRatingTotal,
-	        'lsRatingScore'=>$lsRatingScore])
+	        'lsRatingScore'=>$lsRatingScore, 'lsGallery' => $lsGallery])
 	        ->with('lsUserRatingCount', isset($lsUserRatingCount)?$lsUserRatingCount:null);
     }
 
@@ -136,8 +142,15 @@ class HomePageController extends Controller
     }
     public function dlc_list()
     {
+    	$Title = 'All DLCs';
         $lsDlcAll = Dlc::orderBy('created_at','desc')->paginate(8);
-        return view('dlc_list')->with(['lsDlcAll' => $lsDlcAll]);
+        return view('dlc_list')->with(['lsDlcAll' => $lsDlcAll, 'Title' => $Title]);
+    }
+    public function dlc_list_by_game($id)
+    {
+	    $Title = Post::find($id)->title;
+        $lsDlcAll = Dlc::where('post_id', $id)->orderBy('created_at','desc')->paginate(8);
+        return view('dlc_list')->with(['lsDlcAll' => $lsDlcAll, 'Title' => $Title]);
     }
 	public function cart()
 	{
@@ -330,7 +343,7 @@ class HomePageController extends Controller
 			$invoice -> buy_at = date('Y-m-d H:i:s');
 			$invoice -> save();
 
-			foreach ($cart->items as $key => $product) {				
+			foreach ($cart->items as $key => $product) {
 				$product_invoice = new ProductInvoice;
 				$product_invoice -> user_id = $user->id;
 				$product_invoice -> invoice_id = $invoice -> id;
@@ -338,7 +351,7 @@ class HomePageController extends Controller
 					$product_invoice -> dlc_id = $key;
 				}else{
 					$product_invoice -> post_id = $key;
-				}				
+				}
 				$product_invoice -> save();
 			}
 			Session::forget('cart');
@@ -346,7 +359,7 @@ class HomePageController extends Controller
 		}else{
 			return redirect()->back();
 		}
-		
+
 
 	}
 }

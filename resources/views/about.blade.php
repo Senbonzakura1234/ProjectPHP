@@ -16,22 +16,9 @@
                 </div>
             </div>
             <div class="col-md-12 about-main">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum minima eveniet recusandae suscipit
-                    eum laboriosam fugit amet deleniti iste et. Ad dolores, necessitatibus non saepe tenetur impedit
-                    commodi quibusdam natus repellat, exercitationem accusantium perferendis officiis. Laboriosam
-                    impedit quia minus pariatur!</p>
-                <p>Dignissimos iste consectetur, nemo magnam nulla suscipit eius quibusdam, quo aperiam quia quae est
-                    explicabo nostrum ab aliquid vitae obcaecati tenetur beatae animi fugiat officia id ipsam sint?
-                    Obcaecati ea nisi fugit assumenda error totam molestiae saepe fugiat officiis quam?</p>
-                <p>Culpa porro quod doloribus dolore sint. Distinctio facilis ullam voluptas nemo voluptatum saepe
-                    repudiandae adipisci officiis, explicabo eaque itaque sed necessitatibus, fuga, ea eius et aliquam
-                    dignissimos repellendus impedit pariatur voluptates. Dicta perferendis assumenda, nihil placeat,
-                    illum quibusdam. Vel, incidunt?</p>
-                <p>Dolorum blanditiis illum quo quaerat, possimus praesentium perferendis! Quod autem optio nobis,
-                    placeat officiis dolorem praesentium odit. Vel, cum, a. Adipisci eligendi eaque laudantium dicta
-                    tenetur quod, pariatur sunt sed natus officia fuga accusamus reprehenderit ratione, provident
-                    possimus ut voluptatum.</p>
-            </div>
+				<h5>Find us at</h5>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1224.9553473187261!2d105.78229749273773!3d21.028298437912536!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b3285df81f%3A0x97be82a66bbe646b!2sDetech+Building!5e0!3m2!1svi!2sus!4v1566401417243!5m2!1svi!2sus" allowfullscreen></iframe>
+			</div>
         </div>
         <div class="row mb-5 mt-5">
             <div class="col-md-12 mb-5">
@@ -111,7 +98,7 @@
 					<div class="card my-3" style=" width: 100%">
 						<div class="row no-gutters">
 							<div class="col-12 col-md-3">
-								<a href="{{route('post.show', $dlc->id)}}" class="d-block" style="padding: 0;
+								<a href="{{asset('/view_dlc/'.$dlc->id)}}" class="d-block" style="padding: 0;
 									background:
 									url('{{asset($dlc->cover)}}')
 									no-repeat center; background-size: cover !important; min-height: 150px;
@@ -121,7 +108,7 @@
 							<div class="col-12 col-md-9" style="padding-bottom: 80px; position: relative">
 								<div class="card-body pb-md-0">
 									<h5 class="card-title">
-										<a href="{{route('post.show', $dlc->id)}}">
+										<a href="{{asset('/view_dlc/'.$dlc->id)}}">
 											{{$dlc->title}}
 										</a>
 									</h5>

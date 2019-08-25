@@ -66,7 +66,6 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        $ls_message = Message::all();
         $message = Message::find($id);
         return view("message.view")->with(["message" => $message]);
     }

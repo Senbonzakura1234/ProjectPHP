@@ -3,7 +3,7 @@
 @section('content')
     <div class="text-center mb-3 mt-2">
         <div class="col">
-            <h2>Post Management</h2>
+            <h2>Game Management</h2>
         </div>
     </div>
     @foreach(['success', 'danger'] as $msg)
@@ -34,6 +34,11 @@
                                 <small class="text-muted">{{$post->created_at}}</small>
                                 <small class="text-muted">Price: $ {{$post->price}}</small>
                                 <small class="text-muted">Discount: - {{$post->discount}}%</small>
+                                <small class="text-muted">
+									<a href="{{asset('/admin/gallery/game/'.$post->id)}}">
+										View gallery
+									</a>
+								</small>
                             </p>
                         </div>
                         <div class="card-body text-right">
@@ -50,7 +55,7 @@
             @endforeach
         @else
             <h3 class="mx-auto mt-5" style="opacity: 0.5; text-align: center; display: block">
-                There are currently no Post to read
+                There are currently no Game added yet
             </h3>
         @endif
     </div>

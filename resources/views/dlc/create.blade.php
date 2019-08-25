@@ -46,6 +46,38 @@
                 </div>
             </div>
 			<div class="form-row">
+				<div class="form-group col-12">
+					<label>Select platform compatible</label>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectWindows">Windows</label>
+					<select class="form-control select-form" id="exampleFormControlSelectWindows"
+							name="windows" required>
+						<option></option>
+						<option value="1">Available</option>
+						<option value="0">Not Available</option>
+					</select>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectXbox">Xbox</label>
+					<select class="form-control select-form" id="exampleFormControlSelectXbox"
+							name="xbox" required>
+						<option></option>
+						<option value="1">Available</option>
+						<option value="0">Not Available</option>
+					</select>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectPlaystation">Playstation</label>
+					<select class="form-control select-form" id="exampleFormControlSelectPlaystation"
+							name="playstation" required>
+						<option></option>
+						<option value="1">Available</option>
+						<option value="0">Not Available</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-row">
 				<div class="form-group col-12 col-md-6">
 					<label for="price">Price</label>
 					<input name="price" class="form-control" id="price" type="number" step="any" min="0"/>

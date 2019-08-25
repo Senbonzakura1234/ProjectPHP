@@ -29,8 +29,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $lsCate = Category::all();
-        $lsTag = Tag::all();
+        $lsCate = Category::orderBy('name','asc')->get();
+        $lsTag = Tag::orderBy('name','asc')->get();
         return view("post.create")->with(['lsCate' => $lsCate, 'lsTag' => $lsTag]);
     }
 
@@ -50,8 +50,12 @@ class PostController extends Controller
                 'content' => 'required|max:20000|min:9',
                 'price' => 'required|numeric|min:0',
                 'discount' => 'required|numeric|max:100|min:0',
+                'windows' => 'required',
+                'xbox' => 'required',
+                'playstation' => 'required',
             ]
         );
+
         $cover = $request->cover;
         $image_name = time() . "_" . $cover->getClientOriginalName();
         if ($cover->isValid()) {
@@ -67,6 +71,9 @@ class PostController extends Controller
         $post->discount = $request->discount;
         $post->user_id = $user->id;
         $post->content = $request->content;
+        $post->windows = $request->windows;
+        $post->xbox = $request->xbox;
+        $post->playstation = $request->playstation;
         $post->save();
 
         $lsSelectedCate = $request->category;
@@ -121,8 +128,8 @@ class PostController extends Controller
         foreach ($lsPostTag as $PostTag){
             $lsSelectedTagID[] = $PostTag->id;
         };
-        $lsCate = Category::all();
-        $lsTag = Tag::all();
+        $lsCate = Category::orderBy('name','asc')->get();
+        $lsTag = Tag::orderBy('name','asc')->get();
         return view("post.update")->with(['lsCate' => $lsCate, 'lsTag' => $lsTag,
         'post' => $post, 'lsPostCate' => $lsPostCate, 'lsPostTag' => $lsPostTag,
         'lsSelectedCateID' => $lsSelectedCateID, 'lsSelectedTagID' => $lsSelectedTagID]);
@@ -145,6 +152,9 @@ class PostController extends Controller
                 'content' => 'required|max:20000|min:9',
 	            'price' => 'required|numeric|min:0',
 	            'discount' => 'required|numeric|max:100|min:0',
+	            'windows' => 'required',
+	            'xbox' => 'required',
+	            'playstation' => 'required',
             ]
         );
         $cover = $request->cover;
@@ -166,6 +176,9 @@ class PostController extends Controller
 	    $post->price = $request->price;
 	    $post->discount = $request->discount;
         $post->content = $request->content;
+	    $post->windows = $request->windows;
+	    $post->xbox = $request->xbox;
+	    $post->playstation = $request->playstation;
         $post->save();
 
         $lsSelectedCate = $request->category;

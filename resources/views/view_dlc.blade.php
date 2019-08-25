@@ -95,6 +95,7 @@
 		<div class="comment-form-wrap">
 			<form class="row @if(Auth::check() && $lsUserRatingCount < 1) d-flex @else d-none @endif"
 				  action="{{asset('dlc_comment/'.$dlc->id)}}" id="comment-form" method="post">
+				@method('POST')
 				@csrf
 				<div class="form-group col-12">
 					<h3 class="mb-0">Write a review</h3>
@@ -362,116 +363,118 @@
                 rating = $("input[name = rating]").val(),
                 _token = $("input[name = _token]").val(),
                 avatar_link = "{{asset('/images/avatar.png')}}";
-            $.ajax({
-                type: 'POST',
-                url: "{{asset('/dlc_comment_ajax/')}}/" + "{{$dlc->id}}",
-                data: {content: content, _token: _token, rating: rating},
-                success: function (data) {
-                    comment_count_int++;
-                    CKEDITOR.instances.content.setData('');
-                    $("#icon-rating-1").removeClass("fas").addClass("far");
-                    $("#icon-rating-2").removeClass("fas").addClass("far");
-                    $("#icon-rating-3").removeClass("fas").addClass("far");
-                    $("#icon-rating-4").removeClass("fas").addClass("far");
-                    $("#icon-rating-5").removeClass("fas").addClass("far");
-                    $("#rating-input").val(0);
-                    $("#comment-form").removeClass("d-flex").addClass("d-none");
-                    let notify_id = "notify_comment" + comment_count_int.toString();
-                    let comment_with_notify_append = $(
-                        "<li class=\"alert alert-primary text-left text-sm-center p-2\" id=\"" + notify_id + "\">" +
-                        "   <i class=\"fas fa-check-circle\"></i> Review Post Successful" +
-                        "</li>" +
-                        "<li class=\"comment\"  id=\"comment" + data.comment_id + "\">" +
-                        "   <div class=\"vcard\">" +
-                        "       <img src=\" " + avatar_link + " \" alt=\"Image placeholder\">" +
-                        "   </div>" +
-                        "   <div class=\"comment-body\">" +
-                        "       <h3>" + "@if(Auth::check()){{ Auth::user()->name}}@endif" + "</h3>" +
-                        "       <div class=\"meta\">" + data.created_at + "</div>" +
-                        "       <div class=\"comment-body-content\"><p>" + content + "</p></div>" +
-                        "		<div class=\"comment-body-content\">" +
-                        "			<a class=\"  " +
+            if(content != '' && rating != 0){
+                $.ajax({
+                    type: 'POST',
+                    url: "{{asset('/dlc_comment_ajax/')}}/" + "{{$dlc->id}}",
+                    data: {content: content, _token: _token, rating: rating},
+                    success: function (data) {
+                        comment_count_int++;
+                        CKEDITOR.instances.content.setData('');
+                        $("#icon-rating-1").removeClass("fas").addClass("far");
+                        $("#icon-rating-2").removeClass("fas").addClass("far");
+                        $("#icon-rating-3").removeClass("fas").addClass("far");
+                        $("#icon-rating-4").removeClass("fas").addClass("far");
+                        $("#icon-rating-5").removeClass("fas").addClass("far");
+                        $("#rating-input").val(0);
+                        $("#comment-form").removeClass("d-flex").addClass("d-none");
+                        let notify_id = "notify_comment" + comment_count_int.toString();
+                        let comment_with_notify_append = $(
+                            "<li class=\"alert alert-primary text-left text-sm-center p-2\" id=\"" + notify_id + "\">" +
+                            "   <i class=\"fas fa-check-circle\"></i> Review Post Successful" +
+                            "</li>" +
+                            "<li class=\"comment\"  id=\"comment" + data.comment_id + "\">" +
+                            "   <div class=\"vcard\">" +
+                            "       <img src=\" " + avatar_link + " \" alt=\"Image placeholder\">" +
+                            "   </div>" +
+                            "   <div class=\"comment-body\">" +
+                            "       <h3>" + "@if(Auth::check()){{ Auth::user()->name}}@endif" + "</h3>" +
+                            "       <div class=\"meta\">" + data.created_at + "</div>" +
+                            "       <div class=\"comment-body-content\"><p>" + content + "</p></div>" +
+                            "		<div class=\"comment-body-content\">" +
+                            "			<a class=\"  " +
 
-                        (rating == 1? "text-danger":rating == 2?
-                            "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
+                            (rating == 1? "text-danger":rating == 2?
+                                "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
 
-                        "\"  >" +
-                        "				<i id=\"icon-rated-1\" class=\" " +
-                        (rating > 0? "fas" : "far" ) +
-                        " 				fa-star\"></i>" +
-                        "			</a>" +
-                        "			<a class=\"  " +
+                            "\"  >" +
+                            "				<i id=\"icon-rated-1\" class=\" " +
+                            (rating > 0? "fas" : "far" ) +
+                            " 				fa-star\"></i>" +
+                            "			</a>" +
+                            "			<a class=\"  " +
 
-                        (rating == 1? "text-danger":rating == 2?
-                            "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
+                            (rating == 1? "text-danger":rating == 2?
+                                "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
 
-                        "\"  >" +
-                        "				<i id=\"icon-rated-2\" class=\" " +
-                        (rating > 1? "fas" : "far" ) +
-                        " 				fa-star\"></i>" +
-                        " 			</a>" +
-                        "			<a class=\"  " +
+                            "\"  >" +
+                            "				<i id=\"icon-rated-2\" class=\" " +
+                            (rating > 1? "fas" : "far" ) +
+                            " 				fa-star\"></i>" +
+                            " 			</a>" +
+                            "			<a class=\"  " +
 
-                        (rating == 1? "text-danger":rating == 2?
-                            "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
+                            (rating == 1? "text-danger":rating == 2?
+                                "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
 
-                        "\"  >" +
-                        "				<i id=\"icon-rated-3\" class=\" " +
-                        (rating > 2? "fas" : "far" ) +
-                        " 				fa-star\"></i>" +
-                        " 			</a>" +
-                        "			<a class=\"  " +
+                            "\"  >" +
+                            "				<i id=\"icon-rated-3\" class=\" " +
+                            (rating > 2? "fas" : "far" ) +
+                            " 				fa-star\"></i>" +
+                            " 			</a>" +
+                            "			<a class=\"  " +
 
-                        (rating == 1? "text-danger":rating == 2?
-                            "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
+                            (rating == 1? "text-danger":rating == 2?
+                                "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
 
-                        "\"  >" +
-                        "				<i id=\"icon-rated-4\" class=\" " +
-                        (rating > 3? "fas" : "far" ) +
-                        " 				fa-star\"></i>" +
-                        " 			</a>" +
-                        "			<a class=\"  " +
+                            "\"  >" +
+                            "				<i id=\"icon-rated-4\" class=\" " +
+                            (rating > 3? "fas" : "far" ) +
+                            " 				fa-star\"></i>" +
+                            " 			</a>" +
+                            "			<a class=\"  " +
 
-                        (rating == 1? "text-danger":rating == 2?
-                            "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
+                            (rating == 1? "text-danger":rating == 2?
+                                "text-warning":rating == 3? "text-secondary":rating == 4? "text-success":"text-primary") +
 
-                        "\"  >" +
-                        "				<i id=\"icon-rated-5\" class=\" " +
-                        (rating > 4? "fas" : "far" ) +
-                        " 				fa-star\"></i>" +
-                        " 			</a>" +
-                        "		</div>" +
-                        "		<div class=\"comment-body-content text-right\">" +
-                        "			<p>" +
-                        "				<button type=\"button\" class=\"btn btn-secondary\" data-toggle=\"modal\"" +
-                        "					data-target=\"#exampleModal\" data-whatever=\"" + data.comment_id + "\">" +
-                        "					Change Your Review" +
-                        "				</button>" +
-                        "			</p>" +
-                        "		</div>" +
-                        "   </div>" +
-                        "</li>"
-                    ).hide();
-
-
-                    $(".comment-list").prepend(
-                        comment_with_notify_append
-                    );
-                    $(".comment-list-count").text(comment_count_int.toString());
-                    $(".comment-list-count-top").text(comment_count_int.toString());
-                    comment_with_notify_append.fadeIn(1500);
+                            "\"  >" +
+                            "				<i id=\"icon-rated-5\" class=\" " +
+                            (rating > 4? "fas" : "far" ) +
+                            " 				fa-star\"></i>" +
+                            " 			</a>" +
+                            "		</div>" +
+                            "		<div class=\"comment-body-content text-right\">" +
+                            "			<p>" +
+                            "				<button type=\"button\" class=\"btn btn-secondary\" data-toggle=\"modal\"" +
+                            "					data-target=\"#exampleModal\" data-whatever=\"" + data.comment_id + "\">" +
+                            "					Change Your Review" +
+                            "				</button>" +
+                            "			</p>" +
+                            "		</div>" +
+                            "   </div>" +
+                            "</li>"
+                        ).hide();
 
 
-                    setTimeout(
-                        function () {
-                            $("#" + notify_id + "").fadeOut();
-                            setTimeout(
-                                function () {
-                                    $("#" + notify_id + "").remove();
-                                }, 1000);
-                        }, 5000);
-                }
-            })
+                        $(".comment-list").prepend(
+                            comment_with_notify_append
+                        );
+                        $(".comment-list-count").text(comment_count_int.toString());
+                        $(".comment-list-count-top").text(comment_count_int.toString());
+                        comment_with_notify_append.fadeIn(1500);
+
+
+                        setTimeout(
+                            function () {
+                                $("#" + notify_id + "").fadeOut();
+                                setTimeout(
+                                    function () {
+                                        $("#" + notify_id + "").remove();
+                                    }, 1000);
+                            }, 5000);
+                    }
+                })
+			}
         });
 		@if(Auth::check())
         $('#exampleModal').on('show.bs.modal', function (event) {

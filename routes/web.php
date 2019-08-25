@@ -20,6 +20,7 @@ Route::get('/post_by_category/{id}', 'HomePageController@categorySingle');
 Route::get('/post_by_tag/{id}', 'HomePageController@tagSingle');
 Route::get('/post_list', 'HomePageController@post_list');
 Route::get('/dlc_list', 'HomePageController@dlc_list');
+Route::get('/dlc_list/{id}', 'HomePageController@dlc_list_by_game');
 
 Route::get('/category.php', function () {
     return view('category');
@@ -38,6 +39,9 @@ Route::group(['prefix' =>'admin', 'middleware'=>'auth'], function(){
     Route::resource('/tag','TagController');
     Route::resource('/post','PostController');
     Route::resource('/dlc','DlcController');
+    Route::resource('/gallery','GalleryController')->except('index', 'show');
+	Route::get('/gallery/game/{id}', 'GalleryController@showGame')->name('galleryGame');
+	Route::get('/gallery/dlc/{id}', 'GalleryController@showDlc')->name('galleryDlc');
     Route::resource('/message', 'MessageController')->except('create', 'store');
     Route::get('/comment', 'CommentController@listComment');
 //    Route::get('/commentByProperties/post/{postId}', 'CommentController@listCommentByProperties');
@@ -61,11 +65,11 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::post('/dlc_comment_ajax/{id}', 'CommentController@dlc_comment_ajax');
 
     Route::post('/delete_comment_ajax', 'CommentController@deleteCommentAjax');
-  
+
     Route::get('/user', 'HomePageController@userProfile')->name('user_profile');
     Route::get('/edit_profile', 'HomePageController@editProfile')->name('profile_edit');
     Route::post('/save_profile', 'HomePageController@saveProfile');
-  
+
     Route::get('/add_to_cart/{id}','HomePageController@getAddtoCart');
     Route::get('/add_dlc_to_cart/{id}','HomePageController@getDlctoCart');
 

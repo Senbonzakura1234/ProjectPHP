@@ -17,14 +17,16 @@
                            class="form-control" placeholder="Post"/>
 
                     <label class="mt-2" for="exampleFormControlSelect2">Category</label>
-                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="category[]">
+                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="category[]"
+							data-live-search="true">
                         @foreach($lsCate as $i => $cate)
                             <option value="{{$cate->id}}">{{$cate->name}}</option>
                         @endforeach
                     </select>
 
                     <label class="mt-2" for="exampleFormControlSelect2">Brand</label>
-                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="tag[]">
+                    <select multiple class="form-control select-form" id="exampleFormControlSelect2" name="tag[]"
+							data-live-search="true">
                         @foreach($lsTag as $i => $tag)
                             <option value="{{$tag->id}}">{{$tag->name}}</option>
                         @endforeach
@@ -46,7 +48,38 @@
                     </div>
                 </div>
             </div>
-
+			<div class="form-row">
+				<div class="form-group col-12">
+					<label>Select platform compatible</label>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectWindows">Windows</label>
+					<select class="form-control select-form" id="exampleFormControlSelectWindows"
+						name="windows" required>
+						<option></option>
+						<option value="1">Available</option>
+						<option value="0">Not Available</option>
+					</select>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectXbox">Xbox</label>
+					<select class="form-control select-form" id="exampleFormControlSelectXbox"
+						name="xbox" required>
+						<option></option>
+						<option value="1">Available</option>
+						<option value="0">Not Available</option>
+					</select>
+				</div>
+				<div class="form-group col-12 col-lg-4">
+					<label for="exampleFormControlSelectPlaystation">Playstation</label>
+					<select class="form-control select-form" id="exampleFormControlSelectPlaystation"
+						name="playstation" required>
+						<option></option>
+						<option value="1">Available</option>
+						<option value="0">Not Available</option>
+					</select>
+				</div>
+			</div>
 			<div class="form-row">
 				<div class="form-group col-12 col-md-6">
 					<label for="price">Price</label>
@@ -89,16 +122,7 @@
         CKEDITOR.replace( 'content', options );
         CKEDITOR.config.extraPlugins = 'autogrow';
         CKEDITOR.config.autoGrow_maxHeight = 1000;
-        if (newWindowWidth < 400) {
-            CKEDITOR.config.height= newMinHeight1;
-            CKEDITOR.config.autoGrow_minHeight = newMinHeight1;
-        }else if(newWindowWidth < 767 && newWindowWidth >= 400){
-            CKEDITOR.config.height= newMinHeight2;
-            CKEDITOR.config.autoGrow_minHeight = newMinHeight2;
-        }else{
-            CKEDITOR.config.height= newMinHeight3;
-            CKEDITOR.config.autoGrow_minHeight = newMinHeight3;
-        }
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 let reader = new FileReader();

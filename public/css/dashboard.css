@@ -67,7 +67,8 @@ a:active{
 .bg-success a,
 .bg-primary a,
 .bg-warning a,
-.bg-danger a{
+.bg-danger a,
+.bg-info a{
     color: rgba(255, 255, 255, 1);
     text-decoration: none;
     -webkit-transition: .3s all ease;
@@ -89,8 +90,12 @@ a:active{
 .bg-danger a:active,
 .bg-dark a:hover,
 .bg-dark a:focus,
-.bg-dark a:active{
+.bg-dark a:active,
+.bg-info a:hover,
+.bg-info a:focus,
+.bg-info a:active{
     color: rgba(229, 229, 229, 0.9);
+    color: #e74a3b;
     text-decoration: none;
 }
 .dropdown-menu{

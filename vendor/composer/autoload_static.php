@@ -477,6 +477,7 @@ class ComposerStaticInit66f64b8ded5d29a2397319b7c3087ef5
     );
 
     public static $classMap = array (
+        'App\\Cart' => __DIR__ . '/../..' . '/app/Cart.php',
         'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
         'App\\Comment' => __DIR__ . '/../..' . '/app/Comment.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -484,6 +485,7 @@ class ComposerStaticInit66f64b8ded5d29a2397319b7c3087ef5
         'App\\Dlc' => __DIR__ . '/../..' . '/app/Dlc.php',
         'App\\DlcUser' => __DIR__ . '/../..' . '/app/DlcUser.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Gallery' => __DIR__ . '/../..' . '/app/Gallery.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -493,6 +495,7 @@ class ComposerStaticInit66f64b8ded5d29a2397319b7c3087ef5
         'App\\Http\\Controllers\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DlcController' => __DIR__ . '/../..' . '/app/Http/Controllers/DlcController.php',
+        'App\\Http\\Controllers\\GalleryController' => __DIR__ . '/../..' . '/app/Http/Controllers/GalleryController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\HomePageController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomePageController.php',
         'App\\Http\\Controllers\\MessageController' => __DIR__ . '/../..' . '/app/Http/Controllers/MessageController.php',
@@ -510,6 +513,7 @@ class ComposerStaticInit66f64b8ded5d29a2397319b7c3087ef5
         'App\\Invoice' => __DIR__ . '/../..' . '/app/Invoice.php',
         'App\\MemberMessage' => __DIR__ . '/../..' . '/app/MemberMessage.php',
         'App\\Message' => __DIR__ . '/../..' . '/app/Message.php',
+        'App\\News' => __DIR__ . '/../..' . '/app/News.php',
         'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\PostCategory' => __DIR__ . '/../..' . '/app/PostCategory.php',
         'App\\PostTag' => __DIR__ . '/../..' . '/app/PostTag.php',
