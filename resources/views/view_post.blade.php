@@ -35,7 +35,7 @@
 			<small>
 				@foreach($post->tags->take(1) as $tag)
 					<a href="{{asset('/post_by_tag/'.$tag->id)}}">
-						{{$tag->name}}
+						<i class="fas fa-rainbow"></i> {{$tag->name}}
 					</a>@if(!$loop->last), @endif
 				@endforeach
 			</small>
@@ -48,7 +48,7 @@
 			<div class="mb-2">
 				@foreach($post->categories as $cate)
 					<a class="category" href="{{asset('/post_by_category/'.$cate->id)}}">
-						<i class="fas fa-rainbow"></i> {{$cate->name}}
+						<i class="fas fa-tag"></i> {{$cate->name}}
 					</a>
 				@endforeach
 			</div>
@@ -58,22 +58,22 @@
 			</div>
 
 
-			@if(Auth::check())								
+			@if(Auth::check())
 				@if(in_array($post->id, $gamedamua))
-					<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
+					<button class="btn btn-sm btn-info add-to-cart-btn">
 						<i class="fas fa-check"></i>
 						<span class="add-to-cart-btn-text">Da mua</span>
 						<i class="fas fa-sync-alt fast-spin"></i>
 					</button>
 				@else
-				<a href="{{asset('/add_to_cart/'.$post->id)}}" class="position-modify">
+				<a href="{{asset('/add_to_cart/'.$post->id)}}">
 						<button class="btn btn-sm btn-primary add-to-cart-btn">
 							<i class="fas fa-cart-plus"></i>
 							<span class="add-to-cart-btn-text">Add to cart</span>
 							<i class="fas fa-sync-alt fast-spin"></i>
 						</button>
 					</a>
-				@endif									
+				@endif
 			@endif
 
 
@@ -201,10 +201,10 @@
 
 	<div class="pt-5">
 		<p>&nbsp;
-			Tags:
+			<i class="fas fa-th-large"></i> Publisher:
 			@foreach($post->tags as $tag)
 				<a href="{{asset('/post_by_tag/'.$tag->id)}}">
-					<i class="fas fa-tag"></i> {{$tag->name}}
+					<i class="fas fa-rainbow"></i>  {{$tag->name}}
 				</a>@if(!$loop->last), @endif
 			@endforeach
 		</p>

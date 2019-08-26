@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 	<div class="col-md-12 col-lg-8 main-content">
-		@if(Session::has('cart'))
+
 		<div class="table-responsive row m-0">
 			<table class="table table-striped" style="min-width: 500px">
 				<thead>
@@ -20,6 +20,7 @@
 				</tr>
 				</thead>
 				<tbody>
+				@if(Session::has('cart'))
 					@foreach($product_cart as $product)
 {{--						https://dummyimage.com/50x50/55595c/fff--}}
 						<tr>
@@ -45,56 +46,77 @@
 									<i class="fas fa-trash-alt"></i>
 								</button>
 							</a>
-								
+
 							</td>
 						</tr>
 					@endforeach
+				@else
+					<tr>
+						<td class="align-middle">
+							- No item -
+						</td>
+						<td class="align-middle">
+
+						</td>
+						<td class="align-middle text-left">
+							- No item -
+						</td>
+
+						<td class="align-middle text-center">
+
+						</td>
+					</tr>
+				@endif
 				</tbody>
 			</table>
 		</div>
-		<a href="{{asset('/del_all_cart')}}">
+		<a href="@if(Session::has('cart')) {{asset('/del_all_cart')}} @else # @endif">
 			<button class="btn btn-sm btn-danger my-2" style="cursor: pointer">
 				Remove All Item <i class="fas fa-trash-restore-alt"></i>
 			</button>
-		</a>	
+		</a>
 		<a href="{{asset('/')}}" class="btn btn-secondary my-2">
 			Continue Shopping <i class="fas fa-shopping-cart"></i>
 		</a>
-		<div class="table-responsive row mx-0 mt-3">
-			<table class="table table-sm table-borderless col-12 col-md-5 ml-auto">
-				<tbody>
-					<tr>
-						<td>Sub-Total</td>
-						<td class="align-middle text-right">{{$cart->subTotal}} €</td>
-					</tr>
-					<tr>
-						<td>Discount</td>
-						<td class="align-middle text-right">{{$cart->discountTotal}} €</td>
-					</tr>
-					<tr>
-						<th scope="col"><strong>Total</strong></th>
-						<th scope="col" class="align-middle text-right"><strong>
-						{{$totalPrice}}
-						 €</strong></th>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		@if(Session::has('cart'))
+			<div class="table-responsive row mx-0 mt-3">
+				<table class="table table-sm table-borderless col-12 col-md-5 ml-auto">
+					<tbody>
+						<tr>
+							<td>Sub-Total</td>
+							<td class="align-middle text-right">{{$cart->subTotal}} €</td>
+						</tr>
+						<tr>
+							<td>Discount</td>
+							<td class="align-middle text-right">{{$cart->discountTotal}} €</td>
+						</tr>
+						<tr>
+							<th scope="col"><strong>Total</strong></th>
+							<th scope="col" class="align-middle text-right"><strong>
+							{{$totalPrice}}
+							 €</strong></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-		<div class="row mx-0 my-3">
-			<div class="ml-auto">
-				<div class="d-inline-flex mb-2">
-					<a href="{{asset('/checkout')}}" class="btn btn-success">
-						Purchase for myself <i class="fas fa-cash-register"></i>
-					</a>
-				</div>
-				<div class="d-inline-flex mb-2">
-					<a href="{{asset("/gift")}}" class="btn btn-success">Purchase as a gift <i class="fas fa-gifts"></i></a>
+			<div class="row mx-0 my-3">
+				<div class="ml-auto">
+					<div class="d-inline-flex mb-2">
+						<a href="{{asset('/checkout')}}" class="btn btn-success">
+							Purchase for myself <i class="fas fa-cash-register"></i>
+						</a>
+					</div>
+					<div class="d-inline-flex mb-2">
+						<a href="{{asset("/gift")}}" class="btn btn-success">
+							Purchase as a gift <i class="fas fa-gifts"></i>
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-
 		@endif
+
+
 		<div class="row my-5 px-md-3">
 			<h2><i class="fas fa-user-clock"></i> Relate content</h2>
 		</div>
@@ -155,7 +177,7 @@
 								</div>
 							</div>
 
-							@if(Auth::check())								
+							@if(Auth::check())
 								@if(in_array($post->id, $gamedamua))
 									<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
 										<i class="fas fa-check"></i>
@@ -170,7 +192,7 @@
 											<i class="fas fa-sync-alt fast-spin"></i>
 										</button>
 									</a>
-								@endif									
+								@endif
 							@endif
 
 
@@ -243,8 +265,8 @@
 										<i class="fas fa-sync-alt fast-spin"></i>
 									</button>
 								</a> -->
-								
-								@if(Auth::check())								
+
+								@if(Auth::check())
 									@if(in_array($dlc->id, $dlcdamua))
 										<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
 											<i class="fas fa-check"></i>
@@ -259,7 +281,7 @@
 												<i class="fas fa-sync-alt fast-spin"></i>
 											</button>
 										</a>
-									@endif									
+									@endif
 								@endif
 
 							</div>

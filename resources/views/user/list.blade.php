@@ -7,34 +7,92 @@
         </div>
     </div>
     <div class="row mt-5">
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Change Role</th>
-            </tr>
-            @foreach($lsUser as $i => $user)
-            <tr>
-                <td>{{$user->id}}</td>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td><label id="user{{$user->id}}">{{$user -> role}}</label></td>
-                <td>
-                    @if($user->role != 'master')
-                        <button class="btn btn-info
-                            mt-4 mt-md-3 mt-lg-0 float-right" data-toggle="modal"
-                                data-target="#exampleModal" data-whatever="{{$user->id}}">
-                            Change Role
-                        </button>
-                    @endif
-                </td>
-            </tr>
-            @endforeach
-        </table>
+		<div class="col-12 mb-2 d-md-block d-none">
+			<div class="card text-white bg-primary">
+				<div class="card-body py-3 row mx-0">
+					<div class="col-12 col-md-5 col-lg-3 mb-2 mb-md-0">
+						<strong class="mr-2 mr-lg-5 d-inline-block" style="width: 30px;
+							border-radius: 100%;background: transparent; position: relative; top: 3px">
+								<i class="fas fa-user-circle"></i>
+						</strong>
+						<strong style="position: relative; top: 3px">
+							Username
+						</strong>
+					</div>
+					<div class="col-12 d-none d-lg-block col-lg-5 mb-2 mb-md-0">
+						<strong style="position: relative; top: 3px">
+							Email
+						</strong>
+					</div>
+					<div class="col-12 col-md-3 col-lg-2 mb-2 mb-md-0">
+						<strong style="position: relative; top: 3px">
+							Role
+						</strong>
+					</div>
+					<div class="col-12 col-md-4 col-lg-2 text-right mb-2 mb-md-0">
 
-
+					</div>
+				</div>
+			</div>
+		</div>
+		@foreach($lsUser as $i => $user)
+			<div class="col-12 mb-2">
+				<div class="card @if($user->role == 'master') bg-danger text-white @elseif($user->role == 'admin')
+					bg-success text-white @else text-primary @endif" id="user{{$user->id}}">
+					<div class="card-body row mx-0">
+						<div class="col-12 col-md-5 col-lg-3 mb-2 mb-md-0">
+							<img src="{{asset($user->avatar)}}" alt="avatar" class="mr-2 mr-lg-5"
+								 style="width: 30px; height: 30px; border-radius: 100%;
+								 background: white">
+							<span class="d-inline d-lg-none d-xl-inline" style="position: relative; top: 3px">
+								@if(strlen($user->name) <= 18)
+									<strong>{{$user->name}}</strong>
+								@else
+									<strong>{{substr($user->name, 0, 14)}} ...</strong>
+								@endif
+							</span>
+							<span class="d-none d-lg-inline d-xl-none" style="position: relative; top: 3px">
+								@if(strlen($user->name) <= 11)
+									<strong>{{$user->name}}</strong>
+								@else
+									<strong>{{substr($user->name, 0, 8)}}...</strong>
+								@endif
+							</span>
+						</div>
+						<div class="col-12 d-none d-lg-block col-lg-5 mb-2 mb-md-0">
+							<span style="position: relative; top: 3px">
+								{{$user->email}}
+							</span>
+						</div>
+						<div class="col-12 col-md-3 col-lg-2 mb-2 mb-md-0">
+							<span style="position: relative; top: 3px">
+								<span class="d-inline-block d-md-none mr-2" style="width: 30px"></span>
+								<span class="d-md-none">Role:</span>
+								<strong id="role">{{ucfirst($user -> role)}}</strong>
+							</span>
+						</div>
+						<div class="col-12 col-md-4 col-lg-2 text-right mb-2 mb-md-0">
+							@if($user->role != 'master')
+								<button class="btn btn-sm btn-dark" data-toggle="modal"
+										data-target="#exampleModal" data-whatever="{{$user->id}}">
+									Change Role
+								</button>
+							@else
+								<button class="btn btn-secondary btn-sm" disabled>
+									Change Role
+								</button>
+							@endif
+						</div>
+					</div>
+				</div>
+			</div>
+		@endforeach
+	</div>
+	<div class="mt-5 row">
+		<div class="mx-auto">
+			{{$lsUser->links()}}
+		</div>
+	</div>
 @endsection
 @section('modal')
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -57,7 +115,7 @@
                                     id="user_role" name="user_role">
                                 <option value="user">User</option>
                                 <option value="admin">Admin</option>
-                                
+
                             </select>
                         </div>
                     </form>
@@ -90,19 +148,17 @@
                 data: {user_id: user_id, user_role: user_role, _token: _token},
                 success: function (data) {
                     if (user_role == 'user') {
-                        $('#user' + user_id).addClass("text-white").addClass("bg-success").removeClass("bg-light");
-                        $('#user' + user_id).text("user");
-                        $('#user' + user_id).find(".btn").addClass("btn-danger").removeClass("btn-primary");
+                        $('#user' + user_id).find('#role').text("User");
+                        $('#user' + user_id).addClass('text-primary').removeClass('bg-success').removeClass('text-white');
                     } else if (user_role == 'admin') {
-                        $('#user' + user_id).addClass("bg-light").removeClass("text-white").removeClass("bg-success");
-                        $('#user' + user_id).text("admin");
-                        $('#user' + user_id).find(".btn").addClass("btn-primary").removeClass("btn-danger");
+                        $('#user' + user_id).find('#role').text("Admin");
+                        $('#user' + user_id).removeClass('text-primary').addClass('bg-success').addClass('text-white');
                     }
                     $('.modal').modal('toggle');
                 },
             })
         });
-        
+
     </script>
 @endsection
 

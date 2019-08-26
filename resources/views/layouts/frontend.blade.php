@@ -85,14 +85,15 @@
 				<div class="col-lg-4 col-xl-3 user-status">
 					@if (Route::has('login'))
 						@auth
-							<a class="btn btn-outline-primary" href="{{ url('/admin') }}">
-								@if(strlen(Auth::user()->name) <= 6)
-									{{Auth::user()->name}} <span
-										class="fas fa-user"></span>
-								@else
-									User <span class="fas fa-user"></span>
-								@endif
-							</a>
+							@if(Auth::user()->role != 'user')
+								<a class="btn btn-outline-primary" href="{{ url('/admin') }}">
+									Admin <span class="fas fa-cog"></span>
+								</a>
+							@else
+								<a class="btn btn-outline-primary" href="{{ url('/user') }}">
+									Profile <span class="fas fa-user"></span>
+								</a>
+							@endif
 							<a class="btn btn-outline-info" href="{{ route('logout') }}"
 							   onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
@@ -140,19 +141,19 @@
 
 					<div class="d-inline nav-link" id="dropDownMenu2-lg-trigger">
 						<a class="mx-auto" href="#" id="dropDownMenu2-lg-link">
-							<i class="fas fa-th-large"></i> Categories
+							<i class="fas fa-tags"></i> Categories
 						</a>
 						<ul id="dropDownMenu2-lg" class="dropDownMenu-lg">
 							@foreach($lsCategory->take(5) as $cate)
 								<li class="nav-item">
 									<a class="nav-link"
 									   href="{{asset('/post_by_category/'.$cate->id)}}">
-										<i class="fas fa-rainbow"></i>{{$cate->name}}
+										<i class="fas fa-tag"></i>{{$cate->name}}
 									</a>
 								</li>
 							@endforeach
 								<li class="nav-item">
-									<a class="nav-link" href="#">
+									<a class="nav-link" href="{{asset('/category_list')}}">
 										<i class="fas fa-plus-circle"></i>View more
 									</a>
 								</li>
@@ -160,19 +161,19 @@
 					</div>
 					<div class="d-inline nav-link" id="dropDownMenu1-lg-trigger">
 						<a class="mx-auto" href="#" id="dropDownMenu1-lg-link">
-							<i class="fas fa-tags"></i> Tag
+							<i class="fas fa-th-large"></i> Publisher
 						</a>
 						<ul id="dropDownMenu1-lg" class="dropDownMenu-lg dropDownMenu-lg-tag">
 							@foreach($lsTag->take(5) as $tag)
 								<li class="nav-item">
 									<a class="nav-link"
 									   href="{{asset('/post_by_tag/'.$tag->id)}}">
-										<i class="fas fa-tag"></i>{{$tag->name}}
+										<i class="fas fa-rainbow"></i>{{$tag->name}}
 									</a>
 								</li>
 							@endforeach
 								<li class="nav-item">
-									<a class="nav-link" href="#">
+									<a class="nav-link" href="{{asset('/publisher_list')}}">
 										<i class="fas fa-plus-circle"></i>View more
 									</a>
 								</li>
@@ -195,10 +196,10 @@
 							<a class="mx-auto" href="#" id="dropDownMenuCart-lg-link">
 								<i class="fas fa-shopping-cart"></i>
 								<span class="badge badge-warning badge-pill" style="position: relative; top: -2px">
-								@if(Session::has('cart')){{Session('cart')->totalQty}}@else Empty @endif
+								@if(Session::has('cart')){{Session('cart')->totalQty}}@else 0 @endif
 								</span>
 							</a>
-							@if(Session::has('cart'))
+
 							<ul id="dropDownMenuCart-lg" class="dropDownCart-lg">
 								<div class="pt-2 px-3 text-left cart-top">
 									<h5 class="m-0">
@@ -206,64 +207,75 @@
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										Price
 									</h5>
-									<a href="{{asset('/del_all_cart')}}">
-										<span class="cart-remove-all-btn">
-											<i class="fas text-danger fa-trash-restore-alt"></i>
-										</span>
-									</a>
+									@if(Session::has('cart'))
+										<a href="{{asset('/del_all_cart')}}">
+											<span class="cart-remove-all-btn">
+												<i class="fas text-danger fa-trash-restore-alt"></i>
+											</span>
+										</a>
+									@endif
 								</div>
 								<li class="dropdown-divider"></li>
+								@if(Session::has('cart'))
+									@foreach($product_cart as $product)
+										<li class="nav-item">
+											<a class="nav-link"
+											   	href="{{asset('/view_post/'.$product['item']['id'])}}">
+												<div class="cart-game-icon"
 
-								@foreach($product_cart as $product)
+													 style="background: url('{{asset($product['item']['cover'])}}');
+													 background-size: cover">
+
+												</div>
+												{{strlen($product['item']['title']) > 20 ?
+													substr($product['item']['title'], 0, 20)." ..." : $product['item']['title']}}
+												<div class="cart-item-price d-block">
+													@if($product['item']['price'] > 0 && $product['item']['discount'] > 0
+														&& $product['item']['discount'] < 100)
+														<span class="text-primary">
+															{{$product['item']['price'] * (1-$product['item']['discount']/100)}} €
+														</span>
+														<span class="badge badge-success badge-pill">
+															-{{$product['item']['discount']}}%
+														</span>
+													@elseif($product['item']['price'] == 0 || $product['item']['discount'] == 100)
+														<span class="badge badge-success badge-pill">Free</span>
+													@else
+														<span>{{$product['item']['price']}} €</span>
+													@endif
+												</div>
+											</a>
+											<a href="{{asset('/del_cart/'.$product['item']['id'])}}">
+											<div class="text-danger cart-remove-btn">
+
+													<i class="fas fa-times-circle"></i>
+
+											</div>
+											</a>
+										</li>
+									@endforeach
+								@else
 									<li class="nav-item">
-									<a class="nav-link" href="{{asset('/view_post/'.$product['item']['id'])}}">
+										<a class="nav-link" href="#">
 											<div class="cart-game-icon"
-
-												 style="background: url('{{asset($product['item']['cover'])}}');
-												 background-size: cover">
-
+												 style="background: transparent">
 											</div>
-											{{strlen($product['item']['title']) > 20 ?
-												substr($product['item']['title'], 0, 20)." ..." : $product['item']['title']}}
-											<div class="cart-item-price d-block">
-												@if($product['item']['price'] > 0 && $product['item']['discount'] > 0
-													&& $product['item']['discount'] < 100)
-													<span class="text-primary">
-														{{$product['item']['price'] * (1-$product['item']['discount']/100)}} €
-													</span>
-													<span class="badge badge-success badge-pill">
-														-{{$product['item']['discount']}}%
-													</span>
-												@elseif($product['item']['price'] == 0 || $product['item']['discount'] == 100)
-													<span class="badge badge-success badge-pill">Free</span>
-												@else
-													<span>{{$product['item']['price']}} €</span>
-												@endif
-											</div>
-										</a>
-										<a href="{{asset('/del_cart/'.$product['item']['id'])}}">
-										<div class="text-danger cart-remove-btn">
-
-												<i class="fas fa-times-circle"></i>
-
-										</div>
+											- No Item -
 										</a>
 									</li>
-								@endforeach
-
+								@endif
 
 								<li class="dropdown-divider"></li>
 								<div class="text-center px-2 pb-2">
 									<a style="width: 40%" class="btn-info btn" href="{{asset('/cart')}}">
 										Go to Cart
 									</a>
-									<a style="width: 40%" class="btn-success btn" href="{{asset('/checkout')}}">
+									<a style="width: 40%" class="btn-success btn"
+									   	href="@if(Session::has('cart')) {{asset('/checkout')}} @else # @endif">
 										Checkout
 									</a>
 								</div>
 							</ul>
-						@endif
-
 						</div>
 					@endif
 
@@ -304,18 +316,18 @@
 	<div class="dropdown-divider"></div>
 	<li class="nav-item">
 		<a class="nav-link" id="dropdownTrigger2-sm">
-			<i class="fas fa-th-large"></i>Categories<i class="fas fa-caret-down"></i>
+			<i class="fas fa-tags"></i>Categories<i class="fas fa-caret-down"></i>
 		</a>
 		<ul id="dropDownMenu2-sm" class="dropDownMenu-sm">
 			@foreach($lsCategory->take(5) as $cate)
 				<li class="nav-item">
 					<a class="nav-link" href="{{asset('/post_by_category/'.$cate->id)}}">
-						<i class="fas fa-rainbow"></i>{{$cate->name}}
+						<i class="fas fa-tag"></i>{{$cate->name}}
 					</a>
 				</li>
 			@endforeach
 				<li class="nav-item">
-					<a class="nav-link" href="#">
+					<a class="nav-link" href="{{asset('/category_list')}}">
 						<i class="fas fa-plus-circle"></i> View more
 					</a>
 				</li>
@@ -323,18 +335,18 @@
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="dropdownTrigger1-sm">
-			<i class="fas fa-tags"></i>Tag<i class="fas fa-caret-down"></i>
+			<i class="fas fa-th-large"></i>Publisher<i class="fas fa-caret-down"></i>
 		</a>
 		<ul id="dropDownMenu1-sm" class="dropDownMenu-sm">
 			@foreach($lsTag->take(5) as $tag)
 				<li class="nav-item">
 					<a class="nav-link" href="{{asset('/post_by_tag/'.$tag->id)}}">
-						<i class="fas fa-tag"></i>{{$tag->name}}
+						<i class="fas fa-rainbow"></i>{{$tag->name}}
 					</a>
 				</li>
 			@endforeach
 				<li class="nav-item">
-					<a class="nav-link" href="#">
+					<a class="nav-link" href="{{asset('/publisher_list')}}">
 						<i class="fas fa-plus-circle"></i> View more
 					</a>
 				</li>
@@ -351,14 +363,16 @@
 			<i class="fas fa-comment-dots"></i> Contact Us
 		</a>
 	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="{{asset('/cart')}}">
-			<i class="fas fa-shopping-cart"></i> Go To Cart
-			<span class="badge-pill badge-info badge">
-				 {{count($lsPopular)}}
-			</span>
-		</a>
-	</li>
+	@if(Auth::check() && Request::route()->getName() != 'checkout')
+		<li class="nav-item">
+			<a class="nav-link" href="{{asset('/cart')}}">
+				<i class="fas fa-shopping-cart"></i> Go To Cart
+				<span class="badge-pill badge-info badge">
+					@if(Session::has('cart')){{Session('cart')->totalQty}}@else 0 @endif
+				</span>
+			</a>
+		</li>
+	@endif
 	<div class="dropdown-divider"></div>
 	@if (Route::has('login'))
 		@auth
@@ -510,13 +524,13 @@
 					</form>
 				</div>
 				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-th-large"></i> Categories</h3>
+					<h3 class="heading"><i class="fas fa-tags"></i> Top Categories</h3>
 					<ul class="categories">
 
 						@foreach($lsCategory as $cate)
 							<li>
 								<a href="{{asset('/post_by_category/'.$cate->id)}}">
-									<i class="fas fa-rainbow"></i> {{$cate->name}}
+									<i class="fas fa-tag"></i> {{$cate->name}}
 									<span>({{$cate->posts->count()}})</span>
 								</a>
 							</li>
@@ -526,12 +540,13 @@
 				<!-- END sidebar-box -->
 
 				<div class="sidebar-box">
-					<h3 class="heading"><i class="fas fa-tags"></i> Tags</h3>
+					<h3 class="heading"><i class="fas fa-th-large"></i> Top Publisher</h3>
 					<ul class="tags">
 						@foreach($lsTag as $tag)
 							<li>
 								<a href="{{asset('/post_by_tag/'.$tag->id)}}">
-									<i class="fas fa-tag"></i> {{$tag->name}} <span>({{$tag->posts->count()}})</span>
+									<i class="fas fa-rainbow"></i> {{$tag->name}}
+									<span>({{$tag->posts->count()}})</span>
 								</a>
 							</li>
 						@endforeach
@@ -556,7 +571,7 @@
 					<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1224.9553473187261!2d105.78229749273773!3d21.028298437912536!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b3285df81f%3A0x97be82a66bbe646b!2sDetech+Building!5e0!3m2!1svi!2sus!4v1566401417243!5m2!1svi!2sus" allowfullscreen></iframe>
 
 				</div>
-				<div class="footer-banner">
+				<div class="footer-bann">
 					Lorem ipsum dolor sit amet sa ksal sk sa, ...
 					<span>
 						<a style="display: inline" href="{{asset('/about')}}">
@@ -605,14 +620,14 @@
 							@foreach($lsRandomCate as $randomCate)
 								<li>
 									<a href="{{asset('/post_by_category/'.$randomCate->id)}}">
-										<i class="fas fa-rainbow"></i> {{$randomCate->name}}
+										<i class="fas fa-tag"></i> {{$randomCate->name}}
 									</a>
 								</li>
 							@endforeach
 							@foreach($lsRandomTag as $randomTag)
 								<li>
 									<a href="{{asset('/post_by_tag/'.$randomTag->id)}}">
-										<i class="fas fa-tag"></i> {{$randomTag->name}}
+										<i class="fas fa-rainbow"></i> {{$randomTag->name}}
 									</a>
 								</li>
 							@endforeach

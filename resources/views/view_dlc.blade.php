@@ -34,7 +34,7 @@
 			<small>
 				@foreach($dlc->post->tags->take(1) as $tag)
 					<a href="{{asset('/post_by_tag/'.$tag->id)}}">
-						{{$tag->name}}
+						<i class="fas fa-rainbow"></i> {{$tag->name}}
 					</a>@if(!$loop->last), @endif
 				@endforeach
 			</small>
@@ -52,22 +52,22 @@
 			<div class="follow-btn text-secondary mb-2 ml-sm-auto mr-2 px-2">
 				Follow <i class="fas fa-rss"></i>
 			</div>
-			@if(Auth::check())								
+			@if(Auth::check())
 				@if(in_array($dlc->id, $dlcdamua))
-					<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
+					<button class="btn btn-sm btn-info add-to-cart-btn">
 						<i class="fas fa-check"></i>
 						<span class="add-to-cart-btn-text">Da mua</span>
 						<i class="fas fa-sync-alt fast-spin"></i>
 					</button>
 				@else
-				<a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}" class="position-modify">
+				<a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}">
 						<button class="btn btn-sm btn-primary add-to-cart-btn">
 							<i class="fas fa-cart-plus"></i>
 							<span class="add-to-cart-btn-text">Add to cart</span>
 							<i class="fas fa-sync-alt fast-spin"></i>
 						</button>
 					</a>
-				@endif									
+				@endif
 			@endif
 
 		</div>
@@ -81,22 +81,40 @@
 	</div>
 @endsection
 @section('comment')
+	<div class="my-3 row galleries">
+		<div class="col-12">
+			<h4>Game galleries</h4>
+		</div>
+		<div class="col-12">
+			<div id="galleriesCarousel" class="carousel slide" data-ride="carousel" data-interval="4000"
+				 data-pause="hover">
+				<ol class="carousel-indicators">
+					@foreach($lsGallery as $gallery)
+						<li data-target="#galleriesCarousel" data-slide-to="{{ $loop->index }}"
+							class="{{ $loop->first ? 'active' : '' }}"></li>
+					@endforeach
+				</ol>
+				<div class="carousel-inner">
+					@foreach($lsGallery as $gallery)
+						<div class="carousel-item {{ $loop->first ? 'active' : '' }} galleryItem">
+							<img src="{{asset($gallery->link)}}" class="d-block w-100" alt="...">
+						</div>
+					@endforeach
+				</div>
+				<a class="carousel-control-prev" href="#galleriesCarousel" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#galleriesCarousel" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+		</div>
+	</div>
+
 	<div class="pt-5">
 		<p>
-			Categories:
-			@foreach($dlc->post->categories as $cate)
-				<a href="{{asset('/post_by_category/'.$cate->id)}}">
-					<i class="fas fa-rainbow"></i> {{$cate->name}}
-				</a>@if(!$loop->last), @endif
-			@endforeach
-			&nbsp;
-			Tags:
-			@foreach($dlc->post->tags as $tag)
-				<a href="{{asset('/post_by_tag/'.$tag->id)}}">
-					<i class="fas fa-tag"></i> {{$tag->name}}
-				</a>@if(!$loop->last), @endif
-			@endforeach
-			<br>
 			Games:
 			<a href="{{asset('/view_post/'.$dlc->post->id)}}">
 				<i class="fas fa-gamepad"></i> {{$dlc->post->title}}

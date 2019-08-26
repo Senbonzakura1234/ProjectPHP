@@ -74,7 +74,7 @@ class GalleryController extends Controller
 				    $gallery->dlc_id = $request->dlc;
 				    $gallery -> save();
 			    }
-			    return redirect()->route("galleryDlc", ['id' => $request->post]);
+			    return redirect()->route("galleryDlc", ['id' => $request->dlc]);
 		    }else{
 			    return redirect()->route("gallery.create");
 		    }

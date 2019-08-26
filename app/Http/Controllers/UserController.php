@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function listUser(){
-        $lsUser = User::all();
+        $lsUser = User::orderByRaw('FIELD(role, "Master", "Admin", "User")')->paginate(6);
         return view('user.list')->with('lsUser',$lsUser);
     }
     public function changeStatus(Request $request){

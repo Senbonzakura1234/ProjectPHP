@@ -107,51 +107,53 @@
 
 			<li class="nav-item">
 				<a class="nav-link" href="{{asset('/admin')}}">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<i class="fas fa-fw fa-cog"></i>
 					<span>Dashboard</span>
-				</a>
-
-				<a href="{{route('category.index')}}" class="nav-link">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Category</span>
-				</a>
-
-				<a href="{{route('tag.index')}}" class="nav-link">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Tag</span>
-				</a>
-
-				<a href="{{route('post.index')}}" class="nav-link">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Game</span>
-				</a>
-
-				<a href="{{asset('/admin/dlc')}}" class="nav-link">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>DLC</span>
-				</a>
-
-				<a class="nav-link" href="{{asset('/admin/comment')}}">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Review</span>
-				</a>
-
-				<a class="nav-link" href="#">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Billing</span>
-				</a>
-
-				<a class="nav-link" href="{{route('gallery.create')}}">
-					<i class="fas fa-palette"></i>
-					<span>Gallery</span>
 				</a>
 
 				@if(Auth::user()->role == 'master')
 					<a class="nav-link" href="{{asset('/admin/ql_user')}}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-users"></i>
 						<span>User</span>
 					</a>
 				@endif
+
+				<a href="{{route('category.index')}}" class="nav-link">
+					<i class="fas fa-fw fa-tags"></i>
+					<span>Category</span>
+				</a>
+
+				<a href="{{route('tag.index')}}" class="nav-link">
+					<i class="fas fa-fw fa-th-large"></i>
+					<span>Publisher</span>
+				</a>
+
+				<a href="{{route('post.index')}}" class="nav-link">
+					<i class="fas fa-fw fa-gamepad"></i>
+					<span>Game</span>
+				</a>
+
+				<a href="{{asset('/admin/dlc')}}" class="nav-link">
+					<i class="fas fa-fw fa-box"></i>
+					<span>DLC</span>
+				</a>
+
+				<a class="nav-link" href="{{asset('/admin/comment')}}">
+					<i class="fas fa-fw fa-comments"></i>
+					<span>Review</span>
+				</a>
+
+				<a class="nav-link" href="#">
+					<i class="fas fa-fw fa-file-invoice"></i>
+					<span>Billing</span>
+				</a>
+
+				<a class="nav-link" href="{{route('gallery.create')}}">
+					<i class="fas fa-fw fa-palette"></i>
+					<span>Gallery</span>
+				</a>
+
+
 
 			</li>
 

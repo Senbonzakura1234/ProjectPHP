@@ -22,7 +22,7 @@
         <div class="col-12 p-2 col-sm-6">
             <div class="card">
                 <div class="card-header bg-success text-light">
-					<a href="{{route('tag.index')}}"><i class="fas fa-tags"></i> Tag</a>
+					<a href="{{route('tag.index')}}"><i class="fas fa-th-large"></i> Publisher</a>
 				</div>
                 <div class="card-body">
 					<canvas id="homeTagsChart"></canvas>
@@ -32,7 +32,7 @@
         <div class="col-12 p-2 col-sm-6">
             <div class="card">
                 <div class="card-header bg-dark text-light">
-					<a href="{{route('post.index')}}"><i class="far fa-clipboard"></i> Game</a>
+					<a href="{{route('post.index')}}"><i class="fas fa-gamepad"></i> Game</a>
                 </div>
                 <div class="card-body">
 					<canvas id="homeGamesChart"></canvas>
@@ -42,7 +42,7 @@
         <div class="col-12 p-2 col-sm-6">
             <div class="card">
                 <div class="card-header bg-warning text-light"><a href="{{asset('/admin/dlc')}}">
-                    <i class="fas fa-comments"></i> DLC</a>
+                    <i class="fas fa-box"></i> DLC</a>
                 </div>
                 <div class="card-body">
 					<canvas id="homeDlcsChart"></canvas>
@@ -65,8 +65,7 @@
 					<i class="fas fa-file-invoice"></i> Billing</a>
                 </div>
                 <div class="card-body">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s
+					<canvas id="homeBillChart"></canvas>
                 </div>
             </div>
         </div>
@@ -77,6 +76,7 @@
         let gameChartArea = document.getElementById('homeGamesChart').getContext('2d');
         let dlcChartArea = document.getElementById('homeDlcsChart').getContext('2d');
         let reviewChartArea = document.getElementById('homeReviewsChart').getContext('2d');
+        let billChartArea = document.getElementById('homeBillChart').getContext('2d');
         let cateChart = new Chart(cateChartArea, {
             type: 'bar',
             data: {
@@ -223,6 +223,44 @@
                     label: 'DLC Review count',
                     data: {!! json_encode($reviewDlcArray) !!},
                     backgroundColor: ['#394BA5','#1CA575','#272937','#CD9F31','#B93E2F'],
+                    borderColor: [],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        let billChart = new Chart(billChartArea, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($mostInvoiceName) !!},
+                datasets: [{
+                    label: 'Most invoices count',
+                    data: {!! json_encode($mostInvoiceCount) !!},
+                    backgroundColor:
+						[
+							@foreach($mostInvoiceCount as $count)
+                                '#5A84FF',
+							@endforeach
+						],
+                    borderColor: [],
+                    borderWidth: 1
+                },{
+                    label: 'Average invoices per user',
+                    data: {!! json_encode($countryUserAverage) !!},
+                    backgroundColor:
+						[
+							@foreach($countryUserAverage as $average)
+                                '#394BA5',
+							@endforeach
+						],
                     borderColor: [],
                     borderWidth: 1
                 }]

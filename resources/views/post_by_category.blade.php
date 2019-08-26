@@ -64,19 +64,9 @@
 											@if($post->playstation == 1) text-compartible @endif">
 											</i>
 										</small>
-										&bull;
-										@foreach($post->tags as $tag)
-											@if($loop->first)
-												<small>
-													<a href="{{asset('/post_by_tag/'.$tag->id)}}" class="mr-2">
-														<i class="fas fa-tag"></i> {{$tag->name}}
-													</a>
-												</small>
-											@endif
-										@endforeach
 									</p>
 								</div>
-								@if(Auth::check())								
+								@if(Auth::check())
 									@if(in_array($post->id, $gamedamua))
 										<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
 											<i class="fas fa-check"></i>
@@ -91,7 +81,7 @@
 												<i class="fas fa-sync-alt fast-spin"></i>
 											</button>
 										</a>
-									@endif									
+									@endif
 								@endif
 
 							</div>

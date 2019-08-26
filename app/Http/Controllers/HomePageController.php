@@ -74,6 +74,7 @@ class HomePageController extends Controller
 
 	public function viewDlc($id){
 		$dlc = Dlc::find($id);
+		$lsGallery = Gallery::where('dlc_id', $id)->get();
 		if (Auth::check()){
 			$userID = auth()->user()->id;
 			$lsUserRating = $dlc->comment()->where('status', 1)->where('user_id', $userID)->get();
@@ -110,7 +111,7 @@ class HomePageController extends Controller
 			'lsRating5Score'=>$lsRating5Score, 'lsRating4Score'=>$lsRating4Score,
 			'lsRating3Score'=>$lsRating3Score, 'lsRating2Score'=>$lsRating2Score,
 			'lsRating1Score'=>$lsRating1Score, 'lsRatingTotal'=>$lsRatingTotal,
-			'lsRatingScore'=>$lsRatingScore])
+			'lsRatingScore'=>$lsRatingScore, 'lsGallery' => $lsGallery])
 			->with('lsUserRatingCount', isset($lsUserRatingCount)?$lsUserRatingCount:null);
 	}
 
@@ -361,5 +362,13 @@ class HomePageController extends Controller
 		}
 
 
+	}
+	public function cateListAll(){
+    	$lsAllCate = Category::orderBy('name','asc')->paginate(30);
+		return view('list_category')->with(['lsAllCate' => $lsAllCate]);
+	}
+	public function tagListAll(){
+    	$lsAllTag = Tag::orderBy('name','asc')->paginate(30);
+		return view('list_tag')->with(['lsAllTag' => $lsAllTag]);
 	}
 }

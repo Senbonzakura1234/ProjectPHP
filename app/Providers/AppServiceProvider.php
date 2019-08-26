@@ -35,6 +35,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+	    $mostInvoice = Country::withCount('invoice')->orderBy('invoice_count', 'desc')->take(5)->get();
+	    $mostInvoiceName = [];
+	    $countryUserAverage = [];
+	    $mostInvoiceCount = [];
+	    foreach ($mostInvoice as $country){
+	    	if(count($country->user) != 0){
+			    $countryUserAverage[] = $country->invoice->count()/count($country->user);
+		    }else{
+			    $countryUserAverage[] = 0;
+		    }
+		    $mostInvoiceCount[] = $country->invoice->count();
+		    $mostInvoiceName[] = $country->nicename;
+	    }
+
         $lsRandomCate = Category::all()->random(2);
         $lsRandomTag = Tag::all()->random(2);
         $lsPopular = Post::withCount('comment')->orderBy('comment_count', 'desc')->take(3)->get();
@@ -96,6 +110,9 @@ class AppServiceProvider extends ServiceProvider
         View::share('lsTagName',$lsTagName);
         View::share('lsTagPostCount',$lsTagPostCount);
         View::share('lsTagPostCommentCount',$lsTagPostCommentCount);
+        View::share('mostInvoiceName',$mostInvoiceName);
+        View::share('countryUserAverage',$countryUserAverage);
+        View::share('mostInvoiceCount',$mostInvoiceCount);
 
 
         view()->composer(['layouts.frontend','cart'],function($view){

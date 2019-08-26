@@ -21,6 +21,8 @@ Route::get('/post_by_tag/{id}', 'HomePageController@tagSingle');
 Route::get('/post_list', 'HomePageController@post_list');
 Route::get('/dlc_list', 'HomePageController@dlc_list');
 Route::get('/dlc_list/{id}', 'HomePageController@dlc_list_by_game');
+Route::get('/category_list', 'HomePageController@cateListAll');
+Route::get('/publisher_list', 'HomePageController@tagListAll');
 
 Route::get('/del_account', function () {
     return view('delaccount');
