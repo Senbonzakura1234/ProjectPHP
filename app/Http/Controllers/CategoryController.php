@@ -59,7 +59,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $ls_message = Message::all();
         $category = Category::find($id);
         return view("category.view")->with(["cate" => $category]);
     }

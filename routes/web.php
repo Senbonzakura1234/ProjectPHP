@@ -45,6 +45,7 @@ Route::group(['prefix' =>'admin', 'middleware'=>['auth','role']], function(){
     Route::resource('/post','PostController');
     Route::resource('/dlc','DlcController');
     Route::resource('/gallery','GalleryController')->except('index', 'show');
+    Route::resource('/billing','BillingController');
 	Route::get('/gallery/game/{id}', 'GalleryController@showGame')->name('galleryGame');
 	Route::get('/gallery/dlc/{id}', 'GalleryController@showDlc')->name('galleryDlc');
     Route::resource('/message', 'MessageController')->except('create', 'store');

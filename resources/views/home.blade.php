@@ -61,7 +61,7 @@
         </div>
         <div class="col-12 p-2 col-sm-6">
             <div class="card">
-                <div class="card-header bg-info text-light"><a href="#">
+                <div class="card-header bg-info text-light"><a href="{{asset('/admin/billing')}}">
 					<i class="fas fa-file-invoice"></i> Billing</a>
                 </div>
                 <div class="card-body">

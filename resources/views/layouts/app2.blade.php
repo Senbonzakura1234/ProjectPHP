@@ -143,7 +143,7 @@
 					<span>Review</span>
 				</a>
 
-				<a class="nav-link" href="#">
+				<a class="nav-link" href="{{asset('/admin/billing')}}">
 					<i class="fas fa-fw fa-file-invoice"></i>
 					<span>Billing</span>
 				</a>
