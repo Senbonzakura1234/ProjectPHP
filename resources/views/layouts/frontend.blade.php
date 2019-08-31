@@ -294,6 +294,13 @@
 <div class="close-menu-lg">
 
 </div>
+@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+	@if(Session::has('alert-' . $msg))
+		<small class="checkout-success alert alert-{{ $msg }}">
+			{{ Session::get('alert-' . $msg) }}
+		</small>
+	@endif
+@endforeach
 <a class="back-to-top"><i class="fas fa-arrow-alt-circle-up"></i></a>
 <ul class="menu-header-sm d-lg-none" style="list-style: none">
 	<li class="nav-item text-center logo-header-wrap-sm">

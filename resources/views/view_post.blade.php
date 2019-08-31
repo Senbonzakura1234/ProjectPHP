@@ -62,7 +62,7 @@
 				@if(in_array($post->id, $gamedamua))
 					<button class="btn btn-sm btn-info add-to-cart-btn">
 						<i class="fas fa-check"></i>
-						<span class="add-to-cart-btn-text">Da mua</span>
+						<span class="add-to-cart-btn-text">Added to Library</span>
 						<i class="fas fa-sync-alt fast-spin"></i>
 					</button>
 				@else
@@ -180,11 +180,23 @@
 									</small>
 								</p>
 							</div>
-							<button class="btn btn-sm btn-primary add-to-cart-btn position-modify">
-								<i class="fas fa-cart-plus"></i>
-								<span class="add-to-cart-btn-text">Add to cart</span>
-								<i class="fas fa-sync-alt fast-spin"></i>
-							</button>
+							@if(Auth::check())
+								@if(in_array($dlc->id, $dlcdamua))
+									<button class="btn btn-sm btn-info add-to-cart-btn position-modify">
+										<i class="fas fa-check"></i>
+										<span class="add-to-cart-btn-text">Added to Library</span>
+										<i class="fas fa-sync-alt fast-spin"></i>
+									</button>
+								@else
+									<a href="{{asset('/add_dlc_to_cart/'.$dlc->id)}}" class="position-modify">
+										<button class="btn btn-sm btn-primary add-to-cart-btn">
+											<i class="fas fa-cart-plus"></i>
+											<span class="add-to-cart-btn-text">Add to cart</span>
+											<i class="fas fa-sync-alt fast-spin"></i>
+										</button>
+									</a>
+								@endif
+							@endif
 						</div>
 					</div>
 				</div>

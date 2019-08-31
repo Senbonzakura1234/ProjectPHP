@@ -2232,3 +2232,15 @@ input[type=number] {
 .galleryItem{
 	height: 500px;
 }
+.checkout-success{
+	position: fixed;
+	top: 65px;
+	right: 0;
+}
+@media (max-width: 767px){
+	.checkout-success{
+		position: fixed;
+		top: 60px;
+		right: 0;
+	}
+}
