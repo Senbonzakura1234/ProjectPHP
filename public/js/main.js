@@ -95,7 +95,14 @@ $(function() {
 		$(this).find(".add-to-cart-btn-text").text();
 	});
 
-
+	setTimeout(
+		function () {
+			$(".checkout-success").fadeOut();
+			setTimeout(
+				function () {
+					$(".checkout-success").remove();
+				}, 1000);
+		}, 5000);
     $(".menu-button").click(function () {
         $(".menu-header-sm").css("left", 0);
         $(".close-menu-sm").css("display", "block");

@@ -106,8 +106,8 @@
 				<h5>Games</h5>
 			</div>
 			<div class="col-md-12">
-				@if(count(Auth::user()->Posts) != 0)
-					@foreach(Auth::user()->Posts->take(1) as $post)
+				@if(count($lsGame) != 0)
+					@foreach($lsGame as $post)
 						<div class="card my-3" style=" width: 100%">
 							<div class="row no-gutters">
 								<div class="col-12 col-md-3">
@@ -150,8 +150,8 @@
 				<h5>DLCs</h5>
 			</div>
 			<div class="col-md-12">
-				@if(count(Auth::user()->Dlcs) != 0)
-					@foreach(Auth::user()->Dlcs->take(1) as $dlc)
+				@if(count($lsDlc) != 0)
+					@foreach($lsDlc as $dlc)
 						<div class="card my-3" style="width: 100%">
 							<div class="row no-gutters">
 								<div class="col-12 col-md-3">
