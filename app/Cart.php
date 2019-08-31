@@ -26,20 +26,20 @@ class Cart extends Model
 	public function add($item, $id){
 		if($item->post_id){
 			if($item->discount == 0){
-				$giohang = ['qty'=>0, 'price' => $item->price, 'item' => $item, 'subprice'=>$item->price, 'discountprice'=>0, 'postid'=>$item->post_id];
+				$giohang = ['qty'=>0, 'price' => $item->price, 'item' => $item, 'subprice'=>$item->price, 'discountprice'=>0, 'postid'=>$item->post_id, 'discount'=>$item->discount];
 			}
 			else{
-				$giohang = ['qty'=>0, 'price' => $item->price*(1-$item->discount/100), 'item' => $item,'subprice'=>$item->price, 'discountprice'=>$item->price*($item->discount/100), 'postid'=>$item->post_id];
+				$giohang = ['qty'=>0, 'price' => $item->price*(1-$item->discount/100), 'item' => $item,'subprice'=>$item->price, 'discountprice'=>$item->price*($item->discount/100), 'postid'=>$item->post_id, 'discount'=>$item->discount];
 			}
 		}else{
 			if($item->discount == 0){
-				$giohang = ['qty'=>0, 'price' => $item->price, 'item' => $item, 'subprice'=>$item->price, 'discountprice'=>0];
+				$giohang = ['qty'=>0, 'price' => $item->price, 'item' => $item, 'subprice'=>$item->price, 'discountprice'=>0, 'discount'=>$item->discount];
 			}
 			else{
-				$giohang = ['qty'=>0, 'price' => $item->price*(1-$item->discount/100), 'item' => $item,'subprice'=>$item->price, 'discountprice'=>$item->price*($item->discount/100)];
+				$giohang = ['qty'=>0, 'price' => $item->price*(1-$item->discount/100), 'item' => $item,'subprice'=>$item->price, 'discountprice'=>$item->price*($item->discount/100), 'discount'=>$item->discount];
 			}
 		}
-		
+
 		if($this->items){
 			if(array_key_exists($id, $this->items)){
 				$giohang = $this->items[$id];
@@ -57,9 +57,9 @@ class Cart extends Model
 
         $this->subTotal += $item->price;
 
-        
+
 		$this->discountTotal += ($item->price*($item->discount/100));
-        
+
 
 		if($item->discount == 0){
 			$this->totalPrice += $item->price;
@@ -67,7 +67,7 @@ class Cart extends Model
 		else{
 			$this->totalPrice += ($item->price*(1-$item->discount/100));
 		}
-		
+
 	}
 	//xóa 1
 	public function reduceByOne($id){
@@ -88,5 +88,5 @@ class Cart extends Model
         $this->discountTotal -= $this->items[$id]['discountprice'];
 		unset($this->items[$id]);
     }
-    
+
 }

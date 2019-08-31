@@ -56,7 +56,7 @@
 				@if(in_array($dlc->id, $dlcdamua))
 					<button class="btn btn-sm btn-info add-to-cart-btn">
 						<i class="fas fa-check"></i>
-						<span class="add-to-cart-btn-text">Da mua</span>
+						<span class="add-to-cart-btn-text">Added to Library</span>
 						<i class="fas fa-sync-alt fast-spin"></i>
 					</button>
 				@else

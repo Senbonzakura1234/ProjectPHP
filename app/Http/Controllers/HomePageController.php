@@ -168,7 +168,17 @@ class HomePageController extends Controller
 	}
 	public function userProfile()
 	{
-		return view('custom');
+		$lsGameLibrary = ProductInvoice::where('user_id', Auth::user()->id)->where('post_id','!=', null)->get();
+		$lsDlcLibrary = ProductInvoice::where('user_id', Auth::user()->id)->where('dlc_id','!=', null)->get();
+		$lsGame = [];
+		$lsDlc = [];
+		foreach ($lsGameLibrary as $libraryGame){
+			$lsGame[] = Post::find($libraryGame->post_id);
+		}
+		foreach ($lsDlcLibrary as $libraryDlc){
+			$lsDlc[] = Dlc::find($libraryDlc->dlc_id);
+		}
+		return view('custom')->with(['lsGame'=> $lsGame, 'lsDlc' => $lsDlc]);
 	}
 	public function editProfile()
 	{
@@ -348,7 +358,10 @@ class HomePageController extends Controller
 				$product_invoice = new ProductInvoice;
 				$product_invoice -> user_id = $user->id;
 				$product_invoice -> invoice_id = $invoice -> id;
-				if($product['postid']){
+				$product_invoice -> subTotal = $product['price'];
+				$product_invoice -> total = $product['price'] * (1 - $product['discount']);
+
+				if(isset($product['postid'])){
 					$product_invoice -> dlc_id = $key;
 				}else{
 					$product_invoice -> post_id = $key;
@@ -356,7 +369,8 @@ class HomePageController extends Controller
 				$product_invoice -> save();
 			}
 			Session::forget('cart');
-			return redirect()->back();
+			$req->session()->flash('alert-success', 'Deal Success, Your items have added to your Library');
+			return redirect('/');
 		}else{
 			return redirect()->back();
 		}
